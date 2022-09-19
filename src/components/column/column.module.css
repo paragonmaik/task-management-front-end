@@ -1,0 +1,11 @@
+.bg {
+  height: 300px;
+  width: 250px;
+  background-color: lightgray;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.taskContainer {
+  width: 100%;
+}
