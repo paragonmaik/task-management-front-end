@@ -1,10 +1,10 @@
-import TaskContainer from './components/container/TaskContainer';
+import TasksContainer from './components/container/TasksContainer';
 // import './App.css'
 
 function App() {
   return (
     <>
-      <TaskContainer />
+      <TasksContainer />
     </>
   )
 }

@@ -1,7 +1,8 @@
 .bg {
-  height: 100vh;
+  height: 90vh;
   min-width: 100vw;
   display: flex;
   gap: 15px;
   padding: 20px;
+  justify-content: center;
 }
