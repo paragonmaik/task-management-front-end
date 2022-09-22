@@ -7,6 +7,10 @@ import ColumnCSS from './column.module.css';
 function Column({ colName }: ColumnProps) {
   const { todoTasks } = useContext(TaskContext);
 
+  const handleAddTask = () => {
+    console.log(todoTasks);
+  };
+
   return (
     <section
       className={ ColumnCSS.bg }
@@ -17,11 +21,17 @@ function Column({ colName }: ColumnProps) {
       <div
         className={ ColumnCSS.taskContainer }
       >
-        {/* {todoTasks?.map} */}
-        <Task />
+        {todoTasks?.map((task) => (
+          <Task
+            key={task.id}
+            {...task}
+          />
+        ))}
+        {/* <Task /> */}
       </div>
       {colName === 'To do' && <button
         type="button"
+        onClick={ handleAddTask }
       >
         +
       </button>}

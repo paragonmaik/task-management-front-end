@@ -6,6 +6,7 @@ function Task({ title, description, id }: Todo) {
   return (
     <div
       className={ TaskCSS.bg }
+      id={`${id}`}
     >
       <h3>
         {title}
