@@ -5,37 +5,39 @@ import Task from '../task/Task';
 import ColumnCSS from './column.module.css';
 
 function Column({ colName }: ColumnProps) {
-  const { todoTasks } = useContext(TaskContext);
+  const { todoTasks, isModalOpen, setIsModalOpen } = useContext(TaskContext);
 
-  const handleAddTask = () => {
-    console.log(todoTasks);
+  const handleModal = () => {
+    setIsModalOpen(!isModalOpen);
+    console.log(isModalOpen);
   };
 
   return (
-    <section
-      className={ ColumnCSS.bg }
-    >
-      <p>
-        {colName}
-      </p>
-      <div
-        className={ ColumnCSS.taskContainer }
+    <>
+      <section
+        className={ ColumnCSS.bg }
       >
-        {todoTasks?.map((task) => (
-          <Task
-            key={task.id}
-            {...task}
-          />
-        ))}
-        {/* <Task /> */}
-      </div>
-      {colName === 'To do' && <button
-        type="button"
-        onClick={ handleAddTask }
-      >
-        +
-      </button>}
-    </section>
+        <p>
+          {colName}
+        </p>
+        <div
+          className={ ColumnCSS.taskContainer }
+        >
+          {colName === 'To do' && todoTasks?.map((task) => (
+            <Task
+              key={task.id}
+              {...task}
+            />
+          ))}
+        </div>
+        {colName === 'To do' && <button
+          type="button"
+          onClick={ handleModal }
+        >
+          +
+        </button>}
+      </section>
+    </>
   )
 }
 

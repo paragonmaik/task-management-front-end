@@ -10,7 +10,9 @@ export type TaskProviderProp = {
 
 export type TaskContextType = {
   todoTasks: Todo[];
+  isModalOpen: boolean,
   setTodoTasks: (todoTasks: Todo[]) => void;
+  setIsModalOpen: (isModalOpen: boolean) => void;
 }
 
 export interface Todo {

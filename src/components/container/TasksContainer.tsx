@@ -1,7 +1,11 @@
-import taskContainerCSS from './taskContainer.module.css';
+import { TaskContext } from '../../context/TaskContext';
+import { useContext } from 'react';
 import Column from '../column/Column';
+import TaskModal from '../taskModal/TaskModal';
+import taskContainerCSS from './taskContainer.module.css';
 
 function TaskContainer() {
+  const { isModalOpen } = useContext(TaskContext);
 
   return (
     <div
@@ -11,6 +15,7 @@ function TaskContainer() {
       <Column colName={'In Progress'} />
       <Column colName={'In Progress'} />
       <Column colName={'Done'} />
+      {isModalOpen && <TaskModal />}
     </div>
   )
 }
