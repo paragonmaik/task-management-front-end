@@ -10,13 +10,34 @@ export function TimerProvider({ children }: TaskProviderProp) {
     title: 'teste',
     description: 'lorem ipsis',
   }]);
+  const [inProgressTasks, setinProgressTasks] = useState<Todo[]>([{
+    id: 1,
+    title: 'teste',
+    description: 'lorem ipsis',
+  }]);
+  const [inReviewTasks, setinReviewTasks] = useState<Todo[]>([{
+    id: 1,
+    title: 'teste',
+    description: 'lorem ipsis',
+  }]);
+  const [doneTasks, setDoneTasks] = useState<Todo[]>([{
+    id: 1,
+    title: 'teste',
+    description: 'lorem ipsis',
+  }]);
 
   return <TaskContext.Provider value={
     {
       todoTasks,
       isModalOpen,
+      inProgressTasks,
+      inReviewTasks,
+      doneTasks,
       setTodoTasks,
       setIsModalOpen,
+      setinProgressTasks,
+      setinReviewTasks,
+      setDoneTasks,
     }
     }>
     {children}

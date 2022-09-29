@@ -13,7 +13,7 @@ function TaskContainer() {
     >
       <Column colName={'To do'} />
       <Column colName={'In Progress'} />
-      <Column colName={'In Progress'} />
+      <Column colName={'In Review'} />
       <Column colName={'Done'} />
       {isModalOpen && <TaskModal />}
     </div>

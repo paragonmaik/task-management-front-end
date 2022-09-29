@@ -9,7 +9,7 @@ function TaskModal() {
     setIsModalOpen(!isModalOpen);
   };
 
-  function getTaskValue(e: FormEvent<HTMLFormElement>) {
+  function getTaskValues(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const { title: { value } } = e.target as typeof e.target & {
       title: { value: string }
@@ -26,8 +26,6 @@ function TaskModal() {
       id: todoTasks.length + 1,
     })
     setTodoTasks([...updatedTasks]);
-    console.log(title, description);
-    console.log(todoTasks);
   };
 
   return (
@@ -48,7 +46,7 @@ function TaskModal() {
           </button>
         </div>
         <form
-          onSubmit={ (e) => getTaskValue(e) }
+          onSubmit={ (e) => getTaskValues(e) }
           className={ TaskModalCSS.form }
         >
           <label htmlFor="title">

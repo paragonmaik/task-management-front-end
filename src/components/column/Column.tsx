@@ -5,7 +5,14 @@ import Task from '../task/Task';
 import ColumnCSS from './column.module.css';
 
 function Column({ colName }: ColumnProps) {
-  const { todoTasks, isModalOpen, setIsModalOpen } = useContext(TaskContext);
+  const {
+    todoTasks,
+    inProgressTasks,
+    inReviewTasks,
+    doneTasks,
+    isModalOpen,
+    setIsModalOpen
+  } = useContext(TaskContext);
 
   const handleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -24,6 +31,24 @@ function Column({ colName }: ColumnProps) {
           className={ ColumnCSS.taskContainer }
         >
           {colName === 'To do' && todoTasks?.map((task) => (
+            <Task
+              key={task.id}
+              {...task}
+            />
+          ))}
+          {colName === 'In Progress' && inProgressTasks?.map((task) => (
+            <Task
+              key={task.id}
+              {...task}
+            />
+          ))}
+          {colName === 'In Review' && inReviewTasks?.map((task) => (
+            <Task
+              key={task.id}
+              {...task}
+            />
+          ))}
+          {colName === 'Done' && doneTasks?.map((task) => (
             <Task
               key={task.id}
               {...task}
