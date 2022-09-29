@@ -11,7 +11,7 @@ export type TaskProviderProp = {
 export interface Todo {
   title: string,
   description: string,
-  id?: number,
+  id: string,
 }
 
 export type TaskContextType = {

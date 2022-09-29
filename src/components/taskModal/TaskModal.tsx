@@ -1,10 +1,9 @@
-import { FormEvent, useContext, useState } from 'react';
+import { FormEvent, useContext } from 'react';
 import { TaskContext } from '../../context/TaskContext';
 import TaskModalCSS from './taskModal.module.css';
 
 function TaskModal() {
   const { isModalOpen, setIsModalOpen, todoTasks, setTodoTasks } = useContext(TaskContext);
-  const [isAddBtnDisabled, setAddBtnIsDisabled] = useState(true);
 
   const handleCloseModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -27,7 +26,7 @@ function TaskModal() {
     updatedTasks.push({
       title,
       description,
-      id: todoTasks.length + 1,
+      id: (todoTasks.length + 1).toString(),
     })
     setTodoTasks([...updatedTasks]);
   };

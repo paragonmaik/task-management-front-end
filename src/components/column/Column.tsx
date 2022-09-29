@@ -1,5 +1,6 @@
-import { ColumnProps } from '../../typescript/types';
 import { useContext } from 'react';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { ColumnProps } from '../../typescript/types';
 import { TaskContext } from '../../context/TaskContext';
 import Task from '../task/Task';
 import ColumnCSS from './column.module.css';
@@ -30,12 +31,33 @@ function Column({ colName }: ColumnProps) {
         <div
           className={ ColumnCSS.taskContainer }
         >
-          {colName === 'To do' && todoTasks?.map((task) => (
-            <Task
-              key={task.id}
-              {...task}
-            />
-          ))}
+          {colName === 'To do' && (
+            <DragDropContext>
+              <Droppable droppableId="todoTasks">
+                {(provided) => (
+                  <div className='teste' {...provided.droppableProps} ref={provided.innerRef}>
+                    {todoTasks?.map((task, i) => (
+                      <Draggable key={task.id} draggableId={task.id} index={i}>
+                        {(provided) => (
+                          <div
+                            className='teste'
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            ref={provided.innerRef}
+                          >
+                            <Task
+                              {...task}
+                            />
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
+          )}
           {colName === 'In Progress' && inProgressTasks?.map((task) => (
             <Task
               key={task.id}
