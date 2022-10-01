@@ -16,7 +16,7 @@ function TaskModal() {
     };
     const { description } = e.target as typeof e.currentTarget;
     if (value.length < 1 || description.value.length < 1) {
-      throw new Error("You need both description and title.");
+      throw new Error('You need both description and title.');
     } 
     createTask(value, description.value);
   };

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 import { ColumnProps } from '../../typescript/types';
 import { TaskContext } from '../../context/TaskContext';
 import Task from '../task/Task';
@@ -12,13 +12,23 @@ function Column({ colName }: ColumnProps) {
     inReviewTasks,
     doneTasks,
     isModalOpen,
-    setIsModalOpen
+    setIsModalOpen,
+    setTodoTasks,
   } = useContext(TaskContext);
 
   const handleModal = () => {
     setIsModalOpen(!isModalOpen);
     console.log(isModalOpen);
   };
+
+  const handleOnDragEnd = (result: DropResult) => {
+    if (!result.destination) return;
+    const items = Array.from(todoTasks);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    setTodoTasks(items);
+  }
 
   return (
     <>
@@ -32,7 +42,7 @@ function Column({ colName }: ColumnProps) {
           className={ ColumnCSS.taskContainer }
         >
           {colName === 'To do' && (
-            <DragDropContext>
+            <DragDropContext onDragEnd={ handleOnDragEnd }>
               <Droppable droppableId="todoTasks">
                 {(provided) => (
                   <div className='teste' {...provided.droppableProps} ref={provided.innerRef}>

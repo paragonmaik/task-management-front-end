@@ -5,11 +5,7 @@ export const TaskContext = createContext({} as TaskContextType);
 
 export function TimerProvider({ children }: TaskProviderProp) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [todoTasks, setTodoTasks] = useState<Todo[]>([{
-    id: '1',
-    title: 'teste',
-    description: 'lorem ipsis',
-  }]);
+  const [todoTasks, setTodoTasks] = useState<Todo[]>([]);
   const [inProgressTasks, setinProgressTasks] = useState<Todo[]>([{
     id: '1',
     title: 'teste',
