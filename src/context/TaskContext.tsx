@@ -7,18 +7,10 @@ export function TimerProvider({ children }: TaskProviderProp) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tasksState, setTasksState] = useState<TasksState>({
     todo: {
-      tasks: [{
-        id: '1',
-        title: 'Teste',
-        description: 'lorem ipsum',
-      }]
+      tasks: []
     },
     inProgress: {
-      tasks: [{
-        id: '10',
-        title: 'teste',
-        description: 'lorem ipsum',
-      }]
+      tasks: []
     },
     inReview: {
       tasks: []

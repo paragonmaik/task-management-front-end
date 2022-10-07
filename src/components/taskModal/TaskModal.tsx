@@ -29,7 +29,8 @@ function TaskModal() {
       title,
       description,
       id: (tasksStateCopy[taskType as keyof TasksState].tasks.length + 1).toString(),
-    })
+    });
+
     setTasksState(tasksStateCopy);
   };
 

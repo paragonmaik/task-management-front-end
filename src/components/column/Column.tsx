@@ -14,7 +14,6 @@ function Column({ colName }: ColumnProps) {
 
   const handleModal = () => {
     setIsModalOpen(!isModalOpen);
-    console.log(isModalOpen);
   };
 
   return (
@@ -31,12 +30,11 @@ function Column({ colName }: ColumnProps) {
           {colName === 'To do' && (
             <Droppable droppableId="todo">
               {(provided) => (
-                <div className='teste' {...provided.droppableProps} ref={provided.innerRef}>
+                <div {...provided.droppableProps} ref={provided.innerRef}>
                   {tasksState.todo.tasks?.map((task, i) => (
                     <Draggable key={task.id} draggableId={task.id} index={i}>
                       {(provided) => (
                         <div
-                          className='teste'
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                           ref={provided.innerRef}
@@ -56,12 +54,11 @@ function Column({ colName }: ColumnProps) {
           {colName === 'In Progress' && (
             <Droppable droppableId="inProgress">
               {(provided) => (
-                <div className='teste' {...provided.droppableProps} ref={provided.innerRef}>
+                <div {...provided.droppableProps} ref={provided.innerRef}>
                   {tasksState.inProgress.tasks?.map((task, i) => (
                     <Draggable key={task.id} draggableId={task.id} index={i}>
                       {(provided) => (
                         <div
-                          className='teste'
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                           ref={provided.innerRef}
@@ -81,12 +78,11 @@ function Column({ colName }: ColumnProps) {
           {colName === 'In Review' && (
             <Droppable droppableId="inReview">
               {(provided) => (
-                <div className='teste' {...provided.droppableProps} ref={provided.innerRef}>
+                <div {...provided.droppableProps} ref={provided.innerRef}>
                   {tasksState.inReview.tasks?.map((task, i) => (
                     <Draggable key={task.id} draggableId={task.id} index={i}>
                       {(provided) => (
                         <div
-                          className='teste'
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                           ref={provided.innerRef}
@@ -106,12 +102,11 @@ function Column({ colName }: ColumnProps) {
           {colName === 'Done' && (
             <Droppable droppableId="done">
               {(provided) => (
-                <div className='teste' {...provided.droppableProps} ref={provided.innerRef}>
+                <div {...provided.droppableProps} ref={provided.innerRef}>
                   {tasksState.done.tasks?.map((task, i) => (
                     <Draggable key={task.id} draggableId={task.id} index={i}>
                       {(provided) => (
                         <div
-                          className='teste'
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                           ref={provided.innerRef}
