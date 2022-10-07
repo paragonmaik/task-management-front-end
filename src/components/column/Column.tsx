@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { ColumnProps } from '../../typescript/types';
 import { TaskContext } from '../../context/TaskContext';
 import Task from '../task/Task';
@@ -7,28 +7,15 @@ import ColumnCSS from './column.module.css';
 
 function Column({ colName }: ColumnProps) {
   const {
-    todoTasks,
-    inProgressTasks,
-    inReviewTasks,
-    doneTasks,
     isModalOpen,
+    tasksState,
     setIsModalOpen,
-    setTodoTasks,
   } = useContext(TaskContext);
 
   const handleModal = () => {
     setIsModalOpen(!isModalOpen);
     console.log(isModalOpen);
   };
-
-  const handleOnDragEnd = (result: DropResult) => {
-    if (!result.destination) return;
-    const items = Array.from(todoTasks);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-
-    setTodoTasks(items);
-  }
 
   return (
     <>
@@ -42,50 +29,105 @@ function Column({ colName }: ColumnProps) {
           className={ ColumnCSS.taskContainer }
         >
           {colName === 'To do' && (
-            <DragDropContext onDragEnd={ handleOnDragEnd }>
-              <Droppable droppableId="todoTasks">
-                {(provided) => (
-                  <div className='teste' {...provided.droppableProps} ref={provided.innerRef}>
-                    {todoTasks?.map((task, i) => (
-                      <Draggable key={task.id} draggableId={task.id} index={i}>
-                        {(provided) => (
-                          <div
-                            className='teste'
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            ref={provided.innerRef}
-                          >
-                            <Task
-                              {...task}
-                            />
-                          </div>
-                        )}
-                      </Draggable>
-                    ))}
-                    {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
-            </DragDropContext>
+            <Droppable droppableId="todo">
+              {(provided) => (
+                <div className='teste' {...provided.droppableProps} ref={provided.innerRef}>
+                  {tasksState.todo.tasks?.map((task, i) => (
+                    <Draggable key={task.id} draggableId={task.id} index={i}>
+                      {(provided) => (
+                        <div
+                          className='teste'
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          ref={provided.innerRef}
+                        >
+                          <Task
+                            {...task}
+                          />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
           )}
-          {colName === 'In Progress' && inProgressTasks?.map((task) => (
-            <Task
-              key={task.id}
-              {...task}
-            />
-          ))}
-          {colName === 'In Review' && inReviewTasks?.map((task) => (
-            <Task
-              key={task.id}
-              {...task}
-            />
-          ))}
-          {colName === 'Done' && doneTasks?.map((task) => (
-            <Task
-              key={task.id}
-              {...task}
-            />
-          ))}
+          {colName === 'In Progress' && (
+            <Droppable droppableId="inProgress">
+              {(provided) => (
+                <div className='teste' {...provided.droppableProps} ref={provided.innerRef}>
+                  {tasksState.inProgress.tasks?.map((task, i) => (
+                    <Draggable key={task.id} draggableId={task.id} index={i}>
+                      {(provided) => (
+                        <div
+                          className='teste'
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          ref={provided.innerRef}
+                        >
+                          <Task
+                            {...task}
+                          />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          )}
+          {colName === 'In Review' && (
+            <Droppable droppableId="inReview">
+              {(provided) => (
+                <div className='teste' {...provided.droppableProps} ref={provided.innerRef}>
+                  {tasksState.inReview.tasks?.map((task, i) => (
+                    <Draggable key={task.id} draggableId={task.id} index={i}>
+                      {(provided) => (
+                        <div
+                          className='teste'
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          ref={provided.innerRef}
+                        >
+                          <Task
+                            {...task}
+                          />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          )}
+          {colName === 'Done' && (
+            <Droppable droppableId="done">
+              {(provided) => (
+                <div className='teste' {...provided.droppableProps} ref={provided.innerRef}>
+                  {tasksState.done.tasks?.map((task, i) => (
+                    <Draggable key={task.id} draggableId={task.id} index={i}>
+                      {(provided) => (
+                        <div
+                          className='teste'
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          ref={provided.innerRef}
+                        >
+                          <Task
+                            {...task}
+                          />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          )}
         </div>
         {colName === 'To do' && <button
           type="button"

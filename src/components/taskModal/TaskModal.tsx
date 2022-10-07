@@ -1,9 +1,10 @@
 import { FormEvent, useContext } from 'react';
 import { TaskContext } from '../../context/TaskContext';
 import TaskModalCSS from './taskModal.module.css';
+import { DragIds, TasksState } from '../../typescript/types';
 
 function TaskModal() {
-  const { isModalOpen, setIsModalOpen, todoTasks, setTodoTasks } = useContext(TaskContext);
+  const { isModalOpen, setIsModalOpen, setTasksState, tasksState } = useContext(TaskContext);
 
   const handleCloseModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -16,19 +17,20 @@ function TaskModal() {
     };
     const { description } = e.target as typeof e.currentTarget;
     if (value.length < 1 || description.value.length < 1) {
-      throw new Error('You need both description and title.');
+      throw new Error('You need both a description and title.');
     } 
     createTask(value, description.value);
+    e.currentTarget.reset();
   };
 
-  function createTask(title: string, description: string) {
-    const updatedTasks = todoTasks;
-    updatedTasks.push({
+  function createTask(title: string, description: string, taskType = 'todo') {
+    const tasksStateCopy = tasksState;
+    tasksStateCopy[taskType as keyof TasksState].tasks.push({
       title,
       description,
-      id: (todoTasks.length + 1).toString(),
+      id: (tasksStateCopy[taskType as keyof TasksState].tasks.length + 1).toString(),
     })
-    setTodoTasks([...updatedTasks]);
+    setTasksState(tasksStateCopy);
   };
 
   return (

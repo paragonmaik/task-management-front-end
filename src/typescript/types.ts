@@ -15,14 +15,19 @@ export interface Todo {
 }
 
 export type TaskContextType = {
-  todoTasks: Todo[];
-  inProgressTasks: Todo[];
-  inReviewTasks: Todo[];
-  doneTasks: Todo[];
   isModalOpen: boolean;
-  setTodoTasks: (todoTasks: Todo[]) => void;
+  tasksState: TasksState;
   setIsModalOpen: (isModalOpen: boolean) => void;
-  setinProgressTasks: (inProgressTasks: Todo[]) => void;
-  setinReviewTasks: (inReviewTasks: Todo[]) => void;
-  setDoneTasks: (doneTasks: Todo[]) => void;
+  setTasksState: (tasksState: TasksState) => void;
+}
+
+export type DragIds = {
+  colName: 'todo' | 'inProgress' | 'inReview' | 'done';
+}
+
+export interface TasksState {
+  todo: { tasks: Todo[] };
+  inProgress: { tasks: Todo[] };
+  inReview: { tasks: Todo[] };
+  done: { tasks: Todo[] };
 }
