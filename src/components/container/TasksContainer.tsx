@@ -28,7 +28,7 @@ function TaskContainer() {
     <div
       className={ taskContainerCSS.bg }
     >
-      <DragDropContext  onDragEnd={ handleOnDragEnd }>
+      <DragDropContext onDragEnd={ handleOnDragEnd }>
         <Column colName={'To do'} />
         <Column colName={'In Progress'} />
         <Column colName={'In Review'} />

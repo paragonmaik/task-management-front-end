@@ -6,15 +6,7 @@ import Task from '../task/Task';
 import ColumnCSS from './column.module.css';
 
 function Column({ colName }: ColumnProps) {
-  const {
-    isModalOpen,
-    tasksState,
-    setIsModalOpen,
-  } = useContext(TaskContext);
-
-  const handleModal = () => {
-    setIsModalOpen(!isModalOpen);
-  };
+  const { tasksState } = useContext(TaskContext);
 
   return (
     <>
@@ -124,12 +116,6 @@ function Column({ colName }: ColumnProps) {
             </Droppable>
           )}
         </div>
-        {colName === 'To do' && <button
-          type="button"
-          onClick={ handleModal }
-        >
-          +
-        </button>}
       </section>
     </>
   )

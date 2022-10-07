@@ -1,0 +1,19 @@
+.bg {
+  display: flex;
+  /* flex-direction: row-reverse; */
+  min-width: 100vw;
+  border-bottom: 1px solid black;
+  height: 60px;
+  color: black;
+  background-color: brown;
+  align-items: center;
+}
+
+.optionsContainer {
+  /* height: 100%; */
+  width: 100vw;
+  background-color: blue;
+  position: fixed;
+  display: flex;
+  flex-direction: row-reverse;
+}
