@@ -1,9 +1,10 @@
 .bg {
   height: max-content;
   width: 250px;
-  background-color: lightgray;
   padding: 10px;
+  border: 1px solid white;
   border-radius: 5px;
+  font-size: 1.2rem;
 }
 
 .taskContainer {

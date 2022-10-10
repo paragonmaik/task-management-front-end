@@ -32,6 +32,7 @@ function TaskModal() {
     });
 
     setTasksState(tasksStateCopy);
+    setIsModalOpen(!isModalOpen);
   };
 
   return (
