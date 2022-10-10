@@ -12,13 +12,18 @@ function TaskModal() {
 
   function getTaskValues(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const maxDescriptionLength = 150;
     const { title: { value } } = e.target as typeof e.target & {
       title: { value: string }
     };
     const { description } = e.target as typeof e.currentTarget;
+
     if (value.length < 1 || description.value.length < 1) {
       throw new Error('You need both a description and title.');
     } 
+    if (description.value.length > maxDescriptionLength) {
+      throw new Error('Your description is too long.');
+    }
     createTask(value, description.value);
     e.currentTarget.reset();
   };
