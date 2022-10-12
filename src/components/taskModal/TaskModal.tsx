@@ -1,10 +1,12 @@
 import { FormEvent, useContext } from 'react';
 import { TaskContext } from '../../context/TaskContext';
 import TaskModalCSS from './taskModal.module.css';
-import { DragIds, TasksState } from '../../typescript/types';
+import { useLocalStorage } from '../../utils/useLocalStorage';
+import { TasksState } from '../../typescript/types';
 
 function TaskModal() {
   const { isModalOpen, setIsModalOpen, setTasksState, tasksState } = useContext(TaskContext);
+  const [state, setState] = useLocalStorage('tasksState', tasksState);
 
   const handleCloseModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -33,10 +35,12 @@ function TaskModal() {
     tasksStateCopy[taskType as keyof TasksState].tasks.push({
       title,
       description,
-      id: (tasksStateCopy[taskType as keyof TasksState].tasks.length + 1).toString(),
+      id: (tasksStateCopy[taskType as keyof TasksState].tasks.length + Math.trunc(Math.random() * 1000)).toString(),
     });
 
-    setTasksState(tasksStateCopy);
+    setState(tasksStateCopy);
+    console.log(tasksState);
+    console.log(state);
     setIsModalOpen(!isModalOpen);
   };
 

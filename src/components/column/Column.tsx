@@ -1,12 +1,14 @@
 import { useContext } from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
-import { ColumnProps } from '../../typescript/types';
+import { ColumnProps, TasksState } from '../../typescript/types';
 import { TaskContext } from '../../context/TaskContext';
+import { useLocalStorage } from '../../utils/useLocalStorage';
 import Task from '../task/Task';
 import ColumnCSS from './column.module.css';
 
 function Column({ colName }: ColumnProps) {
   const { tasksState } = useContext(TaskContext);
+  const [state] = useLocalStorage<TasksState>('tasksState', tasksState);
 
   return (
     <>
@@ -23,7 +25,7 @@ function Column({ colName }: ColumnProps) {
             <Droppable droppableId="todo">
               {(provided) => (
                 <div {...provided.droppableProps} ref={provided.innerRef}>
-                  {tasksState.todo.tasks?.map((task, i) => (
+                  {tasksState?.todo?.tasks?.map((task, i) => (
                     <Draggable key={task.id} draggableId={task.id} index={i}>
                       {(provided) => (
                         <div
@@ -47,7 +49,7 @@ function Column({ colName }: ColumnProps) {
             <Droppable droppableId="inProgress">
               {(provided) => (
                 <div {...provided.droppableProps} ref={provided.innerRef}>
-                  {tasksState.inProgress.tasks?.map((task, i) => (
+                  {tasksState?.inProgress?.tasks?.map((task, i) => (
                     <Draggable key={task.id} draggableId={task.id} index={i}>
                       {(provided) => (
                         <div
@@ -71,7 +73,7 @@ function Column({ colName }: ColumnProps) {
             <Droppable droppableId="inReview">
               {(provided) => (
                 <div {...provided.droppableProps} ref={provided.innerRef}>
-                  {tasksState.inReview.tasks?.map((task, i) => (
+                  {tasksState?.inReview?.tasks?.map((task, i) => (
                     <Draggable key={task.id} draggableId={task.id} index={i}>
                       {(provided) => (
                         <div
@@ -95,7 +97,7 @@ function Column({ colName }: ColumnProps) {
             <Droppable droppableId="done">
               {(provided) => (
                 <div {...provided.droppableProps} ref={provided.innerRef}>
-                  {tasksState.done.tasks?.map((task, i) => (
+                  {tasksState?.done?.tasks?.map((task, i) => (
                     <Draggable key={task.id} draggableId={task.id} index={i}>
                       {(provided) => (
                         <div
