@@ -46,6 +46,7 @@ function TaskModal() {
   return (
     <div
       className={ TaskModalCSS.modalContainer }
+      onClick={ handleCloseModal }
     >
       <section
         className={ TaskModalCSS.taskSettingsContainer }
