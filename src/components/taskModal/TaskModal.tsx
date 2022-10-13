@@ -5,7 +5,7 @@ import { useLocalStorage } from '../../utils/useLocalStorage';
 import { TasksState } from '../../typescript/types';
 
 function TaskModal() {
-  const { isModalOpen, setIsModalOpen, setTasksState, tasksState } = useContext(TaskContext);
+  const { isModalOpen, setIsModalOpen, tasksState } = useContext(TaskContext);
   const [state, setState] = useLocalStorage('tasksState', tasksState);
 
   const handleCloseModal = () => {
@@ -30,10 +30,9 @@ function TaskModal() {
     e.currentTarget.reset();
   };
 
-  function createTask(title: string, description: string, taskType = 'todo') {
+  function createTask(description: string, taskType = 'todo') {
     const tasksStateCopy = tasksState;
     tasksStateCopy[taskType as keyof TasksState].tasks.push({
-      title,
       description,
       id: (tasksStateCopy[taskType as keyof TasksState].tasks.length + Math.trunc(Math.random() * 1000)).toString(),
     });
@@ -65,15 +64,6 @@ function TaskModal() {
           onSubmit={ (e) => getTaskValues(e) }
           className={ TaskModalCSS.form }
         >
-          <label htmlFor="title">
-            Title
-          </label>
-          <input
-            id="title"
-            className={ TaskModalCSS.titleInput }
-            name="title"
-            type="text"
-          />
           <label htmlFor="description">
             Description
           </label>

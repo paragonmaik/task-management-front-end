@@ -1,13 +1,9 @@
 .bg {
-  background-color: rgb(44, 44, 56);
+  background-color: hsl(240, 12%, 20%);
   margin: 4px auto;
   width: 95%;
   border-radius: 5px;
   padding: 1px 0;
-}
-
-.bg > h3 {
-  padding: 2px 8px;
 }
 
 .bg > p {

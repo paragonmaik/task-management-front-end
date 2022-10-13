@@ -35,12 +35,6 @@
   flex-direction: column;
 }
 
-.titleInput {
-  height: 30px;
-  padding: 0 10px;
-  font-size: 1.1rem;
-}
-
 .descriptionInput {
   height: 120px;
   resize: none;
