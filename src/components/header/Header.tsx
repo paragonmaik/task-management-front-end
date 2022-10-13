@@ -19,13 +19,24 @@ function Header() {
       <nav
         className={ HeaderCSS.optionsContainer }
       >
-        <button
-          className={ HeaderCSS.addBtn }
-          type="button"
-          onClick={ handleModal }
+        <div
+          className={ HeaderCSS.btnsContainer }
         >
-          +
-        </button>
+          <button
+            className={ HeaderCSS.addBtn }
+            type="button"
+            onClick={ handleModal }
+          >
+            +
+          </button>
+          <button
+            className={ HeaderCSS.clearBtn }
+            type="button"
+            onClick={ handleModal }
+          >
+            ×
+          </button>
+        </div>
         <p>Standard Board</p>
       </nav>
     </header>

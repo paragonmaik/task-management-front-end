@@ -19,6 +19,11 @@
   align-items: center;
 }
 
+.btnsContainer {
+  display: flex;
+  gap: 20px;
+}
+
 .addBtn {
   background-color: hsl(243, 45%, 57%);
   border: none;
@@ -32,4 +37,15 @@
 
 .addBtn:hover {
   background-color: hsl(243, 45%, 60%);
+}
+
+.clearBtn {
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  font-size: 1.6rem;
+  height: 40px;
+  color: hsl(243, 45%, 57%);
+  cursor: pointer;
+  background-color: white;
 }

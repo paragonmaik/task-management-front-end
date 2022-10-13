@@ -38,8 +38,6 @@ function TaskModal() {
     });
 
     setState(tasksStateCopy);
-    console.log(tasksState);
-    console.log(state);
     setIsModalOpen(!isModalOpen);
   };
 
