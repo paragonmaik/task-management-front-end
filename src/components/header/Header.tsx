@@ -1,16 +1,21 @@
 import { useContext } from 'react';
 import { TaskContext } from '../../context/TaskContext';
+import { initialState } from '../../utils/initialTasksState';
+import { useLocalStorage } from '../../utils/useLocalStorage';
 import HeaderCSS from './header.module.css';
 
 function Header() {
-  const {
-    isModalOpen,
-    setIsModalOpen,
-  } = useContext(TaskContext);
+  const { isModalOpen, setIsModalOpen, tasksState, setTasksState } = useContext(TaskContext);
+  const [state, setState] = useLocalStorage('tasksState', tasksState);
 
   const handleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
+
+  const handleClearTasks = () => {
+    setTasksState(initialState);
+    setState(initialState);
+  }
   
   return (
     <header
@@ -32,7 +37,7 @@ function Header() {
           <button
             className={ HeaderCSS.clearBtn }
             type="button"
-            onClick={ handleModal }
+            onClick={ handleClearTasks }
           >
             ×
           </button>

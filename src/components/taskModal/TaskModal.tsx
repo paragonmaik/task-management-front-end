@@ -57,6 +57,7 @@ function TaskModal() {
             ×
           </button>
         </div>
+
         <form
           onSubmit={ (e) => getTaskValues(e) }
           className={ TaskModalCSS.form }
