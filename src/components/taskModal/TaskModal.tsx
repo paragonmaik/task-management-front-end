@@ -1,4 +1,4 @@
-import { FormEvent, useContext } from 'react';
+import { FormEvent, MouseEvent, useContext } from 'react';
 import { TaskContext } from '../../context/TaskContext';
 import TaskModalCSS from './taskModal.module.css';
 import { useLocalStorage } from '../../utils/useLocalStorage';
@@ -15,18 +15,15 @@ function TaskModal() {
   function getTaskValues(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const maxDescriptionLength = 150;
-    const { title: { value } } = e.target as typeof e.target & {
-      title: { value: string }
-    };
     const { description } = e.target as typeof e.currentTarget;
 
-    if (value.length < 1 || description.value.length < 1) {
-      throw new Error('You need both a description and title.');
+    if (description.value.length < 1) {
+      throw new Error('You need a description.');
     } 
     if (description.value.length > maxDescriptionLength) {
       throw new Error('Your description is too long.');
     }
-    createTask(value, description.value);
+    createTask(description.value);
     e.currentTarget.reset();
   };
 
@@ -48,6 +45,7 @@ function TaskModal() {
     >
       <section
         className={ TaskModalCSS.taskSettingsContainer }
+        onClick={ (e) => e.stopPropagation() }
       >
         <div
           className={ TaskModalCSS.taskSettingsHeader }

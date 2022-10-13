@@ -12,6 +12,7 @@
 }
 
 .taskSettingsContainer {
+  z-index: 1000;
   background-color: white;
   color: rgb(33, 32, 32);
   padding: 20px 20px;
