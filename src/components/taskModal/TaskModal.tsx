@@ -52,6 +52,7 @@ function TaskModal() {
         >
           <h4>Add a task</h4>
           <button
+            className={ TaskModalCSS.closeModal }
             onClick={ handleCloseModal }
           >
             ×
@@ -69,6 +70,7 @@ function TaskModal() {
             id="description"
             className={ TaskModalCSS.descriptionInput }
             name="description"
+            placeholder='e.g. Task description'
           />
           <button
             className={ TaskModalCSS.createTaskBtn }

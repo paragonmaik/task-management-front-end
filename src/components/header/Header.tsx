@@ -12,7 +12,7 @@ function Header() {
     setIsModalOpen(!isModalOpen);
   };
 
-  const handleClearTasks = () => {
+  const handleClearBoard = () => {
     setTasksState(initialState);
     setState(initialState);
   }
@@ -37,7 +37,7 @@ function Header() {
           <button
             className={ HeaderCSS.clearBtn }
             type="button"
-            onClick={ handleClearTasks }
+            onClick={ handleClearBoard }
           >
             ×
           </button>

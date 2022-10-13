@@ -49,3 +49,7 @@
   cursor: pointer;
   background-color: white;
 }
+
+.clearBtn:hover {
+  background-color: hsl(0, 0%, 90%);
+}
