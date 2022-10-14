@@ -1,7 +1,7 @@
 import TaskCSS from './task.module.css';
-import { Todo } from '../../typescript/types';
+import { ITask } from '../../typescript/types';
 
-function Task({ description, id }: Todo) {
+function Task({ description, id }: ITask) {
   
   return (
     <div

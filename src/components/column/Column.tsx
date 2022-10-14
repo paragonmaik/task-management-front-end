@@ -1,14 +1,12 @@
 import { useContext } from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
-import { ColumnProps, TasksState } from '../../typescript/types';
+import { ColumnProps } from '../../typescript/types';
 import { TaskContext } from '../../context/TaskContext';
-import { useLocalStorage } from '../../utils/useLocalStorage';
 import Task from '../task/Task';
 import ColumnCSS from './column.module.css';
 
 function Column({ colName }: ColumnProps) {
   const { tasksState } = useContext(TaskContext);
-  const [state] = useLocalStorage<TasksState>('tasksState', tasksState);
 
   return (
     <>

@@ -1,12 +1,14 @@
-import { FormEvent, MouseEvent, useContext } from 'react';
+import { FormEvent, useContext, useState, useRef } from 'react';
 import { TaskContext } from '../../context/TaskContext';
 import TaskModalCSS from './taskModal.module.css';
 import { useLocalStorage } from '../../utils/useLocalStorage';
-import { TasksState } from '../../typescript/types';
+import { ITasksState, ISubTask } from '../../typescript/types';
 
 function TaskModal() {
   const { isModalOpen, setIsModalOpen, tasksState } = useContext(TaskContext);
-  const [state, setState] = useLocalStorage('tasksState', tasksState);
+  const [_state, setState] = useLocalStorage('tasksState', tasksState);
+  const [subTask, setSubTask] = useState<ISubTask[]>([]);
+  const subtaskInputRef = useRef<HTMLInputElement>(null);
 
   const handleCloseModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -29,14 +31,27 @@ function TaskModal() {
 
   function createTask(description: string, taskType = 'todo') {
     const tasksStateCopy = tasksState;
-    tasksStateCopy[taskType as keyof TasksState].tasks.push({
+    tasksStateCopy[taskType as keyof ITasksState].tasks.push({
       description,
-      id: (tasksStateCopy[taskType as keyof TasksState].tasks.length + Math.trunc(Math.random() * 1000)).toString(),
+      id: (tasksStateCopy[taskType as keyof ITasksState].tasks.length + Math.trunc(Math.random() * 1000)).toString(),
+      subTask,
     });
 
     setState(tasksStateCopy);
     setIsModalOpen(!isModalOpen);
+    console.log(tasksStateCopy);
   };
+
+  function createSubTask() {
+    if (!subtaskInputRef.current?.value) {
+      throw new Error('You need a description.');
+    }
+    const description = subtaskInputRef.current.value;
+    subTask.push({
+      description,
+      id: (subTask.length + Math.trunc(Math.random() * 1000)).toString(),
+    });
+  }
 
   return (
     <div
@@ -70,8 +85,24 @@ function TaskModal() {
             id="description"
             className={ TaskModalCSS.descriptionInput }
             name="description"
-            placeholder='e.g. Task description'
+            placeholder='Task description'
           />
+          <label htmlFor="subTasks">
+            Subtasks
+          </label>
+          <input
+            ref={ subtaskInputRef }
+            className={ TaskModalCSS.subTaskInput }
+            type="text"
+            placeholder='Subtask'
+          />
+          <button
+          onClick={ createSubTask }
+            className={ TaskModalCSS.createSubTaskBtn }
+            type="button"
+          >
+            Add Subtask
+          </button>
           <button
             className={ TaskModalCSS.createTaskBtn }
             type="submit"

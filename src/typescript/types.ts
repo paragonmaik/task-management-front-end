@@ -8,25 +8,31 @@ export type TaskProviderProp = {
   children: ReactNode;
 }
 
-export interface Todo {
+export type TaskContextType = {
+  isModalOpen: boolean;
+  tasksState: ITasksState;
+  setIsModalOpen: (isModalOpen: boolean) => void;
+  setTasksState: (tasksState: ITasksState) => void;
+}
+
+export type DragIDs = {
+  colName: 'todo' | 'inProgress' | 'inReview' | 'done';
+}
+
+export interface ISubTask {
   description: string;
   id: string;
 }
 
-export type TaskContextType = {
-  isModalOpen: boolean;
-  tasksState: TasksState;
-  setIsModalOpen: (isModalOpen: boolean) => void;
-  setTasksState: (tasksState: TasksState) => void;
+export interface ITask {
+  description: string;
+  id: string;
+  subTask?: ISubTask[];
 }
 
-export type DragIds = {
-  colName: 'todo' | 'inProgress' | 'inReview' | 'done';
-}
-
-export interface TasksState {
-  todo: { tasks: Todo[] };
-  inProgress: { tasks: Todo[] };
-  inReview: { tasks: Todo[] };
-  done: { tasks: Todo[] };
+export interface ITasksState {
+  todo: { tasks: ITask[] };
+  inProgress: { tasks: ITask[] };
+  inReview: { tasks: ITask[] };
+  done: { tasks: ITask[] };
 }
