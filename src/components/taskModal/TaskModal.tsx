@@ -10,7 +10,7 @@ function TaskModal() {
   const [_state, setState] = useLocalStorage('tasksState', tasksState);
   const [subTasks, setSubTasks] = useState<ISubTasks[]>([]);
   const subtaskInputRef = useRef<HTMLInputElement>(null);
-  
+  const createSubTaskBtn = useRef<HTMLButtonElement>(null);
 
   const handleCloseModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -49,7 +49,8 @@ function TaskModal() {
     const subTaskDescription = subtaskInputRef.current?.value;
     const updatedSubTasks = subTasks;
 
-    console.log(subTaskDescription);
+    createSubTaskBtn.current?.scrollIntoView({ behavior: 'smooth' });
+
     if (!subTaskDescription) {
       throw new Error('You need a description.');
     }
@@ -75,18 +76,22 @@ function TaskModal() {
         onClick={ (e) => e.stopPropagation() }
       >
         <div
+          className={ TaskModalCSS.closeModalContainer }
+        >
+          <h4>Add a task</h4>
+          <button
+            className={ TaskModalCSS.closeModal }
+            onClick={ handleCloseModal }
+          >
+            ×
+          </button>
+        </div>
+        <div
           className={ TaskModalCSS.containerScrollWrapper }
         >
           <div
             className={ TaskModalCSS.taskSettingsHeader }
           >
-            <h4>Add a task</h4>
-            <button
-              className={ TaskModalCSS.closeModal }
-              onClick={ handleCloseModal }
-            >
-              ×
-            </button>
           </div>
 
           <form
@@ -121,9 +126,10 @@ function TaskModal() {
               placeholder="Subtask"
             />
             <button
-            onClick={ createSubTask }
+              onClick={ createSubTask }
               className={ TaskModalCSS.createSubTaskBtn }
               type="button"
+              ref={ createSubTaskBtn }
             >
               Add Subtask
             </button>
