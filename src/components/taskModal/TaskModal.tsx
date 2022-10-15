@@ -1,14 +1,16 @@
 import { FormEvent, useContext, useState, useRef } from 'react';
 import { TaskContext } from '../../context/TaskContext';
-import TaskModalCSS from './taskModal.module.css';
 import { useLocalStorage } from '../../utils/useLocalStorage';
 import { ITasksState, ISubTask } from '../../typescript/types';
+import { options } from '../../utils/taskSelectOptions';
+import TaskModalCSS from './taskModal.module.css';
 
 function TaskModal() {
   const { isModalOpen, setIsModalOpen, tasksState } = useContext(TaskContext);
   const [_state, setState] = useLocalStorage('tasksState', tasksState);
-  const [subTask, setSubTask] = useState<ISubTask[]>([]);
+  const [subTask, _setSubTask] = useState<ISubTask[]>([]);
   const subtaskInputRef = useRef<HTMLInputElement>(null);
+  
 
   const handleCloseModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -18,6 +20,7 @@ function TaskModal() {
     e.preventDefault();
     const maxDescriptionLength = 150;
     const { description } = e.target as typeof e.currentTarget;
+    const { columnSelect } = e.target as typeof e.currentTarget;
 
     if (description.value.length < 1) {
       throw new Error('You need a description.');
@@ -25,7 +28,7 @@ function TaskModal() {
     if (description.value.length > maxDescriptionLength) {
       throw new Error('Your description is too long.');
     }
-    createTask(description.value);
+    createTask(description.value, columnSelect.value);
     e.currentTarget.reset();
   };
 
@@ -39,7 +42,6 @@ function TaskModal() {
 
     setState(tasksStateCopy);
     setIsModalOpen(!isModalOpen);
-    console.log(tasksStateCopy);
   };
 
   function createSubTask() {
@@ -103,6 +105,19 @@ function TaskModal() {
           >
             Add Subtask
           </button>
+          <select
+            id="columnSelect"
+            className={ TaskModalCSS.selectInput }
+          >
+            {options.map(({ label, value }) => (
+              <option
+                key={value}
+                value={ value }
+              >
+                {label}
+              </option>
+            ))}
+          </select>
           <button
             className={ TaskModalCSS.createTaskBtn }
             type="submit"

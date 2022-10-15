@@ -99,6 +99,22 @@
   border: 2px solid hsl(240, 9%, 40%);
 }
 
+.selectInput {
+  height: 44px;
+  resize: none;
+  font-size: 1.1rem;
+  padding: 5px 10px;
+  background-color: hsl(240, 12%, 20%);
+  border-radius: 5px;
+  border: 2px solid hsl(240, 9%, 25%);
+  color: white;
+  padding: 5px 10px;
+}
+
+.selectInput:hover {
+  border: 2px solid hsl(240, 9%, 40%);
+}
+
 .createSubTaskBtn {
   height: 40px;
   margin: 0 0 5px 0;
