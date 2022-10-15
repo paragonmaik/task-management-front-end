@@ -19,7 +19,7 @@ export type DragIDs = {
   colName: 'todo' | 'inProgress' | 'inReview' | 'done';
 }
 
-export interface ISubTask {
+export interface ISubTasks {
   description: string;
   id: string;
 }
@@ -27,7 +27,7 @@ export interface ISubTask {
 export interface ITask {
   description: string;
   id: string;
-  subTask?: ISubTask[];
+  subTasks?: ISubTasks[];
 }
 
 export interface ITasksState {

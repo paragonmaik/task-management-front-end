@@ -1,14 +1,14 @@
 import { FormEvent, useContext, useState, useRef } from 'react';
 import { TaskContext } from '../../context/TaskContext';
 import { useLocalStorage } from '../../utils/useLocalStorage';
-import { ITasksState, ISubTask } from '../../typescript/types';
+import { ITasksState, ISubTasks } from '../../typescript/types';
 import { options } from '../../utils/taskSelectOptions';
 import TaskModalCSS from './taskModal.module.css';
 
 function TaskModal() {
   const { isModalOpen, setIsModalOpen, tasksState } = useContext(TaskContext);
   const [_state, setState] = useLocalStorage('tasksState', tasksState);
-  const [subTask, _setSubTask] = useState<ISubTask[]>([]);
+  const [subTasks, _setSubTasks] = useState<ISubTasks[]>([]);
   const subtaskInputRef = useRef<HTMLInputElement>(null);
   
 
@@ -37,7 +37,7 @@ function TaskModal() {
     tasksStateCopy[taskType as keyof ITasksState].tasks.push({
       description,
       id: (tasksStateCopy[taskType as keyof ITasksState].tasks.length + Math.trunc(Math.random() * 1000)).toString(),
-      subTask,
+      subTasks,
     });
 
     setState(tasksStateCopy);
@@ -45,13 +45,21 @@ function TaskModal() {
   };
 
   function createSubTask() {
-    if (!subtaskInputRef.current?.value) {
+    const maxSubtaskLen = 40;
+    const subTaskDescription = subtaskInputRef.current?.value;
+
+    console.log(subTaskDescription);
+    if (!subTaskDescription) {
       throw new Error('You need a description.');
     }
+    if (subTaskDescription.length > maxSubtaskLen) {
+      throw new Error('Your description is too long.');
+    }
+
     const description = subtaskInputRef.current.value;
-    subTask.push({
+    subTasks.push({
       description,
-      id: (subTask.length + Math.trunc(Math.random() * 1000)).toString(),
+      id: (subTasks.length + Math.trunc(Math.random() * 1000)).toString(),
     });
   }
 
