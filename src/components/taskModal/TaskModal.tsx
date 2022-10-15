@@ -64,6 +64,7 @@ function TaskModal() {
       id: (updatedSubTasks.length + Math.trunc(Math.random() * 1000)).toString(),
     });
     setSubTasks([...updatedSubTasks]);
+    subtaskInputRef.current.value = "";
   }
 
   return (
@@ -111,11 +112,25 @@ function TaskModal() {
               Subtasks
             </label>
             {subTasks.length > 0 && (
-              <div>
+              <div
+                className={ TaskModalCSS.subTasksWrapper }
+              >
                 {subTasks.map(({description, id}) => (
-                  <p key={id}>
-                    {description}
-                  </p>
+                  <div
+                    key={id}
+                    className={ TaskModalCSS.subTaskContainer }
+                  >
+                    <p>
+                      {description}
+                    </p>
+                    <button
+                      type="button"
+                      onClick={ () => console.log('teste') }
+                      className={ TaskModalCSS.deleteSubTaskBtn }
+                    >
+                      ×
+                    </button>
+                  </div>
                 ))}
               </div>
             )}

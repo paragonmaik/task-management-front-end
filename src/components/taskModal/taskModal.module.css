@@ -97,7 +97,6 @@
 
 .subTaskInput {
   height: 30px;
-  resize: none;
   font-size: 1.1rem;
   padding: 5px 10px;
   background-color: hsl(240, 12%, 20%);
@@ -111,9 +110,31 @@
   border: 2px solid hsl(240, 9%, 40%);
 }
 
+.subTaskContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 30px;
+  font-size: 1.1rem;
+  background-color: hsl(240, 12%, 20%);
+  border-radius: 5px;
+  border: 2px solid hsl(240, 9%, 25%);
+  color: white;
+  padding: 5px 10px;
+}
+
+.subTaskContainer:hover {
+  border: 2px solid hsl(240, 9%, 40%);
+}
+
+.subTasksWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .selectInput {
   height: 44px;
-  resize: none;
   font-size: 1.1rem;
   padding: 5px 10px;
   background-color: hsl(240, 12%, 20%);
@@ -140,4 +161,16 @@
 
 .createSubTaskBtn:hover {
   background-color: hsl(0, 0%, 90%);
+}
+
+.deleteSubTaskBtn {
+  border: none;
+  background-color: hsl(240, 12%, 20%);
+  cursor: pointer;
+  font-size: 1.6rem;
+  color: hsl(240, 9%, 40%);
+}
+
+.deleteSubTaskBtn:hover {
+  color: hsl(240, 9%, 55%);
 }
