@@ -8,7 +8,7 @@ import TaskModalCSS from './taskModal.module.css';
 function TaskModal() {
   const { isModalOpen, setIsModalOpen, tasksState } = useContext(TaskContext);
   const [_state, setState] = useLocalStorage('tasksState', tasksState);
-  const [subTasks, _setSubTasks] = useState<ISubTasks[]>([]);
+  const [subTasks, setSubTasks] = useState<ISubTasks[]>([]);
   const subtaskInputRef = useRef<HTMLInputElement>(null);
   
 
@@ -47,6 +47,7 @@ function TaskModal() {
   function createSubTask() {
     const maxSubtaskLen = 40;
     const subTaskDescription = subtaskInputRef.current?.value;
+    const updatedSubTasks = subTasks;
 
     console.log(subTaskDescription);
     if (!subTaskDescription) {
@@ -57,10 +58,11 @@ function TaskModal() {
     }
 
     const description = subtaskInputRef.current.value;
-    subTasks.push({
+    updatedSubTasks.push({
       description,
-      id: (subTasks.length + Math.trunc(Math.random() * 1000)).toString(),
+      id: (updatedSubTasks.length + Math.trunc(Math.random() * 1000)).toString(),
     });
+    setSubTasks([...updatedSubTasks]);
   }
 
   return (
@@ -73,66 +75,79 @@ function TaskModal() {
         onClick={ (e) => e.stopPropagation() }
       >
         <div
-          className={ TaskModalCSS.taskSettingsHeader }
+          className={ TaskModalCSS.containerScrollWrapper }
         >
-          <h4>Add a task</h4>
-          <button
-            className={ TaskModalCSS.closeModal }
-            onClick={ handleCloseModal }
+          <div
+            className={ TaskModalCSS.taskSettingsHeader }
           >
-            ×
-          </button>
-        </div>
+            <h4>Add a task</h4>
+            <button
+              className={ TaskModalCSS.closeModal }
+              onClick={ handleCloseModal }
+            >
+              ×
+            </button>
+          </div>
 
-        <form
-          onSubmit={ (e) => getTaskValues(e) }
-          className={ TaskModalCSS.form }
-        >
-          <label htmlFor="description">
-            Description
-          </label>
-          <textarea
-            id="description"
-            className={ TaskModalCSS.descriptionInput }
-            name="description"
-            placeholder='Task description'
-          />
-          <label htmlFor="subTasks">
-            Subtasks
-          </label>
-          <input
-            ref={ subtaskInputRef }
-            className={ TaskModalCSS.subTaskInput }
-            type="text"
-            placeholder='Subtask'
-          />
-          <button
-          onClick={ createSubTask }
-            className={ TaskModalCSS.createSubTaskBtn }
-            type="button"
+          <form
+            onSubmit={ (e) => getTaskValues(e) }
+            className={ TaskModalCSS.form }
           >
-            Add Subtask
-          </button>
-          <select
-            id="columnSelect"
-            className={ TaskModalCSS.selectInput }
-          >
-            {options.map(({ label, value }) => (
-              <option
-                key={value}
-                value={ value }
-              >
-                {label}
-              </option>
-            ))}
-          </select>
-          <button
-            className={ TaskModalCSS.createTaskBtn }
-            type="submit"
-          >
-            Create Task
-          </button>
-        </form>
+            <label htmlFor="description">
+              Description
+            </label>
+            <textarea
+              id="description"
+              className={ TaskModalCSS.descriptionInput }
+              name="description"
+              placeholder="Task description"
+            />
+            <label htmlFor="subTasks">
+              Subtasks
+            </label>
+            {subTasks.length > 0 && (
+              <div>
+                {subTasks.map(({description, id}) => (
+                  <p key={id}>
+                    {description}
+                  </p>
+                ))}
+              </div>
+            )}
+            <input
+              ref={ subtaskInputRef }
+              className={ TaskModalCSS.subTaskInput }
+              type="text"
+              placeholder="Subtask"
+            />
+            <button
+            onClick={ createSubTask }
+              className={ TaskModalCSS.createSubTaskBtn }
+              type="button"
+            >
+              Add Subtask
+            </button>
+            <select
+              id="columnSelect"
+              className={ TaskModalCSS.selectInput }
+            >
+              {options.map(({ label, value }) => (
+                <option
+                  key={value}
+                  value={ value }
+                >
+                  {label}
+                </option>
+              ))}
+            </select>
+            <button
+              className={ TaskModalCSS.createTaskBtn }
+              type="submit"
+            >
+              Create Task
+            </button>
+          </form>
+        </div>
       </section>
     </div>
   )

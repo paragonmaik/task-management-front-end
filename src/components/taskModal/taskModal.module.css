@@ -22,8 +22,15 @@
   justify-content: space-between;
   width: 80vw;
   max-width: 500px;
-  max-height: max-content;
+  height: 67vh;
   color: white;
+}
+
+.containerScrollWrapper {
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 15px;
+  width: calc(100%);
 }
 
 .taskSettingsHeader {
