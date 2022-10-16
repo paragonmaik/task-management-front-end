@@ -12,7 +12,7 @@ function TaskModal() {
   const subtaskInputRef = useRef<HTMLInputElement>(null);
   const createSubTaskBtn = useRef<HTMLButtonElement>(null);
 
-  const handleCloseModal = () => {
+  function handleCloseModal() {
     setIsModalOpen(!isModalOpen);
   };
 
@@ -59,12 +59,21 @@ function TaskModal() {
     }
 
     const description = subtaskInputRef.current.value;
+    
     updatedSubTasks.push({
       description,
       id: (updatedSubTasks.length + Math.trunc(Math.random() * 1000)).toString(),
     });
+
     setSubTasks([...updatedSubTasks]);
     subtaskInputRef.current.value = "";
+  }
+
+  function removeSubTaks(id: string) {
+    const updatedSubTasks = subTasks.filter((subTask) => (
+      subTask.id !== id
+    ));
+    setSubTasks(updatedSubTasks);
   }
 
   return (
@@ -125,7 +134,7 @@ function TaskModal() {
                     </p>
                     <button
                       type="button"
-                      onClick={ () => console.log('teste') }
+                      onClick={ () => removeSubTaks(id) }
                       className={ TaskModalCSS.deleteSubTaskBtn }
                     >
                       ×
