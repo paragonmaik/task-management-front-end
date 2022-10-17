@@ -13,9 +13,11 @@ function Header() {
   };
 
   const handleClearBoard = () => {
-    setTasksState(initialState);
     setState(initialState);
-  }
+    setTasksState(initialState);
+
+    window.location.reload();
+  };
   
   return (
     <header

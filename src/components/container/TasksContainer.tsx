@@ -2,10 +2,10 @@ import { TaskContext } from '../../context/TaskContext';
 import { useContext, useEffect } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { ITasksState } from '../../typescript/types';
+import { useLocalStorage } from '../../utils/useLocalStorage';
 import Column from '../column/Column';
 import TaskModal from '../taskModal/TaskModal';
 import taskContainerCSS from './taskContainer.module.css';
-import { useLocalStorage } from '../../utils/useLocalStorage';
 
 function TaskContainer() {
   const { isModalOpen, tasksState, setTasksState } = useContext(TaskContext);
