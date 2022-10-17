@@ -117,7 +117,7 @@ function TaskModal() {
               name="description"
               placeholder="Task description"
             />
-            <label htmlFor="subTasks">
+            <label htmlFor="sub-Tasks">
               Subtasks
             </label>
             {subTasks.length > 0 && (
@@ -147,6 +147,7 @@ function TaskModal() {
               ref={ subtaskInputRef }
               className={ TaskModalCSS.subTaskInput }
               type="text"
+              id="sub-Tasks"
               placeholder="Subtask"
             />
             <button
