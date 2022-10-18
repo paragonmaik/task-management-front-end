@@ -27,7 +27,7 @@ export interface ISubTasks {
 export interface ITask {
   description: string;
   id: string;
-  subTasks?: ISubTasks[];
+  subTasks: ISubTasks[];
 }
 
 export interface ITasksState {
