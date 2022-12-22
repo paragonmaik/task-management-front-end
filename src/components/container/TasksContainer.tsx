@@ -3,12 +3,13 @@ import { useContext, useEffect } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { ITasksState } from '../../typescript/types';
 import { useLocalStorage } from '../../utils/useLocalStorage';
+import TaskDetailsModal from '../taskDetailsModal/TaskDetailsModal';
 import Column from '../column/Column';
 import TaskModal from '../taskModal/TaskModal';
 import taskContainerCSS from './taskContainer.module.css';
 
 function TaskContainer() {
-  const { isModalOpen, tasksState, setTasksState } = useContext(TaskContext);
+  const { isModalOpen, tasksState, isTaskDetailsOpen, setTasksState, currentTaskId } = useContext(TaskContext);
   const [state, setState] = useLocalStorage<ITasksState>('tasksState', tasksState);
 
   const handleOnDragEnd = (result: DropResult) => {
@@ -45,6 +46,9 @@ function TaskContainer() {
         <Column colName={'Done'} />
       </DragDropContext>
       {isModalOpen && <TaskModal />}
+      {isTaskDetailsOpen && (
+      <TaskDetailsModal id={currentTaskId} />
+      )}
     </div>
   )
 }

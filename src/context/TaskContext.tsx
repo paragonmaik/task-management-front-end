@@ -4,7 +4,9 @@ import { TaskProviderProp, TaskContextType, ITasksState } from '../typescript/ty
 export const TaskContext = createContext({} as TaskContextType);
 
 export function TimerProvider({ children }: TaskProviderProp) {
+  const [currentTaskId, setCurrentTaskId] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isTaskDetailsOpen, setIsTaskDetailsOpen] = useState(false);
   const [tasksState, setTasksState] = useState<ITasksState>({
     todo: {
       tasks: []
@@ -24,8 +26,12 @@ export function TimerProvider({ children }: TaskProviderProp) {
     {
       isModalOpen,
       tasksState,
+      isTaskDetailsOpen,
+      currentTaskId,
       setIsModalOpen,
       setTasksState,
+      setIsTaskDetailsOpen,
+      setCurrentTaskId,
     }
     }>
     {children}

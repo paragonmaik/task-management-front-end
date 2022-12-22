@@ -8,11 +8,19 @@ export type TaskProviderProp = {
   children: ReactNode;
 }
 
+export type currentTaskId = {
+  id: string;
+}
+
 export type TaskContextType = {
   isModalOpen: boolean;
+  isTaskDetailsOpen: boolean;
   tasksState: ITasksState;
+  currentTaskId: string;
   setIsModalOpen: (isModalOpen: boolean) => void;
   setTasksState: (tasksState: ITasksState) => void;
+  setIsTaskDetailsOpen: (isTaskDetailsOpen: boolean) => void;
+  setCurrentTaskId: (currentTaskId: string) => void;
 }
 
 export type DragIDs = {
