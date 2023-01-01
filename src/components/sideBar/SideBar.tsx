@@ -1,9 +1,13 @@
+import { useContext } from 'react';
 import SideBarCSS from './sideBar.module.css';
 import axios from 'axios';
 import { FormEvent } from 'react';
 import { token } from '../../token';
+import { TaskContext } from '../../context/TaskContext';
 
 export default function SideBar() {
+	const { boards } = useContext(TaskContext);
+
 	async function createBoard(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 		const {
@@ -12,7 +16,7 @@ export default function SideBar() {
 		e.currentTarget.reset();
 		if (!value) return;
 
-		await axios.post(
+		const response = await axios.post(
 			'http://localhost:3000/board',
 			{
 				boardName: value,
@@ -23,12 +27,16 @@ export default function SideBar() {
 				},
 			}
 		);
+		boards.push(response.data);
 	}
 
 	return (
 		<nav className={SideBarCSS.nav}>
 			<div className={SideBarCSS.subMenuContainer}>
-				<p>All boards (quantidade)</p>
+				<p>All boards ({boards.length})</p>
+				{boards.map(({ boardName, _id }) => (
+					<p key={_id}>{boardName}</p>
+				))}
 				<form onSubmit={(e) => createBoard(e)}>
 					<button
 						type='submit'
