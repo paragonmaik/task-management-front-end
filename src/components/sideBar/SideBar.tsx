@@ -1,6 +1,7 @@
 import SideBarCSS from './sideBar.module.css';
 import axios from 'axios';
 import { FormEvent } from 'react';
+import { token } from '../../token';
 
 export default function SideBar() {
 	async function createBoard(e: FormEvent<HTMLFormElement>) {
@@ -18,8 +19,7 @@ export default function SideBar() {
 			},
 			{
 				headers: {
-					Authorization:
-						'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6ImRvbmtleWtvbmciLCJlbWFpbCI6ImRvbmtleUBleGFtcGxlLmNvbSIsImlhdCI6MTY3MjUwODQ3MX0.GP3-t_4GnM33vQT2qFAUDqAcJc_ph5_U96yeKtkeSZw',
+					Authorization: token,
 				},
 			}
 		);
