@@ -7,8 +7,10 @@ function App() {
     <>
       <Header />
       <div style={ { display: 'flex', marginTop: '81px' } }>
-        <SideBar></SideBar>
-        <TasksContainer />
+        <SideBar />
+        <div style={ { marginLeft: '220px' } }>
+          <TasksContainer />
+        </div>
       </div>
     </>
   )

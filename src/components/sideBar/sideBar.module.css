@@ -1,7 +1,25 @@
-.bg {
-  min-height: calc(100vh - 99px);
+.nav {
+  min-height: calc(100vh - 98px);
   background-color: hsl(240, 12%, 20%);
-  width: 200px;
-  /* border-top: 1px solid hsl(240, 12%, 30%); */
+  width: 220px;
   border-right: 1px solid hsl(240, 12%, 30%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: fixed;
+}
+
+.subMenuContainer {
+  background-color: blue;
+  width: 100%;
+  height: 40px;
+}
+
+.addBtn {
+  background-color: inherit;
+  border: none;
+  font-size: 1.2rem;
+  height: 40px;
+  color: white;
+  cursor: pointer;
 }
