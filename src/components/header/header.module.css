@@ -6,12 +6,13 @@
   color: black;
   background-color: hsl(240, 12%, 20%);
   align-items: center;
+  border-bottom: 1px solid hsl(240, 12%, 30%);
+  position: fixed;
 }
 
 .optionsContainer {
   width: 100vw;
   color: white;
-  position: fixed;
   display: flex;
   font-size: 1.2rem;
   flex-direction: row-reverse;
