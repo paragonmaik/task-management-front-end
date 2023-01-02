@@ -5,6 +5,11 @@ export type board = {
 	_id: string;
 };
 
+export type column = {
+	columnName: string;
+	_id: string;
+};
+
 export interface IAxios {
 	url: string;
 	method: 'get' | 'post' | 'patch' | 'put' | 'delete';
@@ -27,6 +32,7 @@ export type currentTaskId = {
 export type TaskContextType = {
 	createdBoards: board[];
 	currentBoard: board;
+	createdColumns: column[];
 	isModalOpen: boolean;
 	isTaskDetailsOpen: boolean;
 	tasksState: ITasksState;
@@ -37,6 +43,7 @@ export type TaskContextType = {
 	setCurrentTaskId: (currentTaskId: string) => void;
 	setCreatedBoard: (createdBoards: board[]) => void;
 	setCurrentBoard: (createdBoards: board) => void;
+	setCreatedColumns: (createdColumns: column[]) => void;
 };
 
 export type DragIDs = {
