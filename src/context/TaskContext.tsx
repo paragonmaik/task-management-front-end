@@ -9,7 +9,7 @@ import {
 export const TaskContext = createContext({} as TaskContextType);
 
 export function TimerProvider({ children }: TaskProviderProp) {
-	const [boards, setBoard] = useState<board[]>([]);
+	const [createdBoards, setCreatedBoard] = useState<board[]>([]);
 	const [currentTaskId, setCurrentTaskId] = useState('');
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isTaskDetailsOpen, setIsTaskDetailsOpen] = useState(false);
@@ -35,12 +35,12 @@ export function TimerProvider({ children }: TaskProviderProp) {
 				tasksState,
 				isTaskDetailsOpen,
 				currentTaskId,
-				boards,
+				createdBoards,
 				setIsModalOpen,
 				setTasksState,
 				setIsTaskDetailsOpen,
 				setCurrentTaskId,
-				setBoard,
+				setCreatedBoard,
 			}}
 		>
 			{children}
