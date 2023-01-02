@@ -8,7 +8,7 @@ import {
 
 export const TaskContext = createContext({} as TaskContextType);
 
-export function TimerProvider({ children }: TaskProviderProp) {
+export function TaskProvider({ children }: TaskProviderProp) {
 	const [createdBoards, setCreatedBoard] = useState<board[]>([]);
 	const [currentTaskId, setCurrentTaskId] = useState('');
 	const [isModalOpen, setIsModalOpen] = useState(false);
