@@ -6,7 +6,7 @@ import { axiosRequest } from '../helpers/axiosRequest';
 export const createBoard = async (
 	e: FormEvent<HTMLFormElement>,
 	createdBoards: board[],
-	setCreatedBoard: any
+	setCreatedBoard: (board: board[]) => void
 ) => {
 	const boardName = getBoardName(e);
 
@@ -33,7 +33,7 @@ const getBoardName = (e: FormEvent<HTMLFormElement>): string => {
 		boardName: { value },
 	} = e.target as typeof e.currentTarget;
 
-	// reset forms values
+	// reset form values
 	e.currentTarget.reset();
 
 	if (!value) {
