@@ -25,6 +25,7 @@ export const createBoard = async (
 };
 
 const getBoardName = (e: FormEvent<HTMLFormElement>): string => {
+	const maxBoardNameLength = 15;
 	// prevents form reload
 	e.preventDefault();
 
@@ -39,7 +40,7 @@ const getBoardName = (e: FormEvent<HTMLFormElement>): string => {
 		throw new Error('Board name is required!');
 	}
 
-	if (value.length > 15) {
+	if (value.length > maxBoardNameLength) {
 		throw new Error('Board name should only be 14 characters long!');
 	}
 
