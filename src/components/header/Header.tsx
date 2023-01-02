@@ -47,7 +47,7 @@ function Header() {
 				{currentBoard.boardName ? (
 					<p>{currentBoard.boardName}</p>
 				) : (
-					<span></span>
+					<p>Select or create a new board</p>
 				)}
 			</nav>
 		</header>
