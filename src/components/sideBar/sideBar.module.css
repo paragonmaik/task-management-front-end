@@ -22,3 +22,25 @@
   color: white;
   cursor: pointer;
 }
+
+.boardNamesContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.selectBoardBtn {
+  width: 80%;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  background-color: inherit;
+  text-align: left;
+  font-size: 1.2rem;
+  height: 30px;
+}
+
+.selectBoardBtn:focus {
+  background-color: hsl(243, 45%, 57%);
+}

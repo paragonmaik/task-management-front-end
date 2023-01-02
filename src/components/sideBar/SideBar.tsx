@@ -16,21 +16,31 @@ export default function SideBar({ boardsList }: ISidebar) {
 		<nav className={SideBarCSS.nav}>
 			<div className={SideBarCSS.subMenuContainer}>
 				{boardsList ? <p>All boards ({boardsList.length})</p> : null}
-				{boardsList
-					? boardsList.map(({ boardName, _id }) => <p key={_id}>{boardName}</p>)
-					: null}
+				<div className={SideBarCSS.boardNamesContainer}>
+					{boardsList
+						? boardsList.map(({ boardName, _id }) => (
+								<button
+									className={SideBarCSS.selectBoardBtn}
+									type='button'
+									key={_id}
+								>
+									{boardName}
+								</button>
+						  ))
+						: null}
+				</div>
 				<form onSubmit={(e) => createBoard(e, createdBoards, setCreatedBoard)}>
-					<button
-						type='submit'
-						className={SideBarCSS.addBtn}
-					>
-						+Create new board
-					</button>
 					<input
 						id='boardName'
 						type='text'
 						placeholder='new board name'
 					/>
+					<button
+						type='submit'
+						className={SideBarCSS.addBtn}
+					>
+						+
+					</button>
 				</form>
 			</div>
 			<div className={SideBarCSS.subMenuContainer}>

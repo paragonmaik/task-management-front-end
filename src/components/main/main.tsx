@@ -6,27 +6,20 @@ import SideBar from '../sideBar/SideBar';
 import { useAxios } from '../hooks/useAxios';
 import { token } from '../../token';
 
-interface IChildren {
-	children: React.ReactNode;
-}
-
 export function Main() {
-	const { response, loading, error } = useAxios({
+	const { response } = useAxios({
 		method: 'get',
 		url: '/board',
 		headers: {
 			Authorization: token,
 		},
 	});
-	console.log(response);
+
 	return (
 		<div className={MainCSS.container}>
 			<Header />
 			<div style={{ display: 'flex', marginTop: '81px' }}>
-				<SideBar
-					loading={loading}
-					boardsList={response}
-				/>
+				<SideBar boardsList={response} />
 				<div style={{ marginLeft: '220px' }}>
 					<TasksContainer />
 				</div>
