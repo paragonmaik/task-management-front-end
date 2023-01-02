@@ -48,7 +48,7 @@ const getBoardName = (e: FormEvent<HTMLFormElement>): string => {
 const addBoardToState = async (
 	responseData: board,
 	createdBoards: board[],
-	setCreatedBoard: any
+	setCreatedBoard: (board: board[]) => void
 ) => {
 	const boards = createdBoards;
 
