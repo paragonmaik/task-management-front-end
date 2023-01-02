@@ -4,7 +4,7 @@ import { IAxios } from '../../typescript/types';
 
 axios.defaults.baseURL = 'http://localhost:3000';
 
-export const useAxios = (axiosParams: IAxios, dependency: any) => {
+export const useAxios = (axiosParams: IAxios, dependency: any[]) => {
 	const [response, setResponse] = useState<null | []>(null);
 	const [error, setError] = useState<string | unknown>('');
 	const [loading, setLoading] = useState(true);
@@ -22,7 +22,7 @@ export const useAxios = (axiosParams: IAxios, dependency: any) => {
 
 	useEffect(() => {
 		fetchData(axiosParams);
-	}, [dependency]);
+	}, [...dependency]);
 
 	return { response, error, loading };
 };

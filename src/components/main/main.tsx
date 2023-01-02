@@ -18,7 +18,7 @@ export function Main() {
 				Authorization: token,
 			},
 		},
-		createdBoards
+		[createdBoards]
 	);
 
 	return (
