@@ -10,6 +10,9 @@ export const TaskContext = createContext({} as TaskContextType);
 
 export function TaskProvider({ children }: TaskProviderProp) {
 	const [createdBoards, setCreatedBoard] = useState<board[]>([]);
+	const [currentBoard, setCurrentBoard] = useState<board>({} as board);
+
+	// -----------------------
 	const [currentTaskId, setCurrentTaskId] = useState('');
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isTaskDetailsOpen, setIsTaskDetailsOpen] = useState(false);
@@ -36,11 +39,13 @@ export function TaskProvider({ children }: TaskProviderProp) {
 				isTaskDetailsOpen,
 				currentTaskId,
 				createdBoards,
+				currentBoard,
 				setIsModalOpen,
 				setTasksState,
 				setIsTaskDetailsOpen,
 				setCurrentTaskId,
 				setCreatedBoard,
+				setCurrentBoard,
 			}}
 		>
 			{children}

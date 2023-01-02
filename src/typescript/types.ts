@@ -26,6 +26,7 @@ export type currentTaskId = {
 
 export type TaskContextType = {
 	createdBoards: board[];
+	currentBoard: board;
 	isModalOpen: boolean;
 	isTaskDetailsOpen: boolean;
 	tasksState: ITasksState;
@@ -35,6 +36,7 @@ export type TaskContextType = {
 	setIsTaskDetailsOpen: (isTaskDetailsOpen: boolean) => void;
 	setCurrentTaskId: (currentTaskId: string) => void;
 	setCreatedBoard: (createdBoards: board[]) => void;
+	setCurrentBoard: (createdBoards: board) => void;
 };
 
 export type DragIDs = {
