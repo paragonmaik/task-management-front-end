@@ -1,7 +1,5 @@
 import SideBarCSS from './sideBar.module.css';
-import axios from 'axios';
-import { FormEvent, useContext } from 'react';
-import { token } from '../../token';
+import { useContext } from 'react';
 import { TaskContext } from '../../context/TaskContext';
 import { board } from '../../typescript/types';
 import { createBoard } from './SideBarController';
