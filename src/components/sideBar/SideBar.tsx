@@ -4,6 +4,7 @@ import { FormEvent, useContext } from 'react';
 import { token } from '../../token';
 import { TaskContext } from '../../context/TaskContext';
 import { board } from '../../typescript/types';
+import { createBoard } from './SideBarController';
 
 interface ISidebar {
 	loading?: boolean;
@@ -13,30 +14,6 @@ interface ISidebar {
 export default function SideBar({ response }: ISidebar) {
 	const { createdBoards, setCreatedBoard } = useContext(TaskContext);
 
-	async function createBoard(e: FormEvent<HTMLFormElement>) {
-		const tempBoards = createdBoards;
-		e.preventDefault();
-		const {
-			boardName: { value },
-		} = e.target as typeof e.currentTarget;
-		e.currentTarget.reset();
-		if (!value) return;
-
-		const response = await axios.post(
-			'http://localhost:3000/board',
-			{
-				boardName: value,
-			},
-			{
-				headers: {
-					Authorization: token,
-				},
-			}
-		);
-		tempBoards.push(response.data);
-		setCreatedBoard([...tempBoards]);
-	}
-
 	return (
 		<nav className={SideBarCSS.nav}>
 			<div className={SideBarCSS.subMenuContainer}>
@@ -44,7 +21,7 @@ export default function SideBar({ response }: ISidebar) {
 				{response
 					? response.map(({ boardName, _id }) => <p key={_id}>{boardName}</p>)
 					: null}
-				<form onSubmit={(e) => createBoard(e)}>
+				<form onSubmit={(e) => createBoard(e, createdBoards, setCreatedBoard)}>
 					<button
 						type='submit'
 						className={SideBarCSS.addBtn}
