@@ -3,12 +3,13 @@ import {
 	TaskProviderProp,
 	TaskContextType,
 	ITasksState,
+	board,
 } from '../typescript/types';
 
 export const TaskContext = createContext({} as TaskContextType);
 
 export function TimerProvider({ children }: TaskProviderProp) {
-	const [boards, setBoard] = useState<object[]>([]);
+	const [boards, setBoard] = useState<board[]>([]);
 	const [currentTaskId, setCurrentTaskId] = useState('');
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isTaskDetailsOpen, setIsTaskDetailsOpen] = useState(false);

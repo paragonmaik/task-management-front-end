@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import { TaskContext } from '../../context/TaskContext';
 
 interface IAxios {
 	url: string;
@@ -11,7 +12,8 @@ interface IAxios {
 axios.defaults.baseURL = 'http://localhost:3000';
 
 export const useAxios = (axiosParams: IAxios) => {
-	const [response, setResponse] = useState(null);
+	const { boards } = useContext(TaskContext);
+	const [response, setResponse] = useState<null | []>(null);
 	const [error, setError] = useState<string | unknown>('');
 	const [loading, setLoading] = useState(true);
 
@@ -28,7 +30,7 @@ export const useAxios = (axiosParams: IAxios) => {
 
 	useEffect(() => {
 		fetchData(axiosParams);
-	}, []);
+	}, [boards]);
 
 	return { response, error, loading };
 };
