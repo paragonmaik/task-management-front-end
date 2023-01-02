@@ -1,13 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
 import { TaskContext } from '../../context/TaskContext';
-
-interface IAxios {
-	url: string;
-	method: 'get' | 'post' | 'patch' | 'put' | 'delete';
-	data?: object;
-	headers?: object;
-}
+import axios from 'axios';
+import { IAxios } from '../../typescript/types';
 
 axios.defaults.baseURL = 'http://localhost:3000';
 
