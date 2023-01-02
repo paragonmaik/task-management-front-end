@@ -5,6 +5,13 @@ export type board = {
 	_id: string;
 };
 
+export interface IAxios {
+	url: string;
+	method: 'get' | 'post' | 'patch' | 'put' | 'delete';
+	data?: object;
+	headers?: object;
+}
+
 export type ColumnProps = {
 	colName: 'To do' | 'In Progress' | 'In Review' | 'Done';
 };
