@@ -10,7 +10,8 @@ interface ISidebar {
 }
 
 export default function SideBar({ boardsList }: ISidebar) {
-	const { createdBoards, setCreatedBoard } = useContext(TaskContext);
+	const { createdBoards, setCurrentBoard, setCreatedBoard } =
+		useContext(TaskContext);
 
 	return (
 		<nav className={SideBarCSS.nav}>
@@ -23,6 +24,8 @@ export default function SideBar({ boardsList }: ISidebar) {
 									className={SideBarCSS.selectBoardBtn}
 									type='button'
 									key={_id}
+									id={_id}
+									onClick={() => setCurrentBoard({ _id, boardName })}
 								>
 									{boardName}
 								</button>

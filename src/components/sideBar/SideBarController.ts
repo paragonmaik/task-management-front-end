@@ -2,15 +2,12 @@ import { FormEvent } from 'react';
 import { board } from '../../typescript/types';
 import { token } from '../../token';
 import { axiosRequest } from '../helpers/axiosRequest';
-import { TaskContext } from '../../context/TaskContext';
-import { useContext } from 'react';
 
 export const createBoard = async (
 	e: FormEvent<HTMLFormElement>,
 	createdBoards: board[],
 	setCreatedBoard: any
 ) => {
-	// const { createdBoards, setCreatedBoard } = useContext(TaskContext);
 	const boardName = getBoardName(e);
 
 	const response = await axiosRequest({

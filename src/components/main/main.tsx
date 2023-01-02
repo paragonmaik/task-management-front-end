@@ -1,5 +1,4 @@
 import MainCSS from './main.module.css';
-import React from 'react';
 import TasksContainer from '../container/TasksContainer';
 import Header from '../header/Header';
 import SideBar from '../sideBar/SideBar';

@@ -1,26 +1,17 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { TaskContext } from '../../context/TaskContext';
 import { initialState } from '../../utils/initialTasksState';
 import { useLocalStorage } from '../../utils/useLocalStorage';
-import axios from 'axios';
 import HeaderCSS from './header.module.css';
-import { token } from '../../token';
 
 function Header() {
-	// useEffect(() => {
-	//   async function getTest () {
-	//     const test = await axios.get('http://localhost:3000/board', {
-	//       headers: {
-	//         Authorization: token,
-	//       }
-	//     })
-	//     console.log(test)
-	//   }
-	//   getTest()
-	// });
-
-	const { isModalOpen, setIsModalOpen, tasksState, setTasksState } =
-		useContext(TaskContext);
+	const {
+		isModalOpen,
+		setIsModalOpen,
+		tasksState,
+		setTasksState,
+		currentBoard,
+	} = useContext(TaskContext);
 	const [state, setState] = useLocalStorage('tasksState', tasksState);
 
 	const handleModal = () => {
@@ -53,7 +44,11 @@ function Header() {
 						×
 					</button>
 				</div>
-				<p>Standard Board</p>
+				{currentBoard.boardName ? (
+					<p>{currentBoard.boardName}</p>
+				) : (
+					<span></span>
+				)}
 			</nav>
 		</header>
 	);
