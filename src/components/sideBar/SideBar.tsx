@@ -6,18 +6,18 @@ import { createBoard } from './SideBarController';
 
 interface ISidebar {
 	loading?: boolean;
-	response?: board[] | null;
+	boardsList?: board[] | null;
 }
 
-export default function SideBar({ response }: ISidebar) {
+export default function SideBar({ boardsList }: ISidebar) {
 	const { createdBoards, setCreatedBoard } = useContext(TaskContext);
 
 	return (
 		<nav className={SideBarCSS.nav}>
 			<div className={SideBarCSS.subMenuContainer}>
-				{response ? <p>All boards ({response.length})</p> : null}
-				{response
-					? response.map(({ boardName, _id }) => <p key={_id}>{boardName}</p>)
+				{boardsList ? <p>All boards ({boardsList.length})</p> : null}
+				{boardsList
+					? boardsList.map(({ boardName, _id }) => <p key={_id}>{boardName}</p>)
 					: null}
 				<form onSubmit={(e) => createBoard(e, createdBoards, setCreatedBoard)}>
 					<button

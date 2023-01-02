@@ -25,7 +25,7 @@ export function Main() {
 			<div style={{ display: 'flex', marginTop: '81px' }}>
 				<SideBar
 					loading={loading}
-					response={response}
+					boardsList={response}
 				/>
 				<div style={{ marginLeft: '220px' }}>
 					<TasksContainer />
