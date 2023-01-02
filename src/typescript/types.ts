@@ -13,7 +13,7 @@ export interface IAxios {
 }
 
 export type ColumnProps = {
-	colName: 'To do' | 'In Progress' | 'In Review' | 'Done';
+	colName: string;
 };
 
 export type TaskProviderProp = {
