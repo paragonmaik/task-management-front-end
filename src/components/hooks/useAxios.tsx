@@ -1,12 +1,10 @@
-import { useState, useEffect, useContext } from 'react';
-import { TaskContext } from '../../context/TaskContext';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { IAxios } from '../../typescript/types';
 
 axios.defaults.baseURL = 'http://localhost:3000';
 
-export const useAxios = (axiosParams: IAxios) => {
-	const { createdBoards } = useContext(TaskContext);
+export const useAxios = (axiosParams: IAxios, dependency: any) => {
 	const [response, setResponse] = useState<null | []>(null);
 	const [error, setError] = useState<string | unknown>('');
 	const [loading, setLoading] = useState(true);
@@ -24,7 +22,7 @@ export const useAxios = (axiosParams: IAxios) => {
 
 	useEffect(() => {
 		fetchData(axiosParams);
-	}, [createdBoards]);
+	}, [dependency]);
 
 	return { response, error, loading };
 };
