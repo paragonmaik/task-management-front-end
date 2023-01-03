@@ -37,7 +37,7 @@ function DashBoard() {
 				Authorization: token,
 			},
 		},
-		[currentBoard]
+		[currentBoard, createdColumns]
 	);
 
 	const columnsList: column[] | null = response;
