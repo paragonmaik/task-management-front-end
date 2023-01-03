@@ -2,13 +2,13 @@ import { TaskContext } from '../../context/TaskContext';
 import { useContext } from 'react';
 import TaskDetailsModal from '../taskDetailsModal/TaskDetailsModal';
 import { Columns } from '../columns/Columns';
-import TaskModal from '../taskModal/TaskModal';
+import AddTaskModal from '../taskModal/AddTaskModal';
 import dashBoardCSS from './dashBoard.module.css';
 import { useAxios } from '../hooks/useAxios';
 import { token } from '../../token';
 
 function DashBoard() {
-	const { currentBoard, createdColumns } = useContext(TaskContext);
+	const { currentBoard, createdColumns, isModalOpen } = useContext(TaskContext);
 
 	const { response } = useAxios(
 		{
@@ -30,6 +30,7 @@ function DashBoard() {
 			) : (
 				<p>No board selected</p>
 			)}
+			{isModalOpen ? <AddTaskModal /> : null}
 		</div>
 	);
 }

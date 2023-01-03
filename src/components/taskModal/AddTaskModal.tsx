@@ -2,11 +2,11 @@ import { FormEvent, useContext, useState, useRef } from 'react';
 import { TaskContext } from '../../context/TaskContext';
 import { useLocalStorage } from '../../utils/useLocalStorage';
 import { ITasksState, ISubTasks } from '../../typescript/types';
-import { options } from '../../utils/taskSelectOptions';
 import AddTaskModalCSS from './addTaskModal.module.css';
 
 function AddTaskModal() {
-	const { isModalOpen, setIsModalOpen, tasksState } = useContext(TaskContext);
+	const { isModalOpen, setIsModalOpen, tasksState, currentColumn } =
+		useContext(TaskContext);
 	const [_state, setState] = useLocalStorage('tasksState', tasksState);
 	const [subTasks, setSubTasks] = useState<ISubTasks[]>([]);
 	const subtaskInputRef = useRef<HTMLInputElement>(null);
@@ -15,6 +15,8 @@ function AddTaskModal() {
 	function handleCloseModal() {
 		setIsModalOpen(!isModalOpen);
 	}
+
+	console.log(currentColumn);
 
 	return (
 		<div
@@ -26,7 +28,7 @@ function AddTaskModal() {
 				onClick={(e) => e.stopPropagation()}
 			>
 				<div className={AddTaskModalCSS.closeModalContainer}>
-					<h4>Add a task</h4>
+					<h4>Add a task to {currentColumn.columnName} column</h4>
 					<button
 						className={AddTaskModalCSS.closeModal}
 						onClick={handleCloseModal}
@@ -83,19 +85,6 @@ function AddTaskModal() {
 						>
 							Add Subtask
 						</button>
-						<select
-							id='columnSelect'
-							className={AddTaskModalCSS.selectInput}
-						>
-							{options.map(({ label, value }) => (
-								<option
-									key={value}
-									value={value}
-								>
-									{label}
-								</option>
-							))}
-						</select>
 						<button
 							className={AddTaskModalCSS.createTaskBtn}
 							type='submit'
