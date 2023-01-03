@@ -17,11 +17,6 @@ export interface IAxios {
 	headers?: object;
 }
 
-export type ColumnProps = {
-	columnName: string;
-	_id: string;
-};
-
 export type TaskProviderProp = {
 	children: ReactNode;
 };
