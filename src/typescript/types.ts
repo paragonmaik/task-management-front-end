@@ -34,6 +34,7 @@ export type TaskContextType = {
 	createdBoards: board[];
 	currentBoard: board;
 	createdColumns: column[];
+	currentColumn: column;
 	isModalOpen: boolean;
 	isTaskDetailsOpen: boolean;
 	tasksState: ITasksState;
@@ -43,8 +44,9 @@ export type TaskContextType = {
 	setIsTaskDetailsOpen: (isTaskDetailsOpen: boolean) => void;
 	setCurrentTaskId: (currentTaskId: string) => void;
 	setCreatedBoard: (createdBoards: board[]) => void;
-	setCurrentBoard: (createdBoards: board) => void;
+	setCurrentBoard: (currentBoard: board) => void;
 	setCreatedColumns: (createdColumns: column[]) => void;
+	setCurrentColumn: (currentColumn: column) => void;
 };
 
 export type DragIDs = {

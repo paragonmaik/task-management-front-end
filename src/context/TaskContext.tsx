@@ -11,8 +11,9 @@ export const TaskContext = createContext({} as TaskContextType);
 
 export function TaskProvider({ children }: TaskProviderProp) {
 	const [createdBoards, setCreatedBoard] = useState<board[]>([]);
-	const [currentBoard, setCurrentBoard] = useState<board>({} as board);
 	const [createdColumns, setCreatedColumns] = useState<column[]>([]);
+	const [currentBoard, setCurrentBoard] = useState<board>({} as board);
+	const [currentColumn, setCurrentColumn] = useState<column>({} as column);
 
 	// -----------------------
 	const [currentTaskId, setCurrentTaskId] = useState('');
@@ -43,6 +44,7 @@ export function TaskProvider({ children }: TaskProviderProp) {
 				createdBoards,
 				currentBoard,
 				createdColumns,
+				currentColumn,
 				setIsModalOpen,
 				setTasksState,
 				setIsTaskDetailsOpen,
@@ -50,6 +52,7 @@ export function TaskProvider({ children }: TaskProviderProp) {
 				setCreatedBoard,
 				setCurrentBoard,
 				setCreatedColumns,
+				setCurrentColumn,
 			}}
 		>
 			{children}
