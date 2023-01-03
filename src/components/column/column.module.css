@@ -10,3 +10,14 @@
 .taskContainer {
   width: 100%;
 }
+
+.addBtn {
+  background-color: hsl(243, 45%, 57%);
+  border: none;
+  border-radius: 25%;
+  width: 30px;
+  font-size: 1.6rem;
+  height: 30px;
+  color: white;
+  cursor: pointer;
+}
