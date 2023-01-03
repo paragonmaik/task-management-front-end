@@ -13,7 +13,7 @@ function Column({ colName }: ColumnProps) {
 			<section className={ColumnCSS.bg}>
 				<p>{colName}</p>
 				<div className={ColumnCSS.taskContainer}>
-					<Droppable droppableId='todo'>
+					{/* <Droppable droppableId='todo'>
 						{(provided) => (
 							<div
 								{...provided.droppableProps}
@@ -39,7 +39,7 @@ function Column({ colName }: ColumnProps) {
 								{provided.placeholder}
 							</div>
 						)}
-					</Droppable>
+					</Droppable> */}
 				</div>
 			</section>
 		</>
