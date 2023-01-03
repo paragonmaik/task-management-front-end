@@ -8,13 +8,7 @@ import { useAxios } from '../hooks/useAxios';
 import { token } from '../../token';
 
 function DashBoard() {
-	const {
-		isModalOpen,
-		isTaskDetailsOpen,
-		currentTaskId,
-		currentBoard,
-		createdColumns,
-	} = useContext(TaskContext);
+	const { currentBoard, createdColumns } = useContext(TaskContext);
 
 	const { response } = useAxios(
 		{
@@ -36,9 +30,6 @@ function DashBoard() {
 			) : (
 				<p>No board selected</p>
 			)}
-
-			{isModalOpen && <TaskModal />}
-			{isTaskDetailsOpen && <TaskDetailsModal id={currentTaskId} />}
 		</div>
 	);
 }
