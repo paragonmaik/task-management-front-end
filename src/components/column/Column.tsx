@@ -7,6 +7,10 @@ import ColumnCSS from './column.module.css';
 function Column({ columnName, _id }: ColumnProps) {
 	const { isModalOpen, setIsModalOpen } = useContext(TaskContext);
 
+	const handleOpenModal = () => {
+		setIsModalOpen(!isModalOpen);
+	};
+
 	return (
 		<>
 			<section className={ColumnCSS.bg}>
@@ -15,7 +19,7 @@ function Column({ columnName, _id }: ColumnProps) {
 				<button
 					className={ColumnCSS.addBtn}
 					type='button'
-					onClick={() => setIsModalOpen(!isModalOpen)}
+					onClick={handleOpenModal}
 				>
 					+
 				</button>
