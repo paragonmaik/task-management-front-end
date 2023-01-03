@@ -5,6 +5,7 @@ import {
 	ITasksState,
 	board,
 	column,
+	task,
 } from '../typescript/types';
 
 export const TaskContext = createContext({} as TaskContextType);
@@ -12,6 +13,7 @@ export const TaskContext = createContext({} as TaskContextType);
 export function TaskProvider({ children }: TaskProviderProp) {
 	const [createdBoards, setCreatedBoard] = useState<board[]>([]);
 	const [createdColumns, setCreatedColumns] = useState<column[]>([]);
+	const [createdTasks, setCreatedTasks] = useState<task[]>([]);
 	const [currentBoard, setCurrentBoard] = useState<board>({} as board);
 	const [currentColumn, setCurrentColumn] = useState<column>({} as column);
 
@@ -45,6 +47,7 @@ export function TaskProvider({ children }: TaskProviderProp) {
 				currentBoard,
 				createdColumns,
 				currentColumn,
+				createdTasks,
 				setIsModalOpen,
 				setTasksState,
 				setIsTaskDetailsOpen,
@@ -53,6 +56,7 @@ export function TaskProvider({ children }: TaskProviderProp) {
 				setCurrentBoard,
 				setCreatedColumns,
 				setCurrentColumn,
+				setCreatedTasks,
 			}}
 		>
 			{children}
