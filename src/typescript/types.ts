@@ -18,7 +18,8 @@ export interface IAxios {
 }
 
 export type ColumnProps = {
-	colName: string;
+	columnName: string;
+	_id: string;
 };
 
 export type TaskProviderProp = {

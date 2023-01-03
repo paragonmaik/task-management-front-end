@@ -19,7 +19,8 @@ export function Columns({ columnsList }: IColumns) {
 			{columnsList?.map(({ _id, columnName }) => (
 				<Column
 					key={_id}
-					colName={columnName}
+					_id={_id}
+					columnName={columnName}
 				/>
 			))}
 			<form
