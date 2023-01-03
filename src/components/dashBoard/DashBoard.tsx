@@ -12,6 +12,7 @@ import { useAxios } from '../hooks/useAxios';
 import { token } from '../../token';
 import { board } from '../../typescript/types';
 import { axiosRequest } from '../helpers/axiosRequest';
+import Columns from '../columns/Columns';
 
 function DashBoard() {
 	const {
@@ -117,6 +118,7 @@ function DashBoard() {
 
 	return (
 		<div className={dashBoardCSS.bg}>
+			<Columns columnsList={response} />
 			{currentBoard._id ? (
 				<DragDropContext onDragEnd={handleOnDragEnd}>
 					{createdColumns.map(({ _id, columnName }) => (

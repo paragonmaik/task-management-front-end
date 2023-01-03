@@ -1,5 +1,5 @@
 import MainCSS from './main.module.css';
-import TasksContainer from '../container/TasksContainer';
+import DashBoard from '../dashBoard/DashBoard';
 import Header from '../header/Header';
 import SideBar from '../sideBar/SideBar';
 import { useAxios } from '../hooks/useAxios';
@@ -27,7 +27,7 @@ export function Main() {
 			<div style={{ display: 'flex', marginTop: '81px' }}>
 				<SideBar boardsList={response} />
 				<div style={{ marginLeft: '220px' }}>
-					<TasksContainer />
+					<DashBoard />
 				</div>
 			</div>
 		</div>
