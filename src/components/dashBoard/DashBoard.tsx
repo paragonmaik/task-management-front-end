@@ -2,7 +2,7 @@ import { FormEvent } from 'react';
 import { TaskContext } from '../../context/TaskContext';
 import { useContext, useEffect } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
-import { ITasksState } from '../../typescript/types';
+import { column, ITasksState } from '../../typescript/types';
 import { useLocalStorage } from '../../utils/useLocalStorage';
 import TaskDetailsModal from '../taskDetailsModal/TaskDetailsModal';
 import Column from '../column/Column';
@@ -12,7 +12,6 @@ import { useAxios } from '../hooks/useAxios';
 import { token } from '../../token';
 import { board } from '../../typescript/types';
 import { axiosRequest } from '../helpers/axiosRequest';
-import Columns from '../columns/Columns';
 
 function DashBoard() {
 	const {
@@ -40,6 +39,8 @@ function DashBoard() {
 		},
 		[currentBoard]
 	);
+
+	const columnsList: column[] | null = response;
 
 	console.log(response);
 
@@ -81,6 +82,8 @@ function DashBoard() {
 		console.log(createdColumns);
 	};
 
+	// ------------------
+
 	const handleOnDragEnd = (result: DropResult) => {
 		const { destination, source } = result;
 		if (!destination) {
@@ -118,11 +121,13 @@ function DashBoard() {
 
 	return (
 		<div className={dashBoardCSS.bg}>
-			<Columns columnsList={response} />
 			{currentBoard._id ? (
 				<DragDropContext onDragEnd={handleOnDragEnd}>
-					{createdColumns.map(({ _id, columnName }) => (
-						<Column colName={columnName} />
+					{columnsList?.map(({ _id, columnName }) => (
+						<Column
+							key={_id}
+							colName={columnName}
+						/>
 					))}
 
 					<form onSubmit={(e) => createColumn(e)}>
