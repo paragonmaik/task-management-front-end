@@ -1,21 +1,17 @@
-import { FormEvent, useContext, useState, useRef } from 'react';
+import { useContext, useState, useRef } from 'react';
 import { TaskContext } from '../../context/TaskContext';
-import { useLocalStorage } from '../../utils/useLocalStorage';
-import { ITasksState, ISubTasks } from '../../typescript/types';
+import { ISubTasks } from '../../typescript/types';
 import AddTaskModalCSS from './addTaskModal.module.css';
-import { axiosRequest } from '../helpers/axiosRequest';
-import { token } from '../../token';
+import { createTask } from './AddTaskModalController';
 
 function AddTaskModal() {
 	const {
 		isModalOpen,
 		setIsModalOpen,
-		tasksState,
 		currentColumn,
 		setCreatedTasks,
 		createdTasks,
 	} = useContext(TaskContext);
-	const [_state, setState] = useLocalStorage('tasksState', tasksState);
 	const [subTasks, setSubTasks] = useState<ISubTasks[]>([]);
 	const subtaskInputRef = useRef<HTMLInputElement>(null);
 	const createSubTaskBtn = useRef<HTMLButtonElement>(null);
@@ -23,43 +19,6 @@ function AddTaskModal() {
 	function handleCloseModal() {
 		setIsModalOpen(!isModalOpen);
 	}
-
-	const createTask = async (e: FormEvent<HTMLFormElement>) => {
-		const tasks = createdTasks;
-		const maxDescriptionLength = 150;
-		e.preventDefault();
-		const {
-			description: { value },
-		} = e.target as typeof e.currentTarget;
-
-		e.currentTarget.reset();
-
-		if (!value) {
-			throw new Error('You need a description.');
-		}
-
-		if (value.length > maxDescriptionLength) {
-			throw new Error('Your description is too long.');
-		}
-
-		const response = await axiosRequest({
-			url: `/task/${currentColumn._id}`,
-			method: 'post',
-			data: {
-				description: value,
-			},
-			headers: {
-				Authorization: token,
-			},
-		});
-
-		tasks.push(response.data);
-		setCreatedTasks([...tasks]);
-
-		console.log(createdTasks);
-	};
-
-	console.log(currentColumn);
 
 	return (
 		<div
@@ -83,7 +42,9 @@ function AddTaskModal() {
 					<div className={AddTaskModalCSS.taskSettingsHeader}></div>
 
 					<form
-						onSubmit={(e) => createTask(e)}
+						onSubmit={(e) =>
+							createTask(e, createdTasks, setCreatedTasks, currentColumn._id)
+						}
 						className={AddTaskModalCSS.form}
 					>
 						<label htmlFor='description'>Description</label>
