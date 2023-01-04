@@ -1,10 +1,11 @@
+import Task from '../task/Task';
+import ColumnCSS from './column.module.css';
 import { useContext } from 'react';
 import { column } from '../../typescript/types';
 import { TaskContext } from '../../context/TaskContext';
-import Task from '../task/Task';
-import ColumnCSS from './column.module.css';
 import { useAxios } from '../hooks/useAxios';
 import { token } from '../../token';
+import { openAddTaskModal } from './ColumnController';
 
 function Column({ columnName, _id }: column) {
 	const { isModalOpen, setIsModalOpen, setCurrentColumn, createdTasks } =
@@ -21,17 +22,6 @@ function Column({ columnName, _id }: column) {
 		[createdTasks]
 	);
 
-	console.log(response);
-
-	const addCurrentColumnToState = () => {
-		setCurrentColumn({ columnName, _id });
-	};
-
-	const openAddTaskModal = () => {
-		addCurrentColumnToState();
-		setIsModalOpen(!isModalOpen);
-	};
-
 	return (
 		<>
 			<section className={ColumnCSS.bg}>
@@ -42,7 +32,14 @@ function Column({ columnName, _id }: column) {
 				<button
 					className={ColumnCSS.addBtn}
 					type='button'
-					onClick={openAddTaskModal}
+					onClick={() =>
+						openAddTaskModal(
+							setCurrentColumn,
+							{ _id, columnName },
+							setIsModalOpen,
+							isModalOpen
+						)
+					}
 				>
 					+
 				</button>
