@@ -2,7 +2,7 @@ import { useContext, useState, useRef } from 'react';
 import { TaskContext } from '../../context/TaskContext';
 import { ISubTasks } from '../../typescript/types';
 import AddTaskModalCSS from './addTaskModal.module.css';
-import { createTask } from './AddTaskModalController';
+import { createTask, closeAddTaskModal } from './AddTaskModalController';
 
 function AddTaskModal() {
 	const {
@@ -16,24 +16,22 @@ function AddTaskModal() {
 	const subtaskInputRef = useRef<HTMLInputElement>(null);
 	const createSubTaskBtn = useRef<HTMLButtonElement>(null);
 
-	function handleCloseModal() {
-		setIsModalOpen(!isModalOpen);
-	}
-
 	return (
 		<div
 			className={AddTaskModalCSS.modalContainer}
-			onClick={handleCloseModal}
+			onClick={() => closeAddTaskModal(setIsModalOpen, isModalOpen)}
 		>
 			<section
 				className={AddTaskModalCSS.taskSettingsContainer}
+				// stops event bubbling so clicking anywhere besides the close modal
+				// button or the outer div won't close the modal
 				onClick={(e) => e.stopPropagation()}
 			>
 				<div className={AddTaskModalCSS.closeModalContainer}>
 					<h4>Add a task to {currentColumn.columnName} column</h4>
 					<button
 						className={AddTaskModalCSS.closeModal}
-						onClick={handleCloseModal}
+						onClick={() => closeAddTaskModal(setIsModalOpen, isModalOpen)}
 					>
 						×
 					</button>

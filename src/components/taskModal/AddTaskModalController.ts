@@ -3,6 +3,13 @@ import { task } from '../../typescript/types';
 import { token } from '../../token';
 import { axiosRequest } from '../helpers/axiosRequest';
 
+export const closeAddTaskModal = (
+	setIsModalOpen: (isModalOpen: boolean) => void,
+	isModalOpen: boolean
+) => {
+	setIsModalOpen(!isModalOpen);
+};
+
 export const createTask = async (
 	e: FormEvent<HTMLFormElement>,
 	createdTasks: task[],
