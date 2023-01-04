@@ -37,13 +37,7 @@ export type TaskContextType = {
 	currentColumn: column;
 	createdTasks: task[];
 	isModalOpen: boolean;
-	isTaskDetailsOpen: boolean;
-	tasksState: ITasksState;
-	currentTaskId: string;
 	setIsModalOpen: (isModalOpen: boolean) => void;
-	setTasksState: (tasksState: ITasksState) => void;
-	setIsTaskDetailsOpen: (isTaskDetailsOpen: boolean) => void;
-	setCurrentTaskId: (currentTaskId: string) => void;
 	setCreatedBoard: (createdBoards: board[]) => void;
 	setCurrentBoard: (currentBoard: board) => void;
 	setCreatedColumns: (createdColumns: column[]) => void;
