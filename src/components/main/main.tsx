@@ -1,6 +1,6 @@
 import MainCSS from './main.module.css';
 import DashBoard from '../dashBoard/DashBoard';
-import Header from '../header/Header';
+import { Header } from '../header/Header';
 import SideBar from '../sideBar/SideBar';
 import { useAxios } from '../hooks/useAxios';
 import { token } from '../../token';

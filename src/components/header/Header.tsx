@@ -1,45 +1,20 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { TaskContext } from '../../context/TaskContext';
-import { initialState } from '../../utils/initialTasksState';
-import { useLocalStorage } from '../../utils/useLocalStorage';
 import HeaderCSS from './header.module.css';
 
-function Header() {
-	const {
-		isModalOpen,
-		setIsModalOpen,
-		tasksState,
-		setTasksState,
-		currentBoard,
-	} = useContext(TaskContext);
-	const [state, setState] = useLocalStorage('tasksState', tasksState);
+export const Header = React.memo(() => {
+	const { currentBoard } = useContext(TaskContext);
 
-	const handleModal = () => {
-		setIsModalOpen(!isModalOpen);
-	};
-
-	const handleClearBoard = () => {
-		setState(initialState);
-		setTasksState(initialState);
-
-		window.location.reload();
-	};
+	const userLogout = () => {};
 
 	return (
 		<header className={HeaderCSS.bg}>
 			<nav className={HeaderCSS.optionsContainer}>
 				<div className={HeaderCSS.btnsContainer}>
 					<button
-						className={HeaderCSS.addBtn}
-						type='button'
-						onClick={handleModal}
-					>
-						+
-					</button>
-					<button
 						className={HeaderCSS.clearBtn}
 						type='button'
-						onClick={handleClearBoard}
+						onClick={userLogout}
 					>
 						×
 					</button>
@@ -52,6 +27,4 @@ function Header() {
 			</nav>
 		</header>
 	);
-}
-
-export default Header;
+});
