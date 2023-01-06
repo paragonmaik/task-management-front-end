@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 export type board = {
 	boardName: string;
 	_id: string;
+	columns?: column[];
 };
 
 export type column = {

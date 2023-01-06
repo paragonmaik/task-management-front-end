@@ -19,13 +19,13 @@ export default function SideBar({ boardsList }: ISidebar) {
 				{boardsList ? <p>All boards ({boardsList.length})</p> : null}
 				<div className={SideBarCSS.boardNamesContainer}>
 					{boardsList
-						? boardsList.map(({ boardName, _id }) => (
+						? boardsList.map(({ boardName, _id, columns }) => (
 								<button
 									className={SideBarCSS.selectBoardBtn}
 									type='button'
 									key={_id}
 									id={_id}
-									onClick={() => setCurrentBoard({ _id, boardName })}
+									onClick={() => setCurrentBoard({ _id, boardName, columns })}
 								>
 									{boardName}
 								</button>
