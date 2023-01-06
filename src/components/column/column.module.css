@@ -21,3 +21,15 @@
   color: white;
   cursor: pointer;
 }
+
+.handleBar {
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px;
+}
+
+.handleBar:hover {
+  background-color: hsl(240, 15%, 17%);
+}

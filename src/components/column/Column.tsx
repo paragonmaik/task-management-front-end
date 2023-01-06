@@ -36,8 +36,13 @@ function Column({ columnName, _id, position }: DraggableColumn) {
 						ref={provided.innerRef}
 					>
 						<section className={ColumnCSS.bg}>
-							<div {...provided.dragHandleProps}>handle</div>
-							<p>{columnName}</p>
+							<div
+								className={ColumnCSS.handleBar}
+								{...provided.dragHandleProps}
+							>
+								<p>{columnName}</p>
+								<div>•••</div>
+							</div>
 							<div className={ColumnCSS.taskContainer}>
 								<Task tasksList={response} />
 							</div>
@@ -64,41 +69,3 @@ function Column({ columnName, _id, position }: DraggableColumn) {
 }
 
 export default Column;
-
-// {
-// 	<Draggable
-// 		key={task.id}
-// 		draggableId={task.id}
-// 		index={i}
-// 	>
-// 		{(provided) => (
-// 			<div
-// 				{...provided.draggableProps}
-// 				{...provided.dragHandleProps}
-// 				ref={provided.innerRef}
-// 			>
-// 				<section className={ColumnCSS.bg}>
-// 					<p>{columnName}</p>
-// 					<div className={ColumnCSS.taskContainer}>
-// 						<Task tasksList={response} />
-// 					</div>
-// 					<button
-// 						className={ColumnCSS.addBtn}
-// 						type='button'
-// 						onClick={() =>
-// 							openAddTaskModal(
-// 								setCurrentColumn,
-// 								{ _id, columnName },
-// 								setIsModalOpen,
-// 								isModalOpen
-// 							)
-// 						}
-// 					>
-// 						+
-// 					</button>
-// 				</section>
-// 				<Task tasksList={response} />
-// 			</div>
-// 		)}
-// 	</Draggable>;
-// }

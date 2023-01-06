@@ -4,6 +4,7 @@ import { column } from '../../typescript/types';
 import { createColumn } from './ColumnsController';
 import { TaskContext } from '../../context/TaskContext';
 import { useContext, useState, useEffect } from 'react';
+import { handleListDrag, getListStyle } from '../helpers/dragAndDropHandlers';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 
 interface IColumns {
@@ -18,59 +19,37 @@ export function Columns({ columnsList }: IColumns) {
 
 	useEffect(() => {
 		setDraggableColumnsList(columnsList);
-	});
+	}, [columnsList]);
 
-	console.log('teste');
 	const handleColumnDrag = (result: DropResult) => {
-		const { destination, source } = result;
-		if (!destination) {
-			return;
-		}
-
-		if (
-			destination.index === source.index &&
-			destination.droppableId === source.droppableId
-		) {
-			return;
-		}
-
-		if (!columnsList) return;
-
-		// extracts column from array
-		const [reorderedColumn] = columnsList.splice(source.index, 1);
-
-		// updates array with column in a new position
-		columnsList.splice(destination.index, 0, reorderedColumn);
-
-		// updates the state with the reordered array
-		setDraggableColumnsList([...columnsList]);
+		handleListDrag(result, columnsList, setDraggableColumnsList);
 	};
 
 	return (
 		<div className={columnsCSS.bg}>
 			<DragDropContext onDragEnd={handleColumnDrag}>
-				{draggableColumnsList?.map(({ _id, columnName }, i) => (
-					<Droppable
-						key={_id}
-						droppableId={`column${i}`}
-						direction='horizontal'
-					>
-						{(provided) => (
-							<div
-								{...provided.droppableProps}
-								ref={provided.innerRef}
-							>
+				<Droppable
+					droppableId={'columns'}
+					direction='horizontal'
+				>
+					{(provided, snapshot) => (
+						<div
+							{...provided.droppableProps}
+							ref={provided.innerRef}
+							style={getListStyle(snapshot.isDraggingOver)}
+						>
+							{draggableColumnsList?.map(({ _id, columnName }, i) => (
 								<Column
 									key={_id}
 									_id={_id}
-									columnName={columnName}
 									position={i}
+									columnName={columnName}
 								/>
-								{provided.placeholder}
-							</div>
-						)}
-					</Droppable>
-				))}
+							))}
+							{provided.placeholder}
+						</div>
+					)}
+				</Droppable>
 			</DragDropContext>
 			<form
 				onSubmit={(e) =>
