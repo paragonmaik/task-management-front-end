@@ -10,6 +10,12 @@ export type column = {
 	_id: string;
 };
 
+export type DraggableColumn = {
+	columnName: string;
+	_id: string;
+	position: number;
+};
+
 export type task = {
 	description: string;
 	_id: string;
