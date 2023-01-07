@@ -1,18 +1,26 @@
-import {
-	DropResult,
-	DraggingStyle,
-	NotDraggingStyle,
-} from 'react-beautiful-dnd';
+import { DropResult, DraggableLocation } from 'react-beautiful-dnd';
+import { axiosRequest } from './axiosRequest';
+import { token } from '../../token';
 
-export const handleListDrag = (
-	result: DropResult,
-	itemsList: any,
-	setDraggableList: (itemsList: any) => void
-) => {
+type DragListConfig = {
+	itemsList: any[] | null | undefined;
+	setDraggableList: (itemsList: any) => void;
+	parentComponentId: string;
+};
+
+type SingleDropConfig = {
+	itemsList: any[];
+	setDraggableList: (itemsList: any) => void;
+	parentComponentId: string;
+};
+
+export const handleListDrag = (result: DropResult, config: DragListConfig) => {
 	const { destination, source } = result;
-	if (!destination) {
-		return;
-	}
+	const { itemsList } = config;
+
+	if (!itemsList) return 'List provided is empty.';
+
+	if (!destination) return;
 
 	if (
 		destination.index === source.index &&
@@ -21,7 +29,18 @@ export const handleListDrag = (
 		return;
 	}
 
-	if (!itemsList) return;
+	if (destination.droppableId === source.droppableId) {
+		handleSingleDroppableArea(destination, source, config as SingleDropConfig);
+		return;
+	}
+};
+
+const handleSingleDroppableArea = async (
+	destination: DraggableLocation,
+	source: DraggableLocation,
+	config: SingleDropConfig
+) => {
+	const { itemsList, setDraggableList, parentComponentId } = config;
 
 	// extracts item from array
 	const [reorderedColumn] = itemsList.splice(source.index, 1);
@@ -31,6 +50,18 @@ export const handleListDrag = (
 
 	// updates the state with the reordered array
 	setDraggableList([...itemsList]);
+
+	const columns = itemsList.map(({ _id }) => {
+		return _id;
+	});
+
+	// request to update list
+	await axiosRequest({
+		url: `/board/columns/${parentComponentId}`,
+		method: 'put',
+		data: { columns },
+		headers: { Authorization: token },
+	});
 };
 
 export const getListStyle = (isDraggingOver: boolean) => ({

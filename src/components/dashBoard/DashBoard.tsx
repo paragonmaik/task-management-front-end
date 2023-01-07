@@ -6,6 +6,7 @@ import AddTaskModal from '../taskModal/AddTaskModal';
 import dashBoardCSS from './dashBoard.module.css';
 import { useAxios } from '../hooks/useAxios';
 import { token } from '../../token';
+import { sortDraggableList } from '../helpers/sortDraggableList';
 
 function DashBoard() {
 	const { currentBoard, createdColumns, isModalOpen } = useContext(TaskContext);
@@ -20,6 +21,8 @@ function DashBoard() {
 		},
 		[currentBoard, createdColumns]
 	);
+
+	sortDraggableList(response, currentBoard.columns);
 
 	return (
 		<div className={dashBoardCSS.bg}>

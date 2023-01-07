@@ -16,13 +16,18 @@ export function Columns({ columnsList }: IColumns) {
 	const { createdColumns, currentBoard, setCreatedColumns } =
 		useContext(TaskContext);
 	const [draggableColumnsList, setDraggableColumnsList] = useState(columnsList);
+	const handleDragConfig = {
+		itemsList: columnsList,
+		setDraggableList: setDraggableColumnsList,
+		parentComponentId: currentBoard._id,
+	};
 
 	useEffect(() => {
 		setDraggableColumnsList(columnsList);
 	}, [columnsList]);
 
 	const handleColumnDrag = (result: DropResult) => {
-		handleListDrag(result, columnsList, setDraggableColumnsList);
+		handleListDrag(result, handleDragConfig);
 	};
 
 	return (
