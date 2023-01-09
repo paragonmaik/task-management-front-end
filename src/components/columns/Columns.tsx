@@ -4,7 +4,7 @@ import { column } from '../../typescript/types';
 import { createColumn } from './ColumnsController';
 import { TaskContext } from '../../context/TaskContext';
 import { useContext, useState, useEffect } from 'react';
-import { handleListDrag, getListStyle } from '../helpers/dragAndDropHandlers';
+import { getListStyle, handleListDrag } from '../helpers/dragAndDropHandlers';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 
 interface IColumns {
@@ -13,20 +13,32 @@ interface IColumns {
 }
 
 export function Columns({ columnsList }: IColumns) {
-	const { createdColumns, currentBoard, setCreatedColumns } =
-		useContext(TaskContext);
+	const {
+		createdColumns,
+		currentBoard,
+		setCreatedColumns,
+		draggableTasksList,
+		setDraggableTasksList,
+		currentBoardState,
+	} = useContext(TaskContext);
 	const [draggableColumnsList, setDraggableColumnsList] = useState(columnsList);
-	const handleDragConfig = {
-		itemsList: columnsList,
-		setDraggableList: setDraggableColumnsList,
-		parentComponentId: currentBoard._id,
-	};
 
 	useEffect(() => {
 		setDraggableColumnsList(columnsList);
 	}, [columnsList]);
 
 	const handleColumnDrag = (result: DropResult) => {
+		const handleDragConfig = {
+			itemsList:
+				result.type === 'columns'
+					? currentBoardState.columnsList
+					: draggableTasksList,
+			setDraggableList:
+				result.type === 'columns'
+					? setDraggableColumnsList
+					: setDraggableTasksList,
+			parentComponentId: currentBoard._id,
+		};
 		handleListDrag(result, handleDragConfig);
 	};
 
@@ -34,7 +46,8 @@ export function Columns({ columnsList }: IColumns) {
 		<div className={columnsCSS.bg}>
 			<DragDropContext onDragEnd={handleColumnDrag}>
 				<Droppable
-					droppableId={'columns'}
+					type='columns'
+					droppableId='columns'
 					direction='horizontal'
 				>
 					{(provided, snapshot) => (

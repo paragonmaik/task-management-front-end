@@ -14,14 +14,29 @@ type SingleDropConfig = {
 	parentComponentId: string;
 };
 
+export const handleDnd: Record<string, CallableFunction> = {
+	columns: (
+		destination: DraggableLocation,
+		source: DraggableLocation,
+		config: SingleDropConfig
+	) => {
+		handleColumnDroppable(destination, source, config);
+	},
+	task: (
+		destination: DraggableLocation,
+		source: DraggableLocation,
+		config: SingleDropConfig
+	) => {
+		handleTaskDroppable(destination, source, config);
+	},
+};
+
 export const handleListDrag = (result: DropResult, config: DragListConfig) => {
-	const { destination, source } = result;
+	const { destination, source, type } = result;
 	const { itemsList } = config;
 
-	if (!itemsList) return 'List provided is empty.';
-
+	if (!itemsList) return 'List is empty!';
 	if (!destination) return;
-
 	if (
 		destination.index === source.index &&
 		destination.droppableId === source.droppableId
@@ -29,21 +44,20 @@ export const handleListDrag = (result: DropResult, config: DragListConfig) => {
 		return;
 	}
 
-	if (destination.droppableId === source.droppableId) {
-		handleSingleDroppableArea(destination, source, config as SingleDropConfig);
-		return;
-	}
+	handleDnd[type](destination, source, config);
 };
 
-const handleSingleDroppableArea = async (
+const handleColumnDroppable = async (
 	destination: DraggableLocation,
 	source: DraggableLocation,
 	config: SingleDropConfig
 ) => {
 	const { itemsList, setDraggableList, parentComponentId } = config;
+	console.log(itemsList);
 
 	// extracts item from array
 	const [reorderedColumn] = itemsList.splice(source.index, 1);
+	console.log(reorderedColumn);
 
 	// updates array with item in a new position
 	itemsList.splice(destination.index, 0, reorderedColumn);
@@ -55,13 +69,52 @@ const handleSingleDroppableArea = async (
 		return _id;
 	});
 
-	// request to update list
+	// request to update list // passar para outra função
 	await axiosRequest({
 		url: `/board/columns/${parentComponentId}`,
 		method: 'put',
 		data: { columns },
 		headers: { Authorization: token },
 	});
+	// console.log('columns');
+};
+
+const handleTaskDroppable = async (
+	destination: DraggableLocation,
+	source: DraggableLocation,
+	// type: string,
+	config: SingleDropConfig
+) => {
+	const { itemsList, setDraggableList, parentComponentId } = config;
+	console.log(source);
+	// extracts item from array
+	// const [reorderedTask] = itemsList.splice(source.index, 1);
+	const sourceColumn = itemsList.filter(
+		(item) => item.columnName === source.droppableId
+	);
+
+	const task = sourceColumn[source.index];
+	console.log(sourceColumn);
+	console.log(task);
+
+	// updates array with item in a new position
+	itemsList.splice(destination.index, 0, sourceColumn);
+
+	// updates the state with the reordered array
+	// setDraggableList([...itemsList]);
+
+	// const tasks = itemsList.map((item) => {
+	// 	return item.tasks;
+	// });
+
+	// console.log('task', tasks);
+	// request to update list // passar para outra função
+	// await axiosRequest({
+	// 	url: `/column/tasks/${parentComponentId}`,
+	// 	method: 'put',
+	// 	data: { tasks },
+	// 	headers: { Authorization: token },
+	// });
 };
 
 export const getListStyle = (isDraggingOver: boolean) => ({

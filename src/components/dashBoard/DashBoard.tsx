@@ -1,5 +1,5 @@
 import { TaskContext } from '../../context/TaskContext';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import TaskDetailsModal from '../taskDetailsModal/TaskDetailsModal';
 import { Columns } from '../columns/Columns';
 import AddTaskModal from '../taskModal/AddTaskModal';
@@ -9,7 +9,14 @@ import { token } from '../../token';
 import { sortDraggableList } from '../helpers/sortDraggableList';
 
 function DashBoard() {
-	const { currentBoard, createdColumns, isModalOpen } = useContext(TaskContext);
+	const {
+		currentBoard,
+		createdColumns,
+		isModalOpen,
+		setDraggableTasksList,
+		currentBoardState,
+		setCurrentBoardState,
+	} = useContext(TaskContext);
 
 	const { response } = useAxios(
 		{
@@ -21,6 +28,13 @@ function DashBoard() {
 		},
 		[currentBoard, createdColumns]
 	);
+
+	useEffect(() => {
+		if (!response) return;
+		setDraggableTasksList(response);
+		const columnsList = response;
+		setCurrentBoardState({ ...currentBoardState, columnsList });
+	}, [response]);
 
 	sortDraggableList(response, currentBoard.columns);
 
