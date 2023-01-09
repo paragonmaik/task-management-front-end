@@ -34,9 +34,22 @@ export type TaskProviderProp = {
 	children: ReactNode;
 };
 
-export type currentTaskId = {
-	id: string;
-};
+export interface TaskState extends task {
+	subTasks?: string[];
+}
+
+export interface ColumnState extends column {
+	ownerBoard: string;
+	tasks: string[];
+	tasksList: TaskState[];
+}
+
+export interface BoardState {
+	boardName: string;
+	columns: string[];
+	columnsList: ColumnState[];
+	_id: string;
+}
 
 export type TaskContextType = {
 	createdBoards: board[];
@@ -46,7 +59,7 @@ export type TaskContextType = {
 	createdTasks: task[];
 	isModalOpen: boolean;
 	draggableTasksList: task[][];
-	currentBoardState: any;
+	currentBoardState: BoardState;
 	setIsModalOpen: (isModalOpen: boolean) => void;
 	setCreatedBoard: (createdBoards: board[]) => void;
 	setCurrentBoard: (currentBoard: board) => void;
@@ -54,5 +67,5 @@ export type TaskContextType = {
 	setCurrentColumn: (currentColumn: column) => void;
 	setCreatedTasks: (createdTasks: task[]) => void;
 	setDraggableTasksList: (draggableTasksList: task[][]) => void;
-	setCurrentBoardState: (currentBoardState: any) => void;
+	setCurrentBoardState: (currentBoardState: BoardState) => void;
 };
