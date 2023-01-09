@@ -117,6 +117,9 @@ const handleTaskDroppable = async (
 		({ _id }) => _id
 	);
 
+	sourceColumn[0].tasks = sourceTaskIds;
+	destinationColumn[0].tasks = destinationTaskIds;
+
 	// updates the state with the reordered array
 	setCurrentBoardState({ ...stateCopy });
 
