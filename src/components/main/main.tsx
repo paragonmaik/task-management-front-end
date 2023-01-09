@@ -8,7 +8,7 @@ import { TaskContext } from '../../context/TaskContext';
 import { useContext } from 'react';
 
 export function Main() {
-	const { createdBoards, currentBoard } = useContext(TaskContext);
+	const { createdBoards, currentBoardState } = useContext(TaskContext);
 
 	const { response } = useAxios(
 		{
@@ -18,7 +18,7 @@ export function Main() {
 				Authorization: token,
 			},
 		},
-		[createdBoards, currentBoard]
+		[createdBoards, currentBoardState]
 	);
 
 	return (

@@ -35,6 +35,7 @@ function Column({ columnName, _id, position }: DraggableColumn) {
 		const stateCopy = currentBoardState;
 		const tasksList: task[] = response;
 
+		if (!stateCopy.columnsList) return;
 		for (const column of stateCopy.columnsList) {
 			if (tasksList[0]?.ownerColumn === column._id) {
 				column.tasksList = tasksList;
@@ -102,19 +103,3 @@ function Column({ columnName, _id, position }: DraggableColumn) {
 }
 
 export default Column;
-
-{
-	/* <DragDropContext onDragEnd={handleColumnDrag}>
-	<Droppable droppableId={columnName}>
-		{(provided) => (
-			<div
-				{...provided.droppableProps}
-				ref={provided.innerRef}
-			>
-				<Task tasksList={response} />
-				{provided.placeholder}
-			</div>
-		)}
-	</Droppable>
-</DragDropContext>; */
-}

@@ -10,7 +10,6 @@ import { sortDraggableList } from '../helpers/sortDraggableList';
 
 function DashBoard() {
 	const {
-		currentBoard,
 		createdColumns,
 		isModalOpen,
 		currentBoardState,
@@ -20,12 +19,12 @@ function DashBoard() {
 	const { response } = useAxios(
 		{
 			method: 'get',
-			url: `/column/${currentBoard._id}`,
+			url: `/column/${currentBoardState._id}`,
 			headers: {
 				Authorization: token,
 			},
 		},
-		[currentBoard, createdColumns]
+		[currentBoardState._id]
 	);
 
 	useEffect(() => {
@@ -34,13 +33,14 @@ function DashBoard() {
 		setCurrentBoardState({ ...currentBoardState, columnsList });
 	}, [response]);
 
-	sortDraggableList(response, currentBoard.columns);
+	console.log(currentBoardState._id);
+	sortDraggableList(response, currentBoardState.columns);
 
 	return (
 		<div className={dashBoardCSS.bg}>
-			{currentBoard._id ? (
+			{currentBoardState._id ? (
 				<>
-					<Columns columnsList={response} />
+					<Columns />
 				</>
 			) : (
 				<p>No board selected</p>

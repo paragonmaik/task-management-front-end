@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 export type board = {
 	boardName: string;
 	_id: string;
-	columns?: column[];
+	columns?: string[];
 };
 
 export type column = {
@@ -46,14 +46,13 @@ export interface ColumnState extends column {
 
 export interface BoardState {
 	boardName: string;
-	columns: string[];
-	columnsList: ColumnState[];
+	columns?: string[];
+	columnsList?: ColumnState[];
 	_id: string;
 }
 
 export type TaskContextType = {
 	createdBoards: board[];
-	currentBoard: board;
 	createdColumns: column[];
 	currentColumn: column;
 	createdTasks: task[];
@@ -61,7 +60,6 @@ export type TaskContextType = {
 	currentBoardState: BoardState;
 	setIsModalOpen: (isModalOpen: boolean) => void;
 	setCreatedBoard: (createdBoards: board[]) => void;
-	setCurrentBoard: (currentBoard: board) => void;
 	setCreatedColumns: (createdColumns: column[]) => void;
 	setCurrentColumn: (currentColumn: column) => void;
 	setCreatedTasks: (createdTasks: task[]) => void;

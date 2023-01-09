@@ -7,15 +7,9 @@ import { useContext } from 'react';
 import { getListStyle, handleListDrag } from '../helpers/dragAndDropHandlers';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 
-interface IColumns {
-	loading?: boolean;
-	columnsList?: column[] | null;
-}
-
-export function Columns({ columnsList }: IColumns) {
+export function Columns() {
 	const {
 		createdColumns,
-		currentBoard,
 		setCreatedColumns,
 		currentBoardState,
 		setCurrentBoardState,
@@ -25,8 +19,6 @@ export function Columns({ columnsList }: IColumns) {
 		const handleDragConfig = { currentBoardState, setCurrentBoardState };
 		handleListDrag(result, handleDragConfig);
 	};
-
-	console.log(currentBoardState);
 
 	return (
 		<div className={columnsCSS.bg}>
@@ -57,7 +49,12 @@ export function Columns({ columnsList }: IColumns) {
 			</DragDropContext>
 			<form
 				onSubmit={(e) =>
-					createColumn(e, createdColumns, setCreatedColumns, currentBoard._id)
+					createColumn(
+						e,
+						createdColumns,
+						setCreatedColumns,
+						currentBoardState._id
+					)
 				}
 			>
 				<input

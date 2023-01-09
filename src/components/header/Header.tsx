@@ -3,7 +3,7 @@ import { TaskContext } from '../../context/TaskContext';
 import HeaderCSS from './header.module.css';
 
 export const Header = React.memo(() => {
-	const { currentBoard } = useContext(TaskContext);
+	const { currentBoardState } = useContext(TaskContext);
 
 	const userLogout = () => {};
 
@@ -19,8 +19,8 @@ export const Header = React.memo(() => {
 						×
 					</button>
 				</div>
-				{currentBoard.boardName ? (
-					<p>{currentBoard.boardName}</p>
+				{currentBoardState.boardName ? (
+					<p>{currentBoardState.boardName}</p>
 				) : (
 					<p>Select or create a new board</p>
 				)}

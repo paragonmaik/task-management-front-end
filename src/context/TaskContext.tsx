@@ -14,7 +14,6 @@ export function TaskProvider({ children }: TaskProviderProp) {
 	const [createdBoards, setCreatedBoard] = useState<board[]>([]);
 	const [createdColumns, setCreatedColumns] = useState<column[]>([]);
 	const [createdTasks, setCreatedTasks] = useState<task[]>([]);
-	const [currentBoard, setCurrentBoard] = useState<board>({} as board);
 	const [currentColumn, setCurrentColumn] = useState<column>({} as column);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -31,14 +30,12 @@ export function TaskProvider({ children }: TaskProviderProp) {
 			value={{
 				isModalOpen,
 				createdBoards,
-				currentBoard,
 				createdColumns,
 				currentColumn,
 				createdTasks,
 				currentBoardState,
 				setIsModalOpen,
 				setCreatedBoard,
-				setCurrentBoard,
 				setCreatedColumns,
 				setCurrentColumn,
 				setCreatedTasks,
