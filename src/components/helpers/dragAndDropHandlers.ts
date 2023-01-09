@@ -4,14 +4,8 @@ import { token } from '../../token';
 import { BoardState } from '../../typescript/types';
 
 type DragListConfig = {
-	itemsList: BoardState;
-	setDraggableList: (itemsList: any) => void;
-	parentComponentId: string;
-};
-
-type SingleDropConfig = {
-	itemsList: BoardState;
-	setDraggableList: (itemsList: any) => void;
+	currentBoardState: BoardState;
+	setCurrentBoardState: (currentBoardState: BoardState) => void;
 	parentComponentId: string;
 };
 
@@ -19,14 +13,14 @@ export const handleDnd: Record<string, CallableFunction> = {
 	columns: (
 		destination: DraggableLocation,
 		source: DraggableLocation,
-		config: SingleDropConfig
+		config: DragListConfig
 	) => {
 		handleColumnDroppable(destination, source, config);
 	},
 	task: (
 		destination: DraggableLocation,
 		source: DraggableLocation,
-		config: SingleDropConfig
+		config: DragListConfig
 	) => {
 		handleTaskDroppable(destination, source, config);
 	},
@@ -34,9 +28,9 @@ export const handleDnd: Record<string, CallableFunction> = {
 
 export const handleListDrag = (result: DropResult, config: DragListConfig) => {
 	const { destination, source, type } = result;
-	const { itemsList } = config;
+	const { currentBoardState } = config;
 
-	if (!itemsList) return 'List is empty!';
+	if (!currentBoardState) return 'List is empty!';
 	if (!destination) return;
 	if (
 		destination.index === source.index &&
@@ -51,26 +45,31 @@ export const handleListDrag = (result: DropResult, config: DragListConfig) => {
 const handleColumnDroppable = async (
 	destination: DraggableLocation,
 	source: DraggableLocation,
-	config: SingleDropConfig
+	config: DragListConfig
 ) => {
-	const { itemsList, setDraggableList, parentComponentId } = config;
-	console.log(itemsList);
+	const { currentBoardState, setCurrentBoardState, parentComponentId } = config;
+	const stateCopy = currentBoardState;
 
 	// extracts item from array
-	const [reorderedColumn] = itemsList.columnsList.splice(source.index, 1);
-	console.log(reorderedColumn);
+	const [reorderedColumn] = currentBoardState.columnsList.splice(
+		source.index,
+		1
+	);
 
 	// updates array with item in a new position
-	itemsList.columnsList.splice(destination.index, 0, reorderedColumn);
+	currentBoardState.columnsList.splice(destination.index, 0, reorderedColumn);
+
+	// updates shallow copy
+	stateCopy.columnsList = [...currentBoardState.columnsList];
 
 	// updates the state with the reordered array
-	setDraggableList([...itemsList.columnsList]);
+	setCurrentBoardState({ ...stateCopy });
 
-	const columns = itemsList.columnsList.map(({ _id }) => {
+	const columns = currentBoardState.columnsList.map(({ _id }) => {
 		return _id;
 	});
 
-	// request to update list // passar para outra função
+	// request to update list
 	await axiosRequest({
 		url: `/board/columns/${parentComponentId}`,
 		method: 'put',
@@ -83,24 +82,23 @@ const handleColumnDroppable = async (
 const handleTaskDroppable = async (
 	destination: DraggableLocation,
 	source: DraggableLocation,
-	// type: string,
-	config: SingleDropConfig
+	config: DragListConfig
 ) => {
-	// const { itemsList, setDraggableList, parentComponentId } = config;
+	// const { currentBoardState, setCurrentBoardState, parentComponentId } = config;
 	// console.log(source);
 	// // extracts item from array
-	// // const [reorderedTask] = itemsList.splice(source.index, 1);
-	// const sourceColumn = itemsList.filter(
+	// // const [reorderedTask] = currentBoardState.splice(source.index, 1);
+	// const sourceColumn = currentBoardState.filter(
 	// 	(item) => item.columnName === source.droppableId
 	// );
 	// const task = sourceColumn[source.index];
 	// console.log(sourceColumn);
 	// console.log(task);
 	// // updates array with item in a new position
-	// itemsList.splice(destination.index, 0, sourceColumn);
+	// currentBoardState.splice(destination.index, 0, sourceColumn);
 	// updates the state with the reordered array
-	// setDraggableList([...itemsList]);
-	// const tasks = itemsList.map((item) => {
+	// setCurrentBoardState([...currentBoardState]);
+	// const tasks = currentBoardState.map((item) => {
 	// 	return item.tasks;
 	// });
 	// console.log('task', tasks);

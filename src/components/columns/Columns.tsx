@@ -3,7 +3,7 @@ import Column from '../column/Column';
 import { column } from '../../typescript/types';
 import { createColumn } from './ColumnsController';
 import { TaskContext } from '../../context/TaskContext';
-import { useContext, useState, useEffect } from 'react';
+import { useContext } from 'react';
 import { getListStyle, handleListDrag } from '../helpers/dragAndDropHandlers';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 
@@ -17,30 +17,20 @@ export function Columns({ columnsList }: IColumns) {
 		createdColumns,
 		currentBoard,
 		setCreatedColumns,
-		draggableTasksList,
-		setDraggableTasksList,
 		currentBoardState,
+		setCurrentBoardState,
 	} = useContext(TaskContext);
-	const [draggableColumnsList, setDraggableColumnsList] = useState(columnsList);
-
-	useEffect(() => {
-		setDraggableColumnsList(columnsList);
-	}, [columnsList]);
 
 	const handleColumnDrag = (result: DropResult) => {
 		const handleDragConfig = {
-			itemsList:
-				result.type === 'columns'
-					? currentBoardState.columnsList
-					: draggableTasksList,
-			setDraggableList:
-				result.type === 'columns'
-					? setDraggableColumnsList
-					: setDraggableTasksList,
+			currentBoardState,
+			setCurrentBoardState,
 			parentComponentId: currentBoard._id,
 		};
 		handleListDrag(result, handleDragConfig);
 	};
+
+	console.log(currentBoardState);
 
 	return (
 		<div className={columnsCSS.bg}>
@@ -56,7 +46,7 @@ export function Columns({ columnsList }: IColumns) {
 							ref={provided.innerRef}
 							style={getListStyle(snapshot.isDraggingOver)}
 						>
-							{draggableColumnsList?.map(({ _id, columnName }, i) => (
+							{currentBoardState.columnsList?.map(({ _id, columnName }, i) => (
 								<Column
 									key={_id}
 									_id={_id}

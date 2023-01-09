@@ -17,7 +17,6 @@ export function TaskProvider({ children }: TaskProviderProp) {
 	const [currentBoard, setCurrentBoard] = useState<board>({} as board);
 	const [currentColumn, setCurrentColumn] = useState<column>({} as column);
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [draggableTasksList, setDraggableTasksList] = useState<task[][]>([]);
 
 	const [currentBoardState, setCurrentBoardState] = useState<BoardState>({
 		boardName: '',
@@ -36,7 +35,6 @@ export function TaskProvider({ children }: TaskProviderProp) {
 				createdColumns,
 				currentColumn,
 				createdTasks,
-				draggableTasksList,
 				currentBoardState,
 				setIsModalOpen,
 				setCreatedBoard,
@@ -44,7 +42,6 @@ export function TaskProvider({ children }: TaskProviderProp) {
 				setCreatedColumns,
 				setCurrentColumn,
 				setCreatedTasks,
-				setDraggableTasksList,
 				setCurrentBoardState,
 			}}
 		>

@@ -13,7 +13,6 @@ function DashBoard() {
 		currentBoard,
 		createdColumns,
 		isModalOpen,
-		setDraggableTasksList,
 		currentBoardState,
 		setCurrentBoardState,
 	} = useContext(TaskContext);
@@ -31,7 +30,6 @@ function DashBoard() {
 
 	useEffect(() => {
 		if (!response) return;
-		setDraggableTasksList(response);
 		const columnsList = response;
 		setCurrentBoardState({ ...currentBoardState, columnsList });
 	}, [response]);
