@@ -1,15 +1,16 @@
 import { DropResult, DraggableLocation } from 'react-beautiful-dnd';
 import { axiosRequest } from './axiosRequest';
 import { token } from '../../token';
+import { BoardState } from '../../typescript/types';
 
 type DragListConfig = {
-	itemsList: any[] | null | undefined;
+	itemsList: BoardState;
 	setDraggableList: (itemsList: any) => void;
 	parentComponentId: string;
 };
 
 type SingleDropConfig = {
-	itemsList: any[];
+	itemsList: BoardState;
 	setDraggableList: (itemsList: any) => void;
 	parentComponentId: string;
 };
@@ -56,16 +57,16 @@ const handleColumnDroppable = async (
 	console.log(itemsList);
 
 	// extracts item from array
-	const [reorderedColumn] = itemsList.splice(source.index, 1);
+	const [reorderedColumn] = itemsList.columnsList.splice(source.index, 1);
 	console.log(reorderedColumn);
 
 	// updates array with item in a new position
-	itemsList.splice(destination.index, 0, reorderedColumn);
+	itemsList.columnsList.splice(destination.index, 0, reorderedColumn);
 
 	// updates the state with the reordered array
-	setDraggableList([...itemsList]);
+	setDraggableList([...itemsList.columnsList]);
 
-	const columns = itemsList.map(({ _id }) => {
+	const columns = itemsList.columnsList.map(({ _id }) => {
 		return _id;
 	});
 
@@ -85,28 +86,23 @@ const handleTaskDroppable = async (
 	// type: string,
 	config: SingleDropConfig
 ) => {
-	const { itemsList, setDraggableList, parentComponentId } = config;
-	console.log(source);
-	// extracts item from array
-	// const [reorderedTask] = itemsList.splice(source.index, 1);
-	const sourceColumn = itemsList.filter(
-		(item) => item.columnName === source.droppableId
-	);
-
-	const task = sourceColumn[source.index];
-	console.log(sourceColumn);
-	console.log(task);
-
-	// updates array with item in a new position
-	itemsList.splice(destination.index, 0, sourceColumn);
-
+	// const { itemsList, setDraggableList, parentComponentId } = config;
+	// console.log(source);
+	// // extracts item from array
+	// // const [reorderedTask] = itemsList.splice(source.index, 1);
+	// const sourceColumn = itemsList.filter(
+	// 	(item) => item.columnName === source.droppableId
+	// );
+	// const task = sourceColumn[source.index];
+	// console.log(sourceColumn);
+	// console.log(task);
+	// // updates array with item in a new position
+	// itemsList.splice(destination.index, 0, sourceColumn);
 	// updates the state with the reordered array
 	// setDraggableList([...itemsList]);
-
 	// const tasks = itemsList.map((item) => {
 	// 	return item.tasks;
 	// });
-
 	// console.log('task', tasks);
 	// request to update list // passar para outra função
 	// await axiosRequest({
