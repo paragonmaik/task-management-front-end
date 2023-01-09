@@ -20,6 +20,7 @@ export type DraggableColumn = {
 export type task = {
 	description: string;
 	_id: string;
+	ownerColumn?: string;
 };
 
 export interface IAxios {
@@ -44,32 +45,14 @@ export type TaskContextType = {
 	currentColumn: column;
 	createdTasks: task[];
 	isModalOpen: boolean;
+	draggableTasksList: task[][];
+	currentBoardState: any;
 	setIsModalOpen: (isModalOpen: boolean) => void;
 	setCreatedBoard: (createdBoards: board[]) => void;
 	setCurrentBoard: (currentBoard: board) => void;
 	setCreatedColumns: (createdColumns: column[]) => void;
 	setCurrentColumn: (currentColumn: column) => void;
 	setCreatedTasks: (createdTasks: task[]) => void;
+	setDraggableTasksList: (draggableTasksList: task[][]) => void;
+	setCurrentBoardState: (currentBoardState: any) => void;
 };
-
-export type DragIDs = {
-	colName: 'todo' | 'inProgress' | 'inReview' | 'done';
-};
-
-export interface ISubTasks {
-	description: string;
-	id: string;
-}
-
-export interface ITask {
-	description: string;
-	id: string;
-	subTasks: ISubTasks[];
-}
-
-export interface ITasksState {
-	todo: { tasks: ITask[] };
-	inProgress: { tasks: ITask[] };
-	inReview: { tasks: ITask[] };
-	done: { tasks: ITask[] };
-}
