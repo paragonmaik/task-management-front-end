@@ -9,12 +9,8 @@ import { token } from '../../token';
 import { sortDraggableList } from '../helpers/sortDraggableList';
 
 function DashBoard() {
-	const {
-		createdColumns,
-		isModalOpen,
-		currentBoardState,
-		setCurrentBoardState,
-	} = useContext(TaskContext);
+	const { isModalOpen, currentBoardState, setCurrentBoardState } =
+		useContext(TaskContext);
 
 	const { response } = useAxios(
 		{
@@ -33,7 +29,6 @@ function DashBoard() {
 		setCurrentBoardState({ ...currentBoardState, columnsList });
 	}, [response]);
 
-	console.log(currentBoardState._id);
 	sortDraggableList(response, currentBoardState.columns);
 
 	return (

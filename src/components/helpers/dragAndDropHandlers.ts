@@ -29,7 +29,7 @@ export const handleListDrag = (result: DropResult, config: DragListConfig) => {
 	const { destination, source, type } = result;
 	const { currentBoardState } = config;
 
-	if (!currentBoardState) return 'List is empty!';
+	if (!currentBoardState) return 'Board is empty!';
 	if (!destination) return;
 	if (
 		destination.index === source.index &&
@@ -49,6 +49,8 @@ const handleColumnDroppable = async (
 	const { currentBoardState, setCurrentBoardState } = config;
 	const stateCopy = currentBoardState;
 
+	if (!currentBoardState.columnsList) return 'List is empty!';
+
 	// extracts item from array
 	const [reorderedColumn] = currentBoardState.columnsList.splice(
 		source.index,
@@ -60,12 +62,14 @@ const handleColumnDroppable = async (
 
 	// updates shallow copy
 	stateCopy.columnsList = [...currentBoardState.columnsList];
+	const columns = currentBoardState.columnsList.map(({ _id }) => _id);
+
+	stateCopy.columns = columns;
 
 	// updates the state with the reordered array
 	setCurrentBoardState({ ...stateCopy });
 
-	const columns = currentBoardState.columnsList.map(({ _id }) => _id);
-
+	console.log(stateCopy);
 	// request to update list
 	await axiosRequest({
 		url: `/board/columns/${currentBoardState._id}`,
@@ -73,7 +77,6 @@ const handleColumnDroppable = async (
 		data: { columns },
 		headers: { Authorization: token },
 	});
-	// console.log('columns');
 };
 
 const handleTaskDroppable = async (
@@ -81,29 +84,55 @@ const handleTaskDroppable = async (
 	source: DraggableLocation,
 	config: DragListConfig
 ) => {
-	// const { currentBoardState, setCurrentBoardState, parentComponentId } = config;
-	// console.log(source);
-	// // extracts item from array
-	// // const [reorderedTask] = currentBoardState.splice(source.index, 1);
-	// const sourceColumn = currentBoardState.filter(
-	// 	(item) => item.columnName === source.droppableId
-	// );
-	// const task = sourceColumn[source.index];
-	// console.log(sourceColumn);
-	// console.log(task);
-	// // updates array with item in a new position
-	// currentBoardState.splice(destination.index, 0, sourceColumn);
+	const { currentBoardState, setCurrentBoardState } = config;
+	const stateCopy = currentBoardState;
+
+	if (!stateCopy.columnsList) return 'List is empty!';
+
+	// shallow source column copy
+	const sourceColumn = stateCopy.columnsList.filter(
+		(column) => column.columnName === source.droppableId
+	);
+	if (!sourceColumn) return;
+
+	// removed task from source column
+	const reorderedTask = sourceColumn?.map(
+		(column) => column.tasksList.splice(source.index, 1)[0]
+	);
+
+	if (!reorderedTask) return;
+
+	const destinationColumn = stateCopy.columnsList?.filter(
+		(column) => column.columnName === destination.droppableId
+	);
+	if (!destinationColumn) return;
+
+	// added task to destination column
+	destinationColumn?.filter((column) =>
+		column.tasksList.splice(destination.index, 0, reorderedTask[0])
+	);
+
+	const sourceTaskIds = sourceColumn[0].tasksList.map(({ _id }) => _id);
+	const destinationTaskIds = destinationColumn[0].tasksList.map(
+		({ _id }) => _id
+	);
+
 	// updates the state with the reordered array
-	// setCurrentBoardState([...currentBoardState]);
-	// const tasks = currentBoardState.map((item) => {
-	// 	return item.tasks;
-	// });
-	// console.log('task', tasks);
-	// request to update list // passar para outra função
+	setCurrentBoardState({ ...stateCopy });
+
+	// // request to update source column
 	// await axiosRequest({
-	// 	url: `/column/tasks/${parentComponentId}`,
+	// 	url: `/column/tasks/${sourceColumn[0]._id}`,
 	// 	method: 'put',
-	// 	data: { tasks },
+	// 	data: { tasks: sourceTaskIds },
+	// 	headers: { Authorization: token },
+	// });
+
+	// // request to update destination column
+	// await axiosRequest({
+	// 	url: `/column/tasks/${destinationColumn[0]._id}`,
+	// 	method: 'put',
+	// 	data: { tasks: destinationTaskIds },
 	// 	headers: { Authorization: token },
 	// });
 };
