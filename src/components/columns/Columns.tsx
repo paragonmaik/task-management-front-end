@@ -22,11 +22,7 @@ export function Columns({ columnsList }: IColumns) {
 	} = useContext(TaskContext);
 
 	const handleColumnDrag = (result: DropResult) => {
-		const handleDragConfig = {
-			currentBoardState,
-			setCurrentBoardState,
-			parentComponentId: currentBoard._id,
-		};
+		const handleDragConfig = { currentBoardState, setCurrentBoardState };
 		handleListDrag(result, handleDragConfig);
 	};
 

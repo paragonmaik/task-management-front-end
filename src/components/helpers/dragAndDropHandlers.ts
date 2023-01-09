@@ -6,7 +6,6 @@ import { BoardState } from '../../typescript/types';
 type DragListConfig = {
 	currentBoardState: BoardState;
 	setCurrentBoardState: (currentBoardState: BoardState) => void;
-	parentComponentId: string;
 };
 
 export const handleDnd: Record<string, CallableFunction> = {
@@ -47,7 +46,7 @@ const handleColumnDroppable = async (
 	source: DraggableLocation,
 	config: DragListConfig
 ) => {
-	const { currentBoardState, setCurrentBoardState, parentComponentId } = config;
+	const { currentBoardState, setCurrentBoardState } = config;
 	const stateCopy = currentBoardState;
 
 	// extracts item from array
@@ -65,13 +64,11 @@ const handleColumnDroppable = async (
 	// updates the state with the reordered array
 	setCurrentBoardState({ ...stateCopy });
 
-	const columns = currentBoardState.columnsList.map(({ _id }) => {
-		return _id;
-	});
+	const columns = currentBoardState.columnsList.map(({ _id }) => _id);
 
 	// request to update list
 	await axiosRequest({
-		url: `/board/columns/${parentComponentId}`,
+		url: `/board/columns/${currentBoardState._id}`,
 		method: 'put',
 		data: { columns },
 		headers: { Authorization: token },
