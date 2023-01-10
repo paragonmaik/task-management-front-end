@@ -41,6 +41,7 @@
   height: 30px;
 }
 
-.selectBoardBtn:focus {
+.selectBoardBtn:disabled {
   background-color: hsl(243, 45%, 57%);
+  cursor: default;
 }
