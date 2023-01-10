@@ -8,6 +8,7 @@ import { useAxios } from '../hooks/useAxios';
 import { token } from '../../token';
 import { openAddTaskModal } from './ColumnController';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
+import { sortDraggableTask } from '../helpers/sortDraggableList';
 
 function Column({ columnName, _id, position }: DraggableColumn) {
 	const {
@@ -43,6 +44,8 @@ function Column({ columnName, _id, position }: DraggableColumn) {
 		}
 		setCurrentBoardState({ ...stateCopy });
 	}, [response]);
+
+	sortDraggableTask(currentBoardState.columnsList);
 
 	return (
 		<>

@@ -90,35 +90,28 @@ const handleTaskDroppable = async (
 	if (!stateCopy.columnsList) return 'List is empty!';
 
 	// shallow source column copy
-	const sourceColumn = stateCopy.columnsList.filter(
+	const [sourceColumn] = stateCopy.columnsList.filter(
 		(column) => column.columnName === source.droppableId
 	);
-	if (!sourceColumn) return;
 
 	// removed task from source column
-	const reorderedTask = sourceColumn?.map(
-		(column) => column.tasksList.splice(source.index, 1)[0]
-	);
+	const [reorderedTask] = sourceColumn.tasksList.splice(source.index, 1);
 
-	if (!reorderedTask) return;
-
-	const destinationColumn = stateCopy.columnsList?.filter(
+	// shallow destination column copy
+	const [destinationColumn] = stateCopy.columnsList.filter(
 		(column) => column.columnName === destination.droppableId
 	);
-	if (!destinationColumn) return;
 
 	// added task to destination column
-	destinationColumn?.filter((column) =>
-		column.tasksList.splice(destination.index, 0, reorderedTask[0])
-	);
+	destinationColumn.tasksList.splice(destination.index, 0, reorderedTask);
 
-	const sourceTaskIds = sourceColumn[0].tasksList.map(({ _id }) => _id);
-	const destinationTaskIds = destinationColumn[0].tasksList.map(
-		({ _id }) => _id
-	);
+	// extracted taskIds from updated tasksList
+	const sourceTaskIds = sourceColumn.tasksList.map(({ _id }) => _id);
+	const destinationTaskIds = destinationColumn.tasksList.map(({ _id }) => _id);
 
-	sourceColumn[0].tasks = sourceTaskIds;
-	destinationColumn[0].tasks = destinationTaskIds;
+	// adds updated tasksList to state
+	sourceColumn.tasks = sourceTaskIds;
+	destinationColumn.tasks = destinationTaskIds;
 
 	// updates the state with the reordered array
 	setCurrentBoardState({ ...stateCopy });
