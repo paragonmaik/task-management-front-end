@@ -1,6 +1,5 @@
 import columnsCSS from './columns.module.css';
 import Column from '../column/Column';
-import { column } from '../../typescript/types';
 import { createColumn } from './ColumnsController';
 import { TaskContext } from '../../context/TaskContext';
 import { useContext } from 'react';
@@ -8,12 +7,7 @@ import { getListStyle, handleListDrag } from '../helpers/dragAndDropHandlers';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 
 export function Columns() {
-	const {
-		createdColumns,
-		setCreatedColumns,
-		currentBoardState,
-		setCurrentBoardState,
-	} = useContext(TaskContext);
+	const { currentBoardState, setCurrentBoardState } = useContext(TaskContext);
 
 	const handleColumnDrag = (result: DropResult) => {
 		const handleDragConfig = { currentBoardState, setCurrentBoardState };
@@ -49,14 +43,7 @@ export function Columns() {
 			</DragDropContext>
 			<form
 				onSubmit={(e) =>
-					createColumn(
-						e,
-						createdColumns,
-						setCreatedColumns,
-						currentBoardState._id,
-						currentBoardState,
-						setCurrentBoardState
-					)
+					createColumn(e, currentBoardState, setCurrentBoardState)
 				}
 			>
 				<input
