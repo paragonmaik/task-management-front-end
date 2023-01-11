@@ -6,7 +6,7 @@ import { DraggableColumn } from '../../typescript/types';
 import { TaskContext } from '../../context/TaskContext';
 import { useAxios } from '../hooks/useAxios';
 import { token } from '../../token';
-import { openAddTaskModal } from './ColumnController';
+import { openAddTaskModal, getTasksFromState } from './ColumnController';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { sortDraggableTask } from '../helpers/sortDraggableList';
 
@@ -18,7 +18,6 @@ function Column({ columnName, _id, position }: DraggableColumn) {
 		setCurrentBoardState,
 		createdTasks,
 		currentBoardState,
-		createdColumns,
 	} = useContext(TaskContext);
 
 	const { response } = useAxios(
@@ -31,18 +30,6 @@ function Column({ columnName, _id, position }: DraggableColumn) {
 		},
 		[createdTasks]
 	);
-
-	const getTasksFromState = () => {
-		if (!currentBoardState.columnsList) {
-			return;
-		}
-
-		const [tasks] = currentBoardState.columnsList.filter(
-			(column) => column._id === _id
-		);
-
-		return tasks;
-	};
 
 	useEffect(() => {
 		if (!response) return;
@@ -59,9 +46,9 @@ function Column({ columnName, _id, position }: DraggableColumn) {
 
 		setCurrentBoardState({ ...stateCopy });
 		sortDraggableTask(currentBoardState.columnsList);
-	}, [response, createdColumns]);
+	}, [response]);
 
-	const tasksList = getTasksFromState();
+	const tasksList = getTasksFromState(currentBoardState, _id);
 
 	return (
 		<>

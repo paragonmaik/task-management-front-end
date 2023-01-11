@@ -1,4 +1,19 @@
-import { column } from '../../typescript/types';
+import { BoardState, column } from '../../typescript/types';
+
+export const getTasksFromState = (
+	currentBoardState: BoardState,
+	currentColumnId: string
+) => {
+	if (!currentBoardState.columnsList) {
+		return;
+	}
+
+	const [tasks] = currentBoardState.columnsList.filter(
+		(column) => column._id === currentColumnId
+	);
+
+	return tasks;
+};
 
 export const openAddTaskModal = (
 	setCurrentColumn: (currentColumn: column) => void,
