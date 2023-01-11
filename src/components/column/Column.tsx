@@ -18,6 +18,7 @@ function Column({ columnName, _id, position }: DraggableColumn) {
 		setCurrentBoardState,
 		createdTasks,
 		currentBoardState,
+		createdColumns,
 	} = useContext(TaskContext);
 
 	const { response } = useAxios(
@@ -31,21 +32,36 @@ function Column({ columnName, _id, position }: DraggableColumn) {
 		[createdTasks]
 	);
 
+	const getTasksFromState = () => {
+		if (!currentBoardState.columnsList) {
+			return;
+		}
+
+		const [tasks] = currentBoardState.columnsList.filter(
+			(column) => column._id === _id
+		);
+
+		return tasks;
+	};
+
 	useEffect(() => {
 		if (!response) return;
 		const stateCopy = currentBoardState;
-		const tasksList: task[] = response;
+		const responseTasks: task[] = response;
 
 		if (!stateCopy.columnsList) return;
-		for (const column of stateCopy.columnsList) {
-			if (tasksList[0]?.ownerColumn === column._id) {
-				column.tasksList = tasksList;
-			}
-		}
-		setCurrentBoardState({ ...stateCopy });
-	}, [response]);
 
-	sortDraggableTask(currentBoardState.columnsList);
+		stateCopy.columnsList.forEach((column) => {
+			if (column._id === _id) {
+				column.tasksList = responseTasks;
+			}
+		});
+
+		setCurrentBoardState({ ...stateCopy });
+		sortDraggableTask(currentBoardState.columnsList);
+	}, [response, createdColumns]);
+
+	const tasksList = getTasksFromState();
 
 	return (
 		<>
@@ -77,7 +93,7 @@ function Column({ columnName, _id, position }: DraggableColumn) {
 											{...provided.droppableProps}
 											ref={provided.innerRef}
 										>
-											<Task tasksList={response} />
+											<Task tasksList={tasksList?.tasksList} />
 											{provided.placeholder}
 										</div>
 									)}

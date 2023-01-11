@@ -69,7 +69,6 @@ const handleColumnDroppable = async (
 	// updates the state with the reordered array
 	setCurrentBoardState({ ...stateCopy });
 
-	console.log(stateCopy);
 	// request to update list
 	await axiosRequest({
 		url: `/board/columns/${currentBoardState._id}`,
@@ -102,6 +101,9 @@ const handleTaskDroppable = async (
 		(column) => column.columnName === destination.droppableId
 	);
 
+	// destinationColumn.tasksList =
+	// 	destinationColumn.tasks.length === 0 ? [] : destinationColumn.tasksList;
+
 	// added task to destination column
 	destinationColumn.tasksList.splice(destination.index, 0, reorderedTask);
 
@@ -116,13 +118,18 @@ const handleTaskDroppable = async (
 	// updates the state with the reordered array
 	setCurrentBoardState({ ...stateCopy });
 
-	// // request to update source column
-	// await axiosRequest({
-	// 	url: `/column/tasks/${sourceColumn[0]._id}`,
-	// 	method: 'put',
-	// 	data: { tasks: sourceTaskIds },
-	// 	headers: { Authorization: token },
-	// });
+	const updatedColumns =
+		sourceColumn._id === destinationColumn._id
+			? [destinationColumn]
+			: [sourceColumn, destinationColumn];
+
+	// // request to update column
+	await axiosRequest({
+		url: `/column/tasks/${currentBoardState._id}`,
+		method: 'put',
+		data: { updatedColumns },
+		headers: { Authorization: token },
+	});
 
 	// // request to update destination column
 	// await axiosRequest({

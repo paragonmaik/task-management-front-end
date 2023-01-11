@@ -7,6 +7,7 @@ import dashBoardCSS from './dashBoard.module.css';
 import { useAxios } from '../hooks/useAxios';
 import { token } from '../../token';
 import { sortDraggableList } from '../helpers/sortDraggableList';
+import { ColumnState } from '../../typescript/types';
 
 function DashBoard() {
 	const {
@@ -29,7 +30,12 @@ function DashBoard() {
 
 	useEffect(() => {
 		if (!response) return;
-		const columnsList = response;
+		const columnsList: ColumnState[] = response;
+		columnsList.forEach((column) => {
+			column.tasksList = [];
+			if (column.tasks.length === 0) {
+			}
+		});
 		setCurrentBoardState({ ...currentBoardState, columnsList });
 	}, [response]);
 
