@@ -101,9 +101,6 @@ const handleTaskDroppable = async (
 		(column) => column.columnName === destination.droppableId
 	);
 
-	// destinationColumn.tasksList =
-	// 	destinationColumn.tasks.length === 0 ? [] : destinationColumn.tasksList;
-
 	// added task to destination column
 	destinationColumn.tasksList.splice(destination.index, 0, reorderedTask);
 
@@ -130,14 +127,6 @@ const handleTaskDroppable = async (
 		data: { updatedColumns },
 		headers: { Authorization: token },
 	});
-
-	// // request to update destination column
-	// await axiosRequest({
-	// 	url: `/column/tasks/${destinationColumn[0]._id}`,
-	// 	method: 'put',
-	// 	data: { tasks: destinationTaskIds },
-	// 	headers: { Authorization: token },
-	// });
 };
 
 export const getListStyle = (isDraggingOver: boolean) => ({
