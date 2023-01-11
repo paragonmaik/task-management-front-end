@@ -25,7 +25,7 @@ function DashBoard() {
 				Authorization: token,
 			},
 		},
-		[currentBoardState._id, createdColumns]
+		[currentBoardState._id]
 	);
 
 	useEffect(() => {
@@ -33,8 +33,6 @@ function DashBoard() {
 		const columnsList: ColumnState[] = response;
 		columnsList.forEach((column) => {
 			column.tasksList = [];
-			if (column.tasks.length === 0) {
-			}
 		});
 		setCurrentBoardState({ ...currentBoardState, columnsList });
 	}, [response]);

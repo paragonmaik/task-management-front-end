@@ -1,5 +1,5 @@
 import { FormEvent } from 'react';
-import { column } from '../../typescript/types';
+import { column, BoardState } from '../../typescript/types';
 import { token } from '../../token';
 import { axiosRequest } from '../helpers/axiosRequest';
 
@@ -7,8 +7,11 @@ export const createColumn = async (
 	e: FormEvent<HTMLFormElement>,
 	createdColumns: column[],
 	setCreatedColumns: (column: column[]) => void,
-	currentBoardId: string
+	currentBoardId: string,
+	currentBoardState: BoardState,
+	setCurrentBoardState: (currentBoardState: BoardState) => void
 ) => {
+	const stateCopy = currentBoardState;
 	const columnName = getColumnName(e);
 
 	const response = await axiosRequest({
@@ -22,7 +25,10 @@ export const createColumn = async (
 		},
 	});
 
-	addColumnToState(response.data, createdColumns, setCreatedColumns);
+	stateCopy.columnsList?.push(response.data);
+	stateCopy.columns?.push(response.data._id);
+	setCurrentBoardState({ ...stateCopy });
+	// addColumnToState(response.data, createdColumns, setCreatedColumns);
 };
 
 const getColumnName = (e: FormEvent<HTMLFormElement>): string => {

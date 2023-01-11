@@ -53,7 +53,9 @@ export function Columns() {
 						e,
 						createdColumns,
 						setCreatedColumns,
-						currentBoardState._id
+						currentBoardState._id,
+						currentBoardState,
+						setCurrentBoardState
 					)
 				}
 			>
