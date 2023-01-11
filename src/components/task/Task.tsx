@@ -1,6 +1,6 @@
-import { task, TaskState } from '../../typescript/types';
-import TaskCSS from './task.module.css';
+import { TaskState } from '../../typescript/types';
 import { Draggable } from 'react-beautiful-dnd';
+import TaskCSS from './task.module.css';
 
 interface ITask {
 	loading?: boolean;
