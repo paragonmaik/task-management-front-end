@@ -1,21 +1,16 @@
 import { TaskContext } from '../../context/TaskContext';
 import { useContext, useEffect } from 'react';
-import TaskDetailsModal from '../taskDetailsModal/TaskDetailsModal';
 import { Columns } from '../columns/Columns';
 import AddTaskModal from '../taskModal/AddTaskModal';
 import dashBoardCSS from './dashBoard.module.css';
 import { useAxios } from '../hooks/useAxios';
 import { token } from '../../token';
 import { sortDraggableList } from '../helpers/sortDraggableList';
-import { ColumnState } from '../../typescript/types';
+import { addColumnsToState } from './DashBoardController';
 
 function DashBoard() {
-	const {
-		isModalOpen,
-		currentBoardState,
-		setCurrentBoardState,
-		createdColumns,
-	} = useContext(TaskContext);
+	const { isModalOpen, currentBoardState, setCurrentBoardState } =
+		useContext(TaskContext);
 
 	const { response } = useAxios(
 		{
@@ -29,12 +24,7 @@ function DashBoard() {
 	);
 
 	useEffect(() => {
-		if (!response) return;
-		const columnsList: ColumnState[] = response;
-		columnsList.forEach((column) => {
-			column.tasksList = [];
-		});
-		setCurrentBoardState({ ...currentBoardState, columnsList });
+		addColumnsToState({ response, currentBoardState, setCurrentBoardState });
 	}, [response]);
 
 	sortDraggableList(currentBoardState.columnsList, currentBoardState.columns);
