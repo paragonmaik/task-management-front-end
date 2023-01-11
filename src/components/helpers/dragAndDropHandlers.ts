@@ -104,13 +104,9 @@ const handleTaskDroppable = async (
 	// added task to destination column
 	destinationColumn.tasksList.splice(destination.index, 0, reorderedTask);
 
-	// extracted taskIds from updated tasksList
-	const sourceTaskIds = sourceColumn.tasksList.map(({ _id }) => _id);
-	const destinationTaskIds = destinationColumn.tasksList.map(({ _id }) => _id);
-
 	// adds updated tasksList to state
-	sourceColumn.tasks = sourceTaskIds;
-	destinationColumn.tasks = destinationTaskIds;
+	sourceColumn.tasks = sourceColumn.tasksList.map(({ _id }) => _id);
+	destinationColumn.tasks = destinationColumn.tasksList.map(({ _id }) => _id);
 
 	// updates the state with the reordered array
 	setCurrentBoardState({ ...stateCopy });
@@ -120,7 +116,7 @@ const handleTaskDroppable = async (
 			? [destinationColumn]
 			: [sourceColumn, destinationColumn];
 
-	// // request to update column
+	// request to update column
 	await axiosRequest({
 		url: `/column/tasks/${currentBoardState._id}`,
 		method: 'put',
