@@ -1,12 +1,15 @@
 import Task from '../task/Task';
 import ColumnCSS from './column.module.css';
-import { task } from '../../typescript/types';
 import { useContext, useEffect } from 'react';
 import { DraggableColumn } from '../../typescript/types';
 import { TaskContext } from '../../context/TaskContext';
 import { useAxios } from '../hooks/useAxios';
 import { token } from '../../token';
-import { openAddTaskModal, getTasksFromState } from './ColumnController';
+import {
+	openAddTaskModal,
+	getTasksFromState,
+	addTasksToState,
+} from './ColumnController';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { sortDraggableTask } from '../helpers/sortDraggableList';
 
@@ -32,19 +35,13 @@ function Column({ columnName, _id, position }: DraggableColumn) {
 	);
 
 	useEffect(() => {
-		if (!response) return;
-		const stateCopy = currentBoardState;
-		const responseTasks: task[] = response;
-
-		if (!stateCopy.columnsList) return;
-
-		stateCopy.columnsList.forEach((column) => {
-			if (column._id === _id) {
-				column.tasksList = responseTasks;
-			}
+		addTasksToState({
+			response,
+			currentBoardState,
+			setCurrentBoardState,
+			currentColumnId: _id,
 		});
 
-		setCurrentBoardState({ ...stateCopy });
 		sortDraggableTask(currentBoardState.columnsList);
 	}, [response]);
 

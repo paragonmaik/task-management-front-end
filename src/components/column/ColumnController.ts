@@ -1,14 +1,42 @@
-import { BoardState, column } from '../../typescript/types';
+import { BoardState, column, task } from '../../typescript/types';
+
+type AddTaskConfig = {
+	response: [] | null;
+	currentBoardState: BoardState;
+	setCurrentBoardState: (currentBoardState: BoardState) => void;
+	currentColumnId: string;
+};
+
+export const addTasksToState = (taskConfig: AddTaskConfig) => {
+	const { response, currentBoardState, setCurrentBoardState, currentColumnId } =
+		taskConfig;
+
+	if (!response) return;
+	const stateCopy = currentBoardState;
+	const responseTasks: task[] = response;
+
+	if (!stateCopy.columnsList) return;
+
+	stateCopy.columnsList.forEach((column) => {
+		if (column._id === currentColumnId) {
+			column.tasksList = responseTasks;
+		}
+	});
+
+	setCurrentBoardState({ ...stateCopy });
+};
 
 export const getTasksFromState = (
 	currentBoardState: BoardState,
 	currentColumnId: string
 ) => {
-	if (!currentBoardState.columnsList) {
+	const { columnsList } = currentBoardState;
+
+	if (!columnsList) {
 		return;
 	}
 
-	const [tasks] = currentBoardState.columnsList.filter(
+	const [tasks] = columnsList.filter(
 		(column) => column._id === currentColumnId
 	);
 
