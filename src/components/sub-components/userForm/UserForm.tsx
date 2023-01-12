@@ -1,4 +1,6 @@
-import { FormEvent } from 'react';
+import { FormEvent, useContext } from 'react';
+import { TaskContext } from '../../../context/TaskContext';
+import { UserAuth } from '../../../typescript/types';
 
 type UserFormProps = {
 	children?: JSX.Element[] | JSX.Element;
@@ -8,7 +10,8 @@ type UserFormProps = {
 	handleSubmit: (
 		e: FormEvent<HTMLFormElement>,
 		navigate: CallableFunction,
-		setErrorMessage: (errorMessage: string) => void
+		setErrorMessage: (errorMessage: string) => void,
+		setAuthUser: (authUser: UserAuth) => void
 	) => void;
 };
 
@@ -19,11 +22,17 @@ export const UserForm = ({
 	setErrorMessage,
 	handleSubmit,
 }: UserFormProps) => {
+	const { setAuthUser } = useContext(TaskContext);
+
 	return (
 		<>
 			<div>
 				<h4>Sign in</h4>
-				<form onSubmit={(e) => handleSubmit(e, navigate, setErrorMessage)}>
+				<form
+					onSubmit={(e) =>
+						handleSubmit(e, navigate, setErrorMessage, setAuthUser)
+					}
+				>
 					{children}
 					<label htmlFor='email'>
 						<p>e-mail</p>

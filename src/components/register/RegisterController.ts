@@ -1,6 +1,7 @@
 import { FormEvent } from 'react';
 import { axiosRequest } from '../helpers/axiosRequest';
 import { AxiosError } from 'axios';
+import { UserAuth } from '../../typescript/types';
 
 const getUserCredentials = (e: FormEvent<HTMLFormElement>) => {
 	// prevents form reload
@@ -22,9 +23,11 @@ const getUserCredentials = (e: FormEvent<HTMLFormElement>) => {
 export const signUp = async (
 	e: FormEvent<HTMLFormElement>,
 	navigate: CallableFunction,
-	setErrorMessage: (errorMessage: string) => void
+	setErrorMessage: (errorMessage: string) => void,
+	setAuthUser: (authUser: UserAuth) => void
 ) => {
 	const userCredentials = getUserCredentials(e);
+	console.log(setAuthUser);
 
 	try {
 		const res = await axiosRequest({
@@ -34,6 +37,11 @@ export const signUp = async (
 		});
 
 		if (res.status === 201) {
+			setAuthUser({
+				email: userCredentials.email,
+				logged: true,
+				token: res.data.token,
+			});
 			navigate('/home');
 		}
 	} catch (e) {

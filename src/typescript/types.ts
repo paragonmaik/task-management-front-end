@@ -1,5 +1,11 @@
 import { ReactNode } from 'react';
 
+export type UserAuth = {
+	email: string;
+	token: string;
+	logged: boolean;
+};
+
 export type board = {
 	boardName: string;
 	_id: string;
@@ -53,15 +59,15 @@ export interface BoardState {
 
 export type TaskContextType = {
 	createdBoards: board[];
-	createdColumns: column[];
 	currentColumn: column;
 	createdTasks: task[];
 	isModalOpen: boolean;
 	currentBoardState: BoardState;
+	authUser: UserAuth;
 	setIsModalOpen: (isModalOpen: boolean) => void;
 	setCreatedBoard: (createdBoards: board[]) => void;
-	setCreatedColumns: (createdColumns: column[]) => void;
 	setCurrentColumn: (currentColumn: column) => void;
 	setCreatedTasks: (createdTasks: task[]) => void;
 	setCurrentBoardState: (currentBoardState: BoardState) => void;
+	setAuthUser: (authUser: UserAuth) => void;
 };
