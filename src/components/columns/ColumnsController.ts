@@ -1,12 +1,12 @@
 import { FormEvent } from 'react';
 import { BoardState } from '../../typescript/types';
-import { token } from '../../token';
 import { axiosRequest } from '../helpers/axiosRequest';
 
 export const createColumn = async (
 	e: FormEvent<HTMLFormElement>,
 	currentBoardState: BoardState,
-	setCurrentBoardState: (currentBoardState: BoardState) => void
+	setCurrentBoardState: (currentBoardState: BoardState) => void,
+	token: string
 ) => {
 	const stateCopy = currentBoardState;
 	const columnName = getColumnName(e);

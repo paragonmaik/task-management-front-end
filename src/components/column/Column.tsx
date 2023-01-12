@@ -4,7 +4,6 @@ import { useContext, useEffect } from 'react';
 import { DraggableColumn } from '../../typescript/types';
 import { TaskContext } from '../../context/TaskContext';
 import { useAxios } from '../hooks/useAxios';
-import { token } from '../../token';
 import {
 	openAddTaskModal,
 	getTasksFromState,
@@ -21,6 +20,7 @@ function Column({ columnName, _id, position }: DraggableColumn) {
 		setCurrentBoardState,
 		createdTasks,
 		currentBoardState,
+		authUser,
 	} = useContext(TaskContext);
 
 	const { response } = useAxios(
@@ -28,7 +28,7 @@ function Column({ columnName, _id, position }: DraggableColumn) {
 			method: 'get',
 			url: `/task/${_id}`,
 			headers: {
-				Authorization: token,
+				Authorization: authUser.token,
 			},
 		},
 		[createdTasks]

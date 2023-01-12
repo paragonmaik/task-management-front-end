@@ -27,7 +27,6 @@ export const signUp = async (
 	setAuthUser: (authUser: UserAuth) => void
 ) => {
 	const userCredentials = getUserCredentials(e);
-	console.log(setAuthUser);
 
 	try {
 		const res = await axiosRequest({

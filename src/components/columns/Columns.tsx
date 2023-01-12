@@ -7,10 +7,15 @@ import { getListStyle, handleListDrag } from '../helpers/dragAndDropHandlers';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 
 export function Columns() {
-	const { currentBoardState, setCurrentBoardState } = useContext(TaskContext);
+	const { currentBoardState, setCurrentBoardState, authUser } =
+		useContext(TaskContext);
 
 	const handleColumnDrag = (result: DropResult) => {
-		const handleDragConfig = { currentBoardState, setCurrentBoardState };
+		const handleDragConfig = {
+			currentBoardState,
+			setCurrentBoardState,
+			token: authUser.token,
+		};
 		handleListDrag(result, handleDragConfig);
 	};
 
@@ -43,7 +48,12 @@ export function Columns() {
 			</DragDropContext>
 			<form
 				onSubmit={(e) =>
-					createColumn(e, currentBoardState, setCurrentBoardState)
+					createColumn(
+						e,
+						currentBoardState,
+						setCurrentBoardState,
+						authUser.token
+					)
 				}
 			>
 				<input

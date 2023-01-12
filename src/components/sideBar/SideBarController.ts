@@ -1,12 +1,12 @@
 import { FormEvent } from 'react';
 import { board } from '../../typescript/types';
-import { token } from '../../token';
 import { axiosRequest } from '../helpers/axiosRequest';
 
 export const createBoard = async (
 	e: FormEvent<HTMLFormElement>,
 	createdBoards: board[],
-	setCreatedBoard: (board: board[]) => void
+	setCreatedBoard: (board: board[]) => void,
+	token: string
 ) => {
 	const boardName = getBoardName(e);
 

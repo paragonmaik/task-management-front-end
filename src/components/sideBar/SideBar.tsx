@@ -12,9 +12,10 @@ interface ISidebar {
 export default function SideBar({ boardsList }: ISidebar) {
 	const {
 		createdBoards,
+		currentBoardState,
+		authUser,
 		setCreatedBoard,
 		setCurrentBoardState,
-		currentBoardState,
 	} = useContext(TaskContext);
 
 	return (
@@ -39,7 +40,11 @@ export default function SideBar({ boardsList }: ISidebar) {
 						  ))
 						: null}
 				</div>
-				<form onSubmit={(e) => createBoard(e, createdBoards, setCreatedBoard)}>
+				<form
+					onSubmit={(e) =>
+						createBoard(e, createdBoards, setCreatedBoard, authUser.token)
+					}
+				>
 					<input
 						id='boardName'
 						type='text'

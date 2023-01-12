@@ -1,13 +1,13 @@
 import { FormEvent } from 'react';
 import { task } from '../../typescript/types';
-import { token } from '../../token';
 import { axiosRequest } from '../helpers/axiosRequest';
 
 export const createTask = async (
 	e: FormEvent<HTMLFormElement>,
 	createdTasks: task[],
 	setCreatedTask: (task: task[]) => void,
-	currentColumnId: string
+	currentColumnId: string,
+	token: string
 ) => {
 	const description = getTaskDescription(e);
 

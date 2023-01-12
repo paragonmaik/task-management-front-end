@@ -1,11 +1,11 @@
 import { DropResult, DraggableLocation } from 'react-beautiful-dnd';
 import { axiosRequest } from './axiosRequest';
-import { token } from '../../token';
 import { BoardState } from '../../typescript/types';
 
 type DragListConfig = {
 	currentBoardState: BoardState;
 	setCurrentBoardState: (currentBoardState: BoardState) => void;
+	token: string;
 };
 
 export const handleDnd: Record<string, CallableFunction> = {
@@ -46,7 +46,7 @@ const handleColumnDroppable = async (
 	source: DraggableLocation,
 	config: DragListConfig
 ) => {
-	const { currentBoardState, setCurrentBoardState } = config;
+	const { currentBoardState, setCurrentBoardState, token } = config;
 	const stateCopy = currentBoardState;
 
 	if (!currentBoardState.columnsList) return 'List is empty!';
@@ -83,7 +83,7 @@ const handleTaskDroppable = async (
 	source: DraggableLocation,
 	config: DragListConfig
 ) => {
-	const { currentBoardState, setCurrentBoardState } = config;
+	const { currentBoardState, setCurrentBoardState, token } = config;
 	const stateCopy = currentBoardState;
 
 	if (!stateCopy.columnsList) return 'List is empty!';

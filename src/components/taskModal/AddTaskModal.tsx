@@ -7,10 +7,11 @@ import { Modal } from '../sub-components/modal/Modal';
 function AddTaskModal() {
 	const {
 		isModalOpen,
-		setIsModalOpen,
 		currentColumn,
-		setCreatedTasks,
 		createdTasks,
+		authUser,
+		setIsModalOpen,
+		setCreatedTasks,
 	} = useContext(TaskContext);
 
 	return (
@@ -23,7 +24,13 @@ function AddTaskModal() {
 				<div className={AddTaskModalCSS.taskSettingsHeader}></div>
 				<form
 					onSubmit={(e) =>
-						createTask(e, createdTasks, setCreatedTasks, currentColumn._id)
+						createTask(
+							e,
+							createdTasks,
+							setCreatedTasks,
+							currentColumn._id,
+							authUser.token
+						)
 					}
 					className={AddTaskModalCSS.form}
 				>

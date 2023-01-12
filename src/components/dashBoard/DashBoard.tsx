@@ -4,12 +4,11 @@ import { Columns } from '../columns/Columns';
 import AddTaskModal from '../taskModal/AddTaskModal';
 import dashBoardCSS from './dashBoard.module.css';
 import { useAxios } from '../hooks/useAxios';
-import { token } from '../../token';
 import { sortDraggableList } from '../helpers/sortDraggableList';
 import { addColumnsToState } from './DashBoardController';
 
 function DashBoard() {
-	const { isModalOpen, currentBoardState, setCurrentBoardState } =
+	const { isModalOpen, currentBoardState, setCurrentBoardState, authUser } =
 		useContext(TaskContext);
 
 	const { response } = useAxios(
@@ -17,7 +16,7 @@ function DashBoard() {
 			method: 'get',
 			url: `/column/${currentBoardState._id}`,
 			headers: {
-				Authorization: token,
+				Authorization: authUser.token,
 			},
 		},
 		[currentBoardState._id]

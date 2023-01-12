@@ -2,8 +2,10 @@ import { ColumnState } from '../../typescript/types';
 
 export const sortDraggableList = (
 	listToBeSorted: ColumnState[] | undefined,
-	sortedIdsList: string[]
+	sortedIdsList: string[] | undefined
 ) => {
+	if (!sortedIdsList) return;
+
 	listToBeSorted?.sort(
 		(a, b) => sortedIdsList.indexOf(a._id) - sortedIdsList.indexOf(b._id)
 	);
