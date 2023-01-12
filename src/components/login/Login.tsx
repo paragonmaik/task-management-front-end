@@ -1,50 +1,16 @@
-import { FormEvent, useState } from 'react';
-import { axiosRequest } from '../helpers/axiosRequest';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AxiosError } from 'axios';
+import { signIn } from './LoginController';
 
 export const Login = () => {
 	const [errorMessage, setErrorMessage] = useState<string>();
 	const navigate = useNavigate();
 
-	const getUserCredentials = (e: FormEvent<HTMLFormElement>) => {
-		// prevents form reload
-		e.preventDefault();
-
-		const { email, password } = e.target as typeof e.currentTarget;
-		const userCredentials = { email: email.value, password: password.value };
-
-		// reset form values
-		e.currentTarget.reset();
-
-		return userCredentials;
-	};
-
-	const signIn = async (e: FormEvent<HTMLFormElement>) => {
-		const userCredentials = getUserCredentials(e);
-
-		try {
-			const res = await axiosRequest({
-				url: '/login',
-				method: 'post',
-				data: userCredentials,
-			});
-
-			if (res.status === 200) {
-				navigate('/home');
-			}
-		} catch (e) {
-			const res = e as AxiosError;
-			const data: any = res.response?.data;
-			setErrorMessage(data.message);
-		}
-	};
-
 	return (
 		<>
 			<div>
 				<h4>Sign in</h4>
-				<form onSubmit={(e) => signIn(e)}>
+				<form onSubmit={(e) => signIn(e, navigate, setErrorMessage)}>
 					<label htmlFor='email'>
 						<p>e-mail</p>
 						<input
