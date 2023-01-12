@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { signIn } from './LoginController';
 import { UserForm } from '../sub-components/userForm/UserForm';
+import { signUp } from './RegisterController';
 
-export const Login = () => {
+export const Register = () => {
 	const [errorMessage, setErrorMessage] = useState<string>();
 	const navigate = useNavigate();
 
@@ -13,8 +13,17 @@ export const Login = () => {
 				errorMessage={errorMessage}
 				setErrorMessage={setErrorMessage}
 				navigate={navigate}
-				handleSubmit={signIn}
-			/>
+				handleSubmit={signUp}
+			>
+				<label htmlFor='userName'>
+					<p>User name</p>
+					<input
+						id='userName'
+						type='text'
+						placeholder='user name'
+					/>
+				</label>
+			</UserForm>
 		</>
 	);
 };
