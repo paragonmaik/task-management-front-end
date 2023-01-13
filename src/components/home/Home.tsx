@@ -24,9 +24,9 @@ export function Home() {
 	return (
 		<div className={HomeCSS.container}>
 			<Header />
-			<div style={{ display: 'flex', marginTop: '81px' }}>
+			<div className={HomeCSS.boardContainer}>
 				<SideBar boardsList={response} />
-				<div style={{ marginLeft: '220px' }}>
+				<div className={HomeCSS.dashboardContainer}>
 					<DashBoard />
 				</div>
 			</div>

@@ -1,5 +1,5 @@
 .nav {
-  min-height: calc(100vh - 98px);
+  min-height: calc(100vh - 80px);
   background-color: hsl(240, 12%, 20%);
   width: 220px;
   border-right: 1px solid hsl(240, 12%, 30%);
@@ -12,6 +12,11 @@
 .subMenuContainer {
   width: 100%;
   height: 40px;
+  margin-bottom: 20px;
+}
+
+.subMenuContainer > p {
+  padding-left: 6px;
 }
 
 .boardNamesContainer {
