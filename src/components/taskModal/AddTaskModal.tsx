@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { TaskContext } from '../../context/TaskContext';
-import AddTaskModalCSS from './addTaskModal.module.css';
 import { createTask } from './AddTaskModalController';
 import { Modal } from '../sub-components/modal/Modal';
+import AddTaskModalCSS from './addTaskModal.module.css';
 
 function AddTaskModal() {
 	const {

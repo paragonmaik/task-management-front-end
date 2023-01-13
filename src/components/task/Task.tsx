@@ -2,12 +2,12 @@ import { TaskState } from '../../typescript/types';
 import { Draggable } from 'react-beautiful-dnd';
 import TaskCSS from './task.module.css';
 
-interface ITask {
+type TaskProps = {
 	loading?: boolean;
 	tasksList: TaskState[] | undefined;
-}
+};
 
-function Task({ tasksList }: ITask) {
+function Task({ tasksList }: TaskProps) {
 	return (
 		<>
 			{tasksList?.map(({ _id, description }, i) => (

@@ -21,7 +21,7 @@
   margin: 0 auto;
   width: 80vw;
   max-width: 500px;
-  height: 67vh;
+  max-height: 70vh;
   color: white;
 }
 
