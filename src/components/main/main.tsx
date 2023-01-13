@@ -18,7 +18,7 @@ export function Main() {
 				Authorization: authUser.token,
 			},
 		},
-		[createdBoards, currentBoardState]
+		[createdBoards, currentBoardState._id]
 	);
 
 	return (
