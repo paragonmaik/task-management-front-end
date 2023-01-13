@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import { useContext } from 'react';
 import { TaskContext } from './context/TaskContext';
-import { Main } from './components/main/Main';
+import { Home } from './components/home/Home';
 import { Login } from './components/login/Login';
 import { Register } from './components/register/Register';
 import { ProtectedRoutes } from './ProtectedRoutes';
@@ -31,7 +31,7 @@ function App() {
 				<Route element={<ProtectedRoutes isUserAuth={authUser.logged} />}>
 					<Route
 						path='/home'
-						element={<Main />}
+						element={<Home />}
 					/>
 				</Route>
 				<Route

@@ -1,4 +1,4 @@
-import MainCSS from './main.module.css';
+import HomeCSS from './home.module.css';
 import DashBoard from '../dashBoard/DashBoard';
 import { Header } from '../header/Header';
 import SideBar from '../sideBar/SideBar';
@@ -6,7 +6,7 @@ import { useAxios } from '../hooks/useAxios';
 import { TaskContext } from '../../context/TaskContext';
 import { useContext } from 'react';
 
-export function Main() {
+export function Home() {
 	const { createdBoards, currentBoardState, authUser } =
 		useContext(TaskContext);
 
@@ -22,7 +22,7 @@ export function Main() {
 	);
 
 	return (
-		<div className={MainCSS.container}>
+		<div className={HomeCSS.container}>
 			<Header />
 			<div style={{ display: 'flex', marginTop: '81px' }}>
 				<SideBar boardsList={response} />
