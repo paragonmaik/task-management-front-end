@@ -1,6 +1,13 @@
 import CreationFormCSS from './creationForm.module.css';
 import { FormEvent } from 'react';
 
+type CreationConfig = {
+	createdComponent: any[];
+	setCreatedComponent: (createdComponent: any[]) => void;
+	token: string;
+	type: 'column' | 'board';
+};
+
 interface CreationFormProps {
 	createComponent: (
 		e: FormEvent<HTMLFormElement>,
@@ -8,16 +15,12 @@ interface CreationFormProps {
 		setCreatedComponent: (createdComponent: any[]) => void,
 		token: string
 	) => void;
-	createdComponent: any[];
-	setCreatedComponent: (createdComponent: any[]) => void;
-	token: string;
+	config: CreationConfig;
 }
 
 export const CreationForm = ({
 	createComponent,
-	createdComponent,
-	setCreatedComponent,
-	token,
+	config: { createdComponent, setCreatedComponent, token, type },
 }: CreationFormProps) => {
 	return (
 		<>
@@ -27,9 +30,9 @@ export const CreationForm = ({
 				}
 			>
 				<input
-					id='placeholder'
+					id={`${type}Name`}
 					type='text'
-					placeholder='add new placeholder'
+					placeholder={`add new a ${type}`}
 				/>
 				<button
 					type='submit'

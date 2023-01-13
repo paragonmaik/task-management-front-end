@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { TaskContext } from '../../context/TaskContext';
 import { board } from '../../typescript/types';
 import { createBoard } from './SideBarController';
+import { CreationForm } from '../sub-components/creationForm/CreationForm';
 
 interface ISidebar {
 	loading?: boolean;
@@ -40,23 +41,15 @@ export default function SideBar({ boardsList }: ISidebar) {
 						  ))
 						: null}
 				</div>
-				<form
-					onSubmit={(e) =>
-						createBoard(e, createdBoards, setCreatedBoard, authUser.token)
-					}
-				>
-					<input
-						id='boardName'
-						type='text'
-						placeholder='new board name'
-					/>
-					<button
-						type='submit'
-						className={SideBarCSS.addBtn}
-					>
-						+
-					</button>
-				</form>
+				<CreationForm
+					createComponent={createBoard}
+					config={{
+						createdComponent: createdBoards,
+						setCreatedComponent: setCreatedBoard,
+						token: authUser.token,
+						type: 'board',
+					}}
+				/>
 			</div>
 			<div className={SideBarCSS.subMenuContainer}>
 				<button>Select theme</button>
