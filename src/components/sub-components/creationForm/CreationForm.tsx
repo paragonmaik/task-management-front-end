@@ -2,8 +2,8 @@ import CreationFormCSS from './creationForm.module.css';
 import { FormEvent } from 'react';
 
 type CreationConfig = {
-	createdComponent: any[];
-	setCreatedComponent: (createdComponent: any[]) => void;
+	createdComponent: any;
+	setCreatedComponent: (createdComponent: any) => void;
 	token: string;
 	type: 'column' | 'board';
 };
@@ -11,8 +11,8 @@ type CreationConfig = {
 interface CreationFormProps {
 	createComponent: (
 		e: FormEvent<HTMLFormElement>,
-		createdComponent: any[],
-		setCreatedComponent: (createdComponent: any[]) => void,
+		createdComponent: any,
+		setCreatedComponent: (createdComponent: any) => void,
 		token: string
 	) => void;
 	config: CreationConfig;
@@ -28,11 +28,13 @@ export const CreationForm = ({
 				onSubmit={(e) =>
 					createComponent(e, createdComponent, setCreatedComponent, token)
 				}
+				className={CreationFormCSS.formContainer}
 			>
 				<input
 					id={`${type}Name`}
 					type='text'
 					placeholder={`add new a ${type}`}
+					className={CreationFormCSS.nameField}
 				/>
 				<button
 					type='submit'

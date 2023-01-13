@@ -14,15 +14,6 @@
   height: 40px;
 }
 
-.addBtn {
-  background-color: inherit;
-  border: none;
-  font-size: 1.2rem;
-  height: 40px;
-  color: white;
-  cursor: pointer;
-}
-
 .boardNamesContainer {
   display: flex;
   flex-direction: column;

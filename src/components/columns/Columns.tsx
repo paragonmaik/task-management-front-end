@@ -5,6 +5,7 @@ import { TaskContext } from '../../context/TaskContext';
 import { useContext } from 'react';
 import { getListStyle, handleListDrag } from '../helpers/dragAndDropHandlers';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
+import { CreationForm } from '../sub-components/creationForm/CreationForm';
 
 export function Columns() {
 	const { currentBoardState, setCurrentBoardState, authUser } =
@@ -46,23 +47,15 @@ export function Columns() {
 					)}
 				</Droppable>
 			</DragDropContext>
-			<form
-				onSubmit={(e) =>
-					createColumn(
-						e,
-						currentBoardState,
-						setCurrentBoardState,
-						authUser.token
-					)
-				}
-			>
-				<input
-					id='columnName'
-					type='text'
-					placeholder='add new column'
-				/>
-				<button type='submit'>+</button>
-			</form>
+			<CreationForm
+				createComponent={createColumn}
+				config={{
+					createdComponent: currentBoardState,
+					setCreatedComponent: setCurrentBoardState,
+					token: authUser.token,
+					type: 'column',
+				}}
+			/>
 		</div>
 	);
 }

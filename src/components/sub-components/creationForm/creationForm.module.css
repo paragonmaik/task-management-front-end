@@ -1,7 +1,29 @@
+.formContainer {
+  max-width: 90%;
+  display: flex;
+}
+
+.nameField {
+  font-size: 1rem;
+  padding: 2px 5px;
+  background-color: hsl(240, 12%, 20%);
+  border-radius: 5px;
+  border: 2px solid hsl(240, 9%, 25%);
+  border-left: none;
+  color: white;
+  padding: 10px;
+  min-width: 80%;
+  max-height: 20px;
+}
+
+.nameField:hover {
+  border: 2px solid hsl(240, 9%, 40%);
+}
+
 .addBtn {
   background-color: inherit;
   border: none;
-  font-size: 1.2rem;
+  font-size: 2rem;
   height: 40px;
   color: white;
   cursor: pointer;
