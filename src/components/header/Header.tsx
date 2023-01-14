@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
+import HeaderCSS from './header.module.css';
 import { useNavigate } from 'react-router-dom';
 import { TaskContext } from '../../context/TaskContext';
-import { userLogout } from './HeaderController';
-import HeaderCSS from './header.module.css';
+import { userLogout, clearBoardState } from './HeaderController';
 
 export const Header = React.memo(() => {
-	const { currentBoardState, setAuthUser, authUser } = useContext(TaskContext);
+	const { currentBoardState, setAuthUser, authUser, setCurrentBoardState } =
+		useContext(TaskContext);
 	const navigate = useNavigate();
 
 	return (
@@ -21,7 +22,10 @@ export const Header = React.memo(() => {
 					<button
 						className={HeaderCSS.logoutBtn}
 						type='button'
-						onClick={() => userLogout(authUser, setAuthUser, navigate)}
+						onClick={() => {
+							clearBoardState(setCurrentBoardState);
+							userLogout(authUser, setAuthUser, navigate);
+						}}
 					>
 						×
 					</button>
