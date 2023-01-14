@@ -15,7 +15,6 @@
   color: white;
   display: flex;
   font-size: 1.2rem;
-  flex-direction: row-reverse;
   justify-content: space-evenly;
   align-items: center;
 }
@@ -23,6 +22,10 @@
 .btnsContainer {
   display: flex;
   gap: 20px;
+}
+
+.boardNameContainer {
+  min-width: 250px;
 }
 
 .logoutBtn {
@@ -38,4 +41,10 @@
 
 .logoutBtn:hover {
   background-color: hsl(0, 0%, 90%);
+}
+
+@media screen and (max-width: 600px) {
+  .optionsContainer > h1 {
+   display: none; 
+  }
 }

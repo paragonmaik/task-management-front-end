@@ -9,7 +9,7 @@ import SideBar from '../sideBar/SideBar';
 export function Home() {
 	const { createdBoards, currentBoardState, authUser } =
 		useContext(TaskContext);
-	const [sidebarState, setSidebarState] = useState(false);
+	const [sidebarState, setSidebarState] = useState(true);
 
 	const { response } = useAxios(
 		{

@@ -11,6 +11,12 @@ export const Header = React.memo(() => {
 	return (
 		<header className={HeaderCSS.bg}>
 			<nav className={HeaderCSS.optionsContainer}>
+				<h1>kanban board</h1>
+				<p className={HeaderCSS.boardNameContainer}>
+					{currentBoardState.boardName
+						? currentBoardState.boardName
+						: 'Select or create a new board'}
+				</p>
 				<div className={HeaderCSS.btnsContainer}>
 					<button
 						className={HeaderCSS.logoutBtn}
@@ -20,11 +26,6 @@ export const Header = React.memo(() => {
 						×
 					</button>
 				</div>
-				{currentBoardState.boardName ? (
-					<p>{currentBoardState.boardName}</p>
-				) : (
-					<p>Select or create a new board</p>
-				)}
 			</nav>
 		</header>
 	);
