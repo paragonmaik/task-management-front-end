@@ -1,14 +1,15 @@
 import HomeCSS from './home.module.css';
 import DashBoard from '../dashBoard/DashBoard';
 import { Header } from '../header/Header';
-import SideBar from '../sideBar/SideBar';
 import { useAxios } from '../hooks/useAxios';
 import { TaskContext } from '../../context/TaskContext';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
+import SideBar from '../sideBar/SideBar';
 
 export function Home() {
 	const { createdBoards, currentBoardState, authUser } =
 		useContext(TaskContext);
+	const [sidebarState, setSidebarState] = useState(false);
 
 	const { response } = useAxios(
 		{
@@ -25,8 +26,12 @@ export function Home() {
 		<div className={HomeCSS.container}>
 			<Header />
 			<div className={HomeCSS.boardContainer}>
-				<SideBar boardsList={response} />
-				<div className={HomeCSS.dashboardContainer}>
+				<SideBar
+					boardsList={response}
+					sidebarState={sidebarState}
+					setSidebarState={setSidebarState}
+				/>
+				<div className={sidebarState ? HomeCSS.visibleNav : HomeCSS.hiddenNav}>
 					<DashBoard />
 				</div>
 			</div>

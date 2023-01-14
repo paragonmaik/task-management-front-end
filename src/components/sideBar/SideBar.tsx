@@ -8,9 +8,15 @@ import { CreationForm } from '../sub-components/creationForm/CreationForm';
 interface ISidebar {
 	loading?: boolean;
 	boardsList?: board[] | null;
+	sidebarState: boolean;
+	setSidebarState: (sidebarState: boolean) => void;
 }
 
-export default function SideBar({ boardsList }: ISidebar) {
+export default function SideBar({
+	boardsList,
+	sidebarState,
+	setSidebarState,
+}: ISidebar) {
 	const {
 		createdBoards,
 		currentBoardState,
@@ -20,7 +26,9 @@ export default function SideBar({ boardsList }: ISidebar) {
 	} = useContext(TaskContext);
 
 	return (
-		<nav className={SideBarCSS.nav}>
+		<nav
+			className={sidebarState ? SideBarCSS.visibleNav : SideBarCSS.hiddenNav}
+		>
 			<div className={SideBarCSS.subMenuContainer}>
 				{boardsList ? <p>All boards ({boardsList.length})</p> : null}
 				<div className={SideBarCSS.boardNamesContainer}>
@@ -51,9 +59,15 @@ export default function SideBar({ boardsList }: ISidebar) {
 					}}
 				/>
 			</div>
-			<div className={SideBarCSS.subMenuContainer}>
+			<div className={SideBarCSS.optionsContainer}>
 				<button>Select theme</button>
-				<button>Hide Sidebar</button>
+				<button
+					onClick={() => {
+						setSidebarState(!sidebarState);
+					}}
+				>
+					Hide Sidebar
+				</button>
 			</div>
 		</nav>
 	);

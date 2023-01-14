@@ -1,4 +1,4 @@
-import columnsCSS from './columns.module.css';
+import ColumnsCSS from './columns.module.css';
 import Column from '../column/Column';
 import { createColumn } from './ColumnsController';
 import { TaskContext } from '../../context/TaskContext';
@@ -21,7 +21,7 @@ export function Columns() {
 	};
 
 	return (
-		<div className={columnsCSS.bg}>
+		<div className={ColumnsCSS.bg}>
 			<DragDropContext onDragEnd={handleColumnDrag}>
 				<Droppable
 					type='columns'
@@ -47,15 +47,17 @@ export function Columns() {
 					)}
 				</Droppable>
 			</DragDropContext>
-			<CreationForm
-				createComponent={createColumn}
-				config={{
-					createdComponent: currentBoardState,
-					setCreatedComponent: setCurrentBoardState,
-					token: authUser.token,
-					type: 'column',
-				}}
-			/>
+			<div className={ColumnsCSS.formContainer}>
+				<CreationForm
+					createComponent={createColumn}
+					config={{
+						createdComponent: currentBoardState,
+						setCreatedComponent: setCurrentBoardState,
+						token: authUser.token,
+						type: 'column',
+					}}
+				/>
+			</div>
 		</div>
 	);
 }

@@ -7,6 +7,10 @@
   margin-top: 81px;
 }
 
-.dashboardContainer {
-  margin-left: 220px;
+.visibleNav {
+  margin-left: 13.75rem;
+}
+
+.hiddenNav {
+  margin-left: 3rem;
 }
