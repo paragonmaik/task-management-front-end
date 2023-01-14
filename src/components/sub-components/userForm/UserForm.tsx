@@ -41,40 +41,56 @@ export const UserForm = ({
 							handleSubmit(e, navigate, setErrorMessage, setAuthUser)
 						}
 					>
-						{children}
-						<InputField
-							id={'email'}
-							fieldType={'email'}
-							placeholder={'e-mail'}
-						/>
+						<div className={UserFormCSS.inputsContainer}>
+							{children}
+							<InputField
+								id={'email'}
+								fieldType={'email'}
+								placeholder={'e-mail'}
+							/>
 
-						<InputField
-							id={'password'}
-							fieldType={'password'}
-							placeholder={'password'}
-						/>
+							<InputField
+								id={'password'}
+								fieldType={'password'}
+								placeholder={'password'}
+							/>
+						</div>
 
-						{formType === 'LOGIN' ? (
-							<>
-								<button type='submit'>Log in</button>
-								<button
-									type='button'
-									onClick={() => nav('/register')}
-								>
-									Create an account
-								</button>
-							</>
-						) : (
-							<>
-								<button type='submit'>Register</button>
-								<button
-									type='button'
-									onClick={() => nav('/login')}
-								>
-									I already have an account
-								</button>
-							</>
-						)}
+						<div className={UserFormCSS.btnsContainer}>
+							{formType === 'LOGIN' ? (
+								<>
+									<button
+										className={UserFormCSS.loginBtn}
+										type='submit'
+									>
+										Login
+									</button>
+									<button
+										className={UserFormCSS.createAccountBtn}
+										type='button'
+										onClick={() => nav('/register')}
+									>
+										Create an account
+									</button>
+								</>
+							) : (
+								<>
+									<button
+										className={UserFormCSS.loginBtn}
+										type='submit'
+									>
+										Register
+									</button>
+									<button
+										className={UserFormCSS.createAccountBtn}
+										type='button'
+										onClick={() => nav('/login')}
+									>
+										I already have an account
+									</button>
+								</>
+							)}
+						</div>
 					</form>
 					<div>{errorMessage ? <p>{errorMessage}</p> : null}</div>
 				</div>
