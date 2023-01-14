@@ -4,6 +4,7 @@ import { TaskContext } from '../../context/TaskContext';
 import { board } from '../../typescript/types';
 import { createBoard } from './SideBarController';
 import { CreationForm } from '../sub-components/creationForm/CreationForm';
+import openEye from '../../../public/open_eye.svg';
 
 interface ISidebar {
 	loading?: boolean;
@@ -60,13 +61,21 @@ export default function SideBar({
 				/>
 			</div>
 			<div className={SideBarCSS.optionsContainer}>
-				<button>Select theme</button>
 				<button
+					className={SideBarCSS.hideBtn}
+					type='button'
 					onClick={() => {
 						setSidebarState(!sidebarState);
 					}}
 				>
-					Hide Sidebar
+					{sidebarState ? (
+						'Hide Menu'
+					) : (
+						<img
+							height='32px'
+							src={openEye}
+						/>
+					)}
 				</button>
 			</div>
 		</nav>
