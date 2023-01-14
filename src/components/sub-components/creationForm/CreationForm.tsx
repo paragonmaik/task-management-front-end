@@ -1,5 +1,6 @@
 import CreationFormCSS from './creationForm.module.css';
 import { FormEvent } from 'react';
+import { InputField } from '../inputField/InputField';
 
 type CreationConfig = {
 	createdComponent: any;
@@ -30,12 +31,11 @@ export const CreationForm = ({
 				}
 				className={CreationFormCSS.formContainer}
 			>
-				<input
+				<InputField
 					id={`${type}Name`}
-					type='text'
 					placeholder={`add new a ${type}`}
-					className={CreationFormCSS.nameField}
 				/>
+
 				<button
 					type='submit'
 					className={CreationFormCSS.addBtn}

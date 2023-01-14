@@ -44,11 +44,13 @@ export const UserForm = ({
 						{children}
 						<InputField
 							id={'email'}
+							fieldType={'email'}
 							placeholder={'e-mail'}
 						/>
 
 						<InputField
 							id={'password'}
+							fieldType={'password'}
 							placeholder={'password'}
 						/>
 
