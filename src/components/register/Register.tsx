@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserForm } from '../sub-components/userForm/UserForm';
 import { signUp } from './RegisterController';
+import { InputField } from '../sub-components/inputField/InputField';
 
 export const Register = () => {
 	const [errorMessage, setErrorMessage] = useState<string>();
@@ -10,19 +11,16 @@ export const Register = () => {
 	return (
 		<>
 			<UserForm
+				formType='REGISTER'
 				errorMessage={errorMessage}
 				setErrorMessage={setErrorMessage}
 				navigate={navigate}
 				handleSubmit={signUp}
 			>
-				<label htmlFor='userName'>
-					<p>User name</p>
-					<input
-						id='userName'
-						type='text'
-						placeholder='user name'
-					/>
-				</label>
+				<InputField
+					id={'userName'}
+					placeholder={'username'}
+				/>
 			</UserForm>
 		</>
 	);

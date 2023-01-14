@@ -1,8 +1,12 @@
 import { FormEvent, useContext } from 'react';
 import { TaskContext } from '../../../context/TaskContext';
 import { UserAuth } from '../../../typescript/types';
+import { InputField } from '../inputField/InputField';
+import { useNavigate } from 'react-router-dom';
+import UserFormCSS from './userForm.module.css';
 
 type UserFormProps = {
+	formType: 'LOGIN' | 'REGISTER';
 	children?: JSX.Element[] | JSX.Element;
 	navigate: CallableFunction;
 	errorMessage: string | undefined;
@@ -16,6 +20,7 @@ type UserFormProps = {
 };
 
 export const UserForm = ({
+	formType,
 	children,
 	navigate,
 	errorMessage,
@@ -23,37 +28,54 @@ export const UserForm = ({
 	handleSubmit,
 }: UserFormProps) => {
 	const { setAuthUser } = useContext(TaskContext);
+	const nav = useNavigate();
 
 	return (
 		<>
-			<div>
-				<h4>Sign in</h4>
-				<form
-					onSubmit={(e) =>
-						handleSubmit(e, navigate, setErrorMessage, setAuthUser)
-					}
-				>
-					{children}
-					<label htmlFor='email'>
-						<p>e-mail</p>
-						<input
-							id='email'
-							type='text'
-							placeholder='e-mail'
+			<div className={UserFormCSS.bg}>
+				<div className={UserFormCSS.formContainer}>
+					<h4>Sign in</h4>
+					<form
+						className={UserFormCSS.form}
+						onSubmit={(e) =>
+							handleSubmit(e, navigate, setErrorMessage, setAuthUser)
+						}
+					>
+						{children}
+						<InputField
+							id={'email'}
+							placeholder={'e-mail'}
 						/>
-					</label>
 
-					<label htmlFor='password'>
-						<p>password</p>
-						<input
-							id='password'
-							type='password'
-							placeholder='password'
+						<InputField
+							id={'password'}
+							placeholder={'password'}
 						/>
-					</label>
-					<button type='submit'>Login</button>
-				</form>
-				<div>{errorMessage ? <p>{errorMessage}</p> : null}</div>
+
+						{formType === 'LOGIN' ? (
+							<>
+								<button type='submit'>Log in</button>
+								<button
+									type='button'
+									onClick={() => nav('/register')}
+								>
+									Create an account
+								</button>
+							</>
+						) : (
+							<>
+								<button type='submit'>Register</button>
+								<button
+									type='button'
+									onClick={() => nav('/login')}
+								>
+									I already have an account
+								</button>
+							</>
+						)}
+					</form>
+					<div>{errorMessage ? <p>{errorMessage}</p> : null}</div>
+				</div>
 			</div>
 		</>
 	);

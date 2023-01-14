@@ -10,6 +10,7 @@ export const Login = () => {
 	return (
 		<>
 			<UserForm
+				formType='LOGIN'
 				errorMessage={errorMessage}
 				setErrorMessage={setErrorMessage}
 				navigate={navigate}
