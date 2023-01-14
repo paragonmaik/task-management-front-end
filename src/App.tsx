@@ -6,10 +6,12 @@ import {
 } from 'react-router-dom';
 import { useContext } from 'react';
 import { TaskContext } from './context/TaskContext';
-import { Home } from './components/home/Home';
 import { Login } from './components/login/Login';
 import { Register } from './components/register/Register';
 import { ProtectedRoutes } from './ProtectedRoutes';
+import { lazy, Suspense } from 'react';
+
+const Home = lazy(() => import('./components/home/Home'));
 
 function App() {
 	const { authUser } = useContext(TaskContext);
@@ -31,7 +33,11 @@ function App() {
 				<Route element={<ProtectedRoutes isUserAuth={authUser.logged} />}>
 					<Route
 						path='/home'
-						element={<Home />}
+						element={
+							<Suspense fallback='Loading...'>
+								<Home />
+							</Suspense>
+						}
 					/>
 				</Route>
 				<Route

@@ -6,7 +6,7 @@ import { TaskContext } from '../../context/TaskContext';
 import { useContext, useState } from 'react';
 import SideBar from '../sideBar/SideBar';
 
-export function Home() {
+const Home = () => {
 	const { createdBoards, currentBoardState, authUser } =
 		useContext(TaskContext);
 	const [sidebarState, setSidebarState] = useState(true);
@@ -37,4 +37,6 @@ export function Home() {
 			</div>
 		</div>
 	);
-}
+};
+
+export default Home;
