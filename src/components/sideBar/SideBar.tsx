@@ -4,7 +4,7 @@ import { TaskContext } from '../../context/TaskContext';
 import { board } from '../../typescript/types';
 import { createBoard } from './SideBarController';
 import { CreationForm } from '../sub-components/creationForm/CreationForm';
-import openEye from '../../../public/open_eye.svg';
+import arrows from '../../../public/arrows.svg';
 
 interface ISidebar {
 	loading?: boolean;
@@ -69,11 +69,18 @@ export default function SideBar({
 					}}
 				>
 					{sidebarState ? (
-						'Hide Menu'
+						<>
+							<img
+								height='16px'
+								src={arrows}
+								style={{ transform: 'rotate(180deg)', marginRight: '4px' }}
+							/>
+							<p>Hide Menu</p>
+						</>
 					) : (
 						<img
-							height='32px'
-							src={openEye}
+							height='16px'
+							src={arrows}
 						/>
 					)}
 				</button>
