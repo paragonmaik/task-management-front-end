@@ -1,6 +1,7 @@
 import { TaskState } from '../../typescript/types';
 import { Draggable } from 'react-beautiful-dnd';
 import TaskCSS from './task.module.css';
+import menu from '../../../public/task-menu.svg';
 
 type TaskProps = {
 	loading?: boolean;
@@ -27,8 +28,16 @@ function Task({ tasksList }: TaskProps) {
 								id={_id}
 								key={_id}
 							>
-								<p>{description}</p>
-								<p></p>
+								<div className={TaskCSS.menuContainer}>
+									<img
+										onClick={() => console.log(_id)}
+										src={menu}
+									/>
+								</div>
+								<div className={TaskCSS.detailsContainer}>
+									<p>{description}</p>
+									<p>placeholder</p>
+								</div>
 							</div>
 						</div>
 					)}
