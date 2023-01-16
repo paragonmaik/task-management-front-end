@@ -1,5 +1,7 @@
 import { TaskState } from '../../typescript/types';
+import { useContext } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
+import { TaskContext } from '../../context/TaskContext';
 import TaskCSS from './task.module.css';
 import menu from '../../../public/task-menu.svg';
 
@@ -9,6 +11,8 @@ type TaskProps = {
 };
 
 function Task({ tasksList }: TaskProps) {
+	const { isEditModalOpen, setIsEditModalOpen } = useContext(TaskContext);
+
 	return (
 		<>
 			{tasksList?.map(({ _id, description }, i) => (
@@ -30,7 +34,7 @@ function Task({ tasksList }: TaskProps) {
 							>
 								<div className={TaskCSS.menuContainer}>
 									<img
-										onClick={() => console.log(_id)}
+										onClick={() => setIsEditModalOpen(!isEditModalOpen)}
 										src={menu}
 									/>
 								</div>

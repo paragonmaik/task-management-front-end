@@ -28,22 +28,24 @@ export function TaskProvider({ children }: TaskProviderProp) {
 	const [createdTasks, setCreatedTasks] = useState<task[]>([]);
 	const [currentColumn, setCurrentColumn] = useState<column>({} as column);
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 	const [authUser, setAuthUser] = useState<UserAuth>(authUserDefault);
 
 	const [currentBoardState, setCurrentBoardState] =
 		useState<BoardState>(boardStateDefault);
-	// -----------------------
 
 	return (
 		<TaskContext.Provider
 			value={{
 				isModalOpen,
+				isEditModalOpen,
 				createdBoards,
 				currentColumn,
 				createdTasks,
 				currentBoardState,
 				authUser,
 				setIsModalOpen,
+				setIsEditModalOpen,
 				setCreatedBoard,
 				setCurrentColumn,
 				setCreatedTasks,
