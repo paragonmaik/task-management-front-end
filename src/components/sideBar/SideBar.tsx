@@ -4,13 +4,20 @@ import { TaskContext } from '../../context/TaskContext';
 import { board } from '../../typescript/types';
 import { createBoard } from './SideBarController';
 import { CreationForm } from '../sub-components/creationForm/CreationForm';
+import arrows from '../../../public/arrows.svg';
 
 interface ISidebar {
 	loading?: boolean;
 	boardsList?: board[] | null;
+	sidebarState: boolean;
+	setSidebarState: (sidebarState: boolean) => void;
 }
 
-export default function SideBar({ boardsList }: ISidebar) {
+export default function SideBar({
+	boardsList,
+	sidebarState,
+	setSidebarState,
+}: ISidebar) {
 	const {
 		createdBoards,
 		currentBoardState,
@@ -20,7 +27,9 @@ export default function SideBar({ boardsList }: ISidebar) {
 	} = useContext(TaskContext);
 
 	return (
-		<nav className={SideBarCSS.nav}>
+		<nav
+			className={sidebarState ? SideBarCSS.visibleNav : SideBarCSS.hiddenNav}
+		>
 			<div className={SideBarCSS.subMenuContainer}>
 				{boardsList ? <p>All boards ({boardsList.length})</p> : null}
 				<div className={SideBarCSS.boardNamesContainer}>
@@ -51,9 +60,30 @@ export default function SideBar({ boardsList }: ISidebar) {
 					}}
 				/>
 			</div>
-			<div className={SideBarCSS.subMenuContainer}>
-				<button>Select theme</button>
-				<button>Hide Sidebar</button>
+			<div className={SideBarCSS.optionsContainer}>
+				<button
+					className={SideBarCSS.hideBtn}
+					type='button'
+					onClick={() => {
+						setSidebarState(!sidebarState);
+					}}
+				>
+					{sidebarState ? (
+						<>
+							<img
+								height='16px'
+								src={arrows}
+								style={{ transform: 'rotate(180deg)', marginRight: '4px' }}
+							/>
+							<p>Hide Menu</p>
+						</>
+					) : (
+						<img
+							height='16px'
+							src={arrows}
+						/>
+					)}
+				</button>
 			</div>
 		</nav>
 	);

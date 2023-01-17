@@ -1,15 +1,21 @@
 import { TaskContext } from '../../context/TaskContext';
 import { useContext, useEffect } from 'react';
 import { Columns } from '../columns/Columns';
-import AddTaskModal from '../taskModal/AddTaskModal';
-import dashBoardCSS from './dashBoard.module.css';
 import { useAxios } from '../hooks/useAxios';
 import { sortDraggableList } from '../helpers/sortDraggableList';
 import { addColumnsToState } from './DashBoardController';
+import AddTaskModal from '../taskModal/AddTaskModal';
+import EditTaskModal from '../editTaskModal/EditTaskModal';
+import dashBoardCSS from './dashBoard.module.css';
 
 function DashBoard() {
-	const { isModalOpen, currentBoardState, setCurrentBoardState, authUser } =
-		useContext(TaskContext);
+	const {
+		isModalOpen,
+		isEditModalOpen,
+		currentBoardState,
+		setCurrentBoardState,
+		authUser,
+	} = useContext(TaskContext);
 
 	const { response } = useAxios(
 		{
@@ -38,6 +44,7 @@ function DashBoard() {
 				<p>No board selected</p>
 			)}
 			{isModalOpen ? <AddTaskModal /> : null}
+			{isEditModalOpen ? <EditTaskModal /> : null}
 		</div>
 	);
 }
