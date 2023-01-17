@@ -11,7 +11,8 @@ type TaskProps = {
 };
 
 function Task({ tasksList }: TaskProps) {
-	const { isEditModalOpen, setIsEditModalOpen } = useContext(TaskContext);
+	const { isEditModalOpen, setIsEditModalOpen, setCurrentTask } =
+		useContext(TaskContext);
 
 	return (
 		<>
@@ -34,7 +35,10 @@ function Task({ tasksList }: TaskProps) {
 							>
 								<div className={TaskCSS.menuContainer}>
 									<img
-										onClick={() => setIsEditModalOpen(!isEditModalOpen)}
+										onClick={() => {
+											setIsEditModalOpen(!isEditModalOpen);
+											// setCurrentTaskId(_id);
+										}}
 										src={menu}
 									/>
 								</div>

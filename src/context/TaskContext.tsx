@@ -7,6 +7,7 @@ import {
 	task,
 	BoardState,
 	UserAuth,
+	TaskState,
 } from '../typescript/types';
 
 const authUserDefault = {
@@ -27,6 +28,7 @@ export function TaskProvider({ children }: TaskProviderProp) {
 	const [createdBoards, setCreatedBoard] = useState<board[]>([]);
 	const [createdTasks, setCreatedTasks] = useState<task[]>([]);
 	const [currentColumn, setCurrentColumn] = useState<column>({} as column);
+	const [currentTask, setCurrentTask] = useState<TaskState>({} as TaskState);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 	const [authUser, setAuthUser] = useState<UserAuth>(authUserDefault);
@@ -44,6 +46,7 @@ export function TaskProvider({ children }: TaskProviderProp) {
 				createdTasks,
 				currentBoardState,
 				authUser,
+				currentTask,
 				setIsModalOpen,
 				setIsEditModalOpen,
 				setCreatedBoard,
@@ -51,6 +54,7 @@ export function TaskProvider({ children }: TaskProviderProp) {
 				setCreatedTasks,
 				setCurrentBoardState,
 				setAuthUser,
+				setCurrentTask,
 			}}
 		>
 			{children}

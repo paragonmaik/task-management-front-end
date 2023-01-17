@@ -4,7 +4,17 @@ import { TaskContext } from '../../context/TaskContext';
 import { Modal } from '../sub-components/modal/Modal';
 
 function EditTaskModal() {
-	const { isEditModalOpen, setIsEditModalOpen } = useContext(TaskContext);
+	const {
+		isEditModalOpen,
+		setIsEditModalOpen,
+		currentTask,
+		currentBoardState,
+		currentColumn,
+	} = useContext(TaskContext);
+
+	// const teste = currentBoardState.columnsList
+	console.log(currentTask);
+	console.log(currentColumn);
 
 	return (
 		<Modal
