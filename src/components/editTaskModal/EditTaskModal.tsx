@@ -3,13 +3,12 @@ import EditTaskModalCSS from './editTaskModal.module.css';
 import { TaskContext } from '../../context/TaskContext';
 import { Modal } from '../sub-components/modal/Modal';
 
-function TaskDetailsModal() {
-	const { isEditModalOpen, currentColumn, setIsEditModalOpen } =
-		useContext(TaskContext);
+function EditTaskModal() {
+	const { isEditModalOpen, setIsEditModalOpen } = useContext(TaskContext);
 
 	return (
 		<Modal
-			modalHeader={`Edit ${currentColumn.columnName} column task`}
+			modalHeader={`Edit task`}
 			handleModal={setIsEditModalOpen}
 			isModalOpen={isEditModalOpen}
 		>
@@ -18,4 +17,4 @@ function TaskDetailsModal() {
 	);
 }
 
-export default TaskDetailsModal;
+export default EditTaskModal;
