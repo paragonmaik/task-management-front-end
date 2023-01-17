@@ -46,6 +46,7 @@ export const signUp = async (
 	} catch (e) {
 		const res = e as AxiosError;
 		const data: any = res.response?.data;
+		if (!data) return;
 		setErrorMessage(data.message);
 	}
 };
