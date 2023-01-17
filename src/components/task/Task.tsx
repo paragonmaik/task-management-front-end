@@ -37,14 +37,14 @@ function Task({ tasksList }: TaskProps) {
 									<img
 										onClick={() => {
 											setIsEditModalOpen(!isEditModalOpen);
-											// setCurrentTaskId(_id);
+											setCurrentTask({ _id, description });
 										}}
 										src={menu}
 									/>
 								</div>
 								<div className={TaskCSS.detailsContainer}>
 									<p>{description}</p>
-									<p>placeholder</p>
+									<p></p>
 								</div>
 							</div>
 						</div>
