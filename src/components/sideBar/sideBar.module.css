@@ -1,0 +1,43 @@
+.nav {
+  min-height: calc(100vh - 80px);
+  background-color: hsl(240, 12%, 20%);
+  width: 220px;
+  border-right: 1px solid hsl(240, 12%, 30%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: fixed;
+}
+
+.subMenuContainer {
+  width: 100%;
+  height: 40px;
+  margin-bottom: 20px;
+}
+
+.subMenuContainer > p {
+  padding-left: 6px;
+}
+
+.boardNamesContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.selectBoardBtn {
+  width: 80%;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  background-color: inherit;
+  text-align: left;
+  font-size: 1.2rem;
+  height: 30px;
+}
+
+.selectBoardBtn:disabled {
+  background-color: hsl(243, 45%, 57%);
+  cursor: default;
+}

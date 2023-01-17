@@ -1,33 +1,57 @@
 import { createContext, useState } from 'react';
-import { TaskProviderProp, TaskContextType, ITasksState } from '../typescript/types';
+import {
+	TaskProviderProp,
+	TaskContextType,
+	board,
+	column,
+	task,
+	BoardState,
+	UserAuth,
+} from '../typescript/types';
+
+const authUserDefault = {
+	email: '',
+	token: '',
+	logged: false,
+};
+const boardStateDefault = {
+	boardName: '',
+	columns: [],
+	columnsList: [],
+	_id: '',
+};
 
 export const TaskContext = createContext({} as TaskContextType);
 
-export function TimerProvider({ children }: TaskProviderProp) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [tasksState, setTasksState] = useState<ITasksState>({
-    todo: {
-      tasks: []
-    },
-    inProgress: {
-      tasks: []
-    },
-    inReview: {
-      tasks: []
-    },
-    done: {
-      tasks: []
-    }
-});
+export function TaskProvider({ children }: TaskProviderProp) {
+	const [createdBoards, setCreatedBoard] = useState<board[]>([]);
+	const [createdTasks, setCreatedTasks] = useState<task[]>([]);
+	const [currentColumn, setCurrentColumn] = useState<column>({} as column);
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [authUser, setAuthUser] = useState<UserAuth>(authUserDefault);
 
-  return <TaskContext.Provider value={
-    {
-      isModalOpen,
-      tasksState,
-      setIsModalOpen,
-      setTasksState,
-    }
-    }>
-    {children}
-  </TaskContext.Provider>
+	const [currentBoardState, setCurrentBoardState] =
+		useState<BoardState>(boardStateDefault);
+	// -----------------------
+
+	return (
+		<TaskContext.Provider
+			value={{
+				isModalOpen,
+				createdBoards,
+				currentColumn,
+				createdTasks,
+				currentBoardState,
+				authUser,
+				setIsModalOpen,
+				setCreatedBoard,
+				setCurrentColumn,
+				setCreatedTasks,
+				setCurrentBoardState,
+				setAuthUser,
+			}}
+		>
+			{children}
+		</TaskContext.Provider>
+	);
 }

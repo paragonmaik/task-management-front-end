@@ -1,124 +1,108 @@
-import { useContext } from 'react';
-import { Droppable, Draggable } from 'react-beautiful-dnd';
-import { ColumnProps } from '../../typescript/types';
-import { TaskContext } from '../../context/TaskContext';
 import Task from '../task/Task';
 import ColumnCSS from './column.module.css';
+import { useContext, useEffect } from 'react';
+import { DraggableColumn } from '../../typescript/types';
+import { TaskContext } from '../../context/TaskContext';
+import { useAxios } from '../hooks/useAxios';
+import {
+	openAddTaskModal,
+	getTasksFromState,
+	addTasksToState,
+} from './ColumnController';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
+import { sortDraggableTask } from '../helpers/sortDraggableList';
 
-function Column({ colName }: ColumnProps) {
-  const { tasksState } = useContext(TaskContext);
+function Column({ columnName, _id, position }: DraggableColumn) {
+	const {
+		isModalOpen,
+		setIsModalOpen,
+		setCurrentColumn,
+		setCurrentBoardState,
+		createdTasks,
+		currentBoardState,
+		authUser,
+	} = useContext(TaskContext);
 
-  return (
-    <>
-      <section
-        className={ ColumnCSS.bg }
-      >
-        <p>
-          {colName}
-        </p>
-        <div
-          className={ ColumnCSS.taskContainer }
-        >
-          {colName === 'To do' && (
-            <Droppable droppableId="todo">
-              {(provided) => (
-                <div {...provided.droppableProps} ref={provided.innerRef}>
-                  {tasksState?.todo?.tasks?.map((task, i) => (
-                    <Draggable key={task.id} draggableId={task.id} index={i}>
-                      {(provided) => (
-                        <div
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          ref={provided.innerRef}
-                        >
-                          <Task
-                            {...task}
-                          />
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          )}
-          {colName === 'In Progress' && (
-            <Droppable droppableId="inProgress">
-              {(provided) => (
-                <div {...provided.droppableProps} ref={provided.innerRef}>
-                  {tasksState?.inProgress?.tasks?.map((task, i) => (
-                    <Draggable key={task.id} draggableId={task.id} index={i}>
-                      {(provided) => (
-                        <div
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          ref={provided.innerRef}
-                        >
-                          <Task
-                            {...task}
-                          />
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          )}
-          {colName === 'In Review' && (
-            <Droppable droppableId="inReview">
-              {(provided) => (
-                <div {...provided.droppableProps} ref={provided.innerRef}>
-                  {tasksState?.inReview?.tasks?.map((task, i) => (
-                    <Draggable key={task.id} draggableId={task.id} index={i}>
-                      {(provided) => (
-                        <div
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          ref={provided.innerRef}
-                        >
-                          <Task
-                            {...task}
-                          />
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          )}
-          {colName === 'Done' && (
-            <Droppable droppableId="done">
-              {(provided) => (
-                <div {...provided.droppableProps} ref={provided.innerRef}>
-                  {tasksState?.done?.tasks?.map((task, i) => (
-                    <Draggable key={task.id} draggableId={task.id} index={i}>
-                      {(provided) => (
-                        <div
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          ref={provided.innerRef}
-                        >
-                          <Task
-                            {...task}
-                          />
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          )}
-        </div>
-      </section>
-    </>
-  )
+	const { response } = useAxios(
+		{
+			method: 'get',
+			url: `/task/${_id}`,
+			headers: {
+				Authorization: authUser.token,
+			},
+		},
+		[createdTasks]
+	);
+
+	useEffect(() => {
+		addTasksToState({
+			response,
+			currentBoardState,
+			setCurrentBoardState,
+			currentColumnId: _id,
+		});
+
+		sortDraggableTask(currentBoardState.columnsList);
+	}, [response]);
+
+	const tasksList = getTasksFromState(currentBoardState, _id);
+
+	return (
+		<>
+			<Draggable
+				key={_id}
+				draggableId={_id}
+				index={position}
+			>
+				{(provided) => (
+					<div
+						{...provided.draggableProps}
+						ref={provided.innerRef}
+					>
+						<section className={ColumnCSS.bg}>
+							<div
+								className={ColumnCSS.handleBar}
+								{...provided.dragHandleProps}
+							>
+								<p>{columnName}</p>
+								<div>•••</div>
+							</div>
+							<div className={ColumnCSS.taskContainer}>
+								<Droppable
+									type='task'
+									droppableId={columnName}
+								>
+									{(provided) => (
+										<div
+											{...provided.droppableProps}
+											ref={provided.innerRef}
+										>
+											<Task tasksList={tasksList?.tasksList} />
+											{provided.placeholder}
+										</div>
+									)}
+								</Droppable>
+							</div>
+							<button
+								className={ColumnCSS.addBtn}
+								type='button'
+								onClick={() =>
+									openAddTaskModal(
+										setCurrentColumn,
+										{ _id, columnName },
+										setIsModalOpen,
+										isModalOpen
+									)
+								}
+							>
+								+
+							</button>
+						</section>
+					</div>
+				)}
+			</Draggable>
+		</>
+	);
 }
 
 export default Column;

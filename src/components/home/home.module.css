@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+}
+
+.boardContainer {
+  display: flex;
+  margin-top: 81px;
+}
+
+.dashboardContainer {
+  margin-left: 220px;
+}

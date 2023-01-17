@@ -1,13 +1,46 @@
-import TasksContainer from './components/container/TasksContainer';
-import Header from './components/header/Header';
+import {
+	BrowserRouter as Router,
+	Routes,
+	Route,
+	Navigate,
+} from 'react-router-dom';
+import { useContext } from 'react';
+import { TaskContext } from './context/TaskContext';
+import { Home } from './components/home/Home';
+import { Login } from './components/login/Login';
+import { Register } from './components/register/Register';
+import { ProtectedRoutes } from './ProtectedRoutes';
 
 function App() {
-  return (
-    <>
-      <Header />
-      <TasksContainer />
-    </>
-  )
+	const { authUser } = useContext(TaskContext);
+	return (
+		<Router>
+			<Routes>
+				<Route
+					path='/'
+					element={<Navigate to='/login' />}
+				/>
+				<Route
+					path='/login'
+					element={<Login />}
+				/>
+				<Route
+					path='/register'
+					element={<Register />}
+				/>
+				<Route element={<ProtectedRoutes isUserAuth={authUser.logged} />}>
+					<Route
+						path='/home'
+						element={<Home />}
+					/>
+				</Route>
+				<Route
+					path='*'
+					element={<div>NOT FOUND</div>}
+				/>
+			</Routes>
+		</Router>
+	);
 }
 
-export default App
+export default App;
