@@ -18,7 +18,7 @@ function AddTaskModal() {
 		<Modal
 			modalHeader={`Add a task to the ${currentColumn.columnName} column`}
 			handleModal={setIsModalOpen}
-			isModalOpen
+			isModalOpen={isModalOpen}
 		>
 			<div className={AddTaskModalCSS.containerScrollWrapper}>
 				<div className={AddTaskModalCSS.taskSettingsHeader}></div>
