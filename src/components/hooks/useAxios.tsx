@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { IAxios } from '../../typescript/types';
 
-axios.defaults.baseURL = import.meta.env.VITE_API_URL;
+axios.defaults.baseURL = import.meta.env.VITE_API_URL || process.env.API_URL;
 
 export const useAxios = (axiosParams: IAxios, dependency: any[]) => {
 	const [response, setResponse] = useState<null | []>(null);
