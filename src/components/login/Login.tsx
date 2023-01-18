@@ -7,6 +7,8 @@ export const Login = () => {
 	const [errorMessage, setErrorMessage] = useState<string>();
 	const navigate = useNavigate();
 
+	console.log(import.meta.env.VITE_API_URL);
+
 	return (
 		<>
 			<UserForm
