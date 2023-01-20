@@ -43,6 +43,11 @@
   background-color: hsl(0, 0%, 90%);
 }
 
+.logoutBtn > img {
+  display: block;
+  margin: auto;
+}
+
 @media screen and (max-width: 600px) {
   .optionsContainer > h1 {
    display: none; 

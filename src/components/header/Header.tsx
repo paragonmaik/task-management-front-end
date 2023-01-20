@@ -3,6 +3,7 @@ import HeaderCSS from './header.module.css';
 import { useNavigate } from 'react-router-dom';
 import { TaskContext } from '../../context/TaskContext';
 import { userLogout, clearBoardState } from './HeaderController';
+import logoutIcon from '../../../public/logout.svg';
 
 export const Header = React.memo(() => {
 	const { currentBoardState, setAuthUser, authUser, setCurrentBoardState } =
@@ -27,7 +28,12 @@ export const Header = React.memo(() => {
 							userLogout(authUser, setAuthUser, navigate);
 						}}
 					>
-						×
+						<img
+							src={logoutIcon}
+							alt='logout'
+							height='12px'
+						/>
+						{/* × */}
 					</button>
 				</div>
 			</nav>
