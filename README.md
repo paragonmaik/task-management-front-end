@@ -8,7 +8,7 @@ Task management app done with React and TypeScript.
 [back-end-repo](https://github.com/paragonmaik/task-management-back-end)
 
 ## Demo
-[task-management](https://tasks-management-app.vercel.app/)
+Live demo [task-management](https://tasks-management-app.vercel.app/)
 
 ## To do
  - [ ] Create sub tasks
