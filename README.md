@@ -1,6 +1,8 @@
 
 ## Task-Management-front-end
 
+<p align="center" ><img src="https://github.com/paragonmaik/task-management-front-end/blob/main/public/board_ss.png" alt="kanban-screenshot" /></p>
+
 Task management app done with React and TypeScript.
 
 [back-end-repo](https://github.com/paragonmaik/task-management-back-end)
