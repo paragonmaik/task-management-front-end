@@ -7,7 +7,7 @@ import {
 import { useContext } from 'react';
 import { TaskContext } from './context/TaskContext';
 import { Login } from './components/login/Login';
-import { Register } from './components/register/Register';
+import { Register } from './pages/Register';
 import { ProtectedRoutes } from './ProtectedRoutes';
 import { lazy, Suspense } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
