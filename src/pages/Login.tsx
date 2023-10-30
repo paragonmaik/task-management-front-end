@@ -7,7 +7,7 @@ import { useLocalStorage } from '../components/hooks/useLocalStorage';
 import BaseAuthForm from '../components/ui/BaseAuthForm';
 import DemoForm from '../components/ui/DemoForm';
 
-export const Login = () => {
+export default function Login() {
   const [errorMessage, setErrorMessage] = useState<string>();
   const [isLoading, setIsLoading] = useState(false);
   const [_token, setToken] = useLocalStorage('token', '');
@@ -74,4 +74,4 @@ export const Login = () => {
       <DemoForm handleDemoLogin={handleDemoLogin} />
     </BaseAuthForm>
   );
-};
+}

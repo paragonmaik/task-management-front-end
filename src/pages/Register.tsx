@@ -6,7 +6,7 @@ import { AxiosError } from 'axios';
 import BaseAuthForm from '../components/ui/BaseAuthForm';
 import BaseToast from '../components/ui/BaseToast';
 
-export const Register = () => {
+export default function Register() {
   const [errorMessage, setErrorMessage] = useState<string>();
   const [isLoading, setIsLoading] = useState(false);
   const [show, setShow] = useState(false);
@@ -86,4 +86,4 @@ export const Register = () => {
       </BaseAuthForm>
     </>
   );
-};
+}
