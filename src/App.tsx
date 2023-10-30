@@ -22,7 +22,7 @@ function App() {
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route element={<ProtectedRoutes isUserAuth={authUser.logged} />}>
+        <Route element={<ProtectedRoutes />}>
           <Route
             path="/home"
             element={

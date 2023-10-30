@@ -3,27 +3,23 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { axiosRequest } from '../utils/axiosRequest';
 import { AxiosError } from 'axios';
-import { TaskContext } from '../context/TaskContext';
+import { useLocalStorage } from '../components/hooks/useLocalStorage';
 import BaseAuthForm from '../components/ui/BaseAuthForm';
 import DemoForm from '../components/ui/DemoForm';
 
 export const Login = () => {
   const [errorMessage, setErrorMessage] = useState<string>();
-  const { setAuthUser } = useContext(TaskContext);
   const [isLoading, setIsLoading] = useState(false);
+  const [_token, setToken] = useLocalStorage('token', '');
   const navigate = useNavigate();
   const navigateHome = '/home';
   const navigateRegister = '/register';
 
   const { mutate } = useMutation({
     mutationFn: axiosRequest,
-    onSuccess: () => {
+    onSuccess: (response) => {
       setIsLoading(false);
-      setAuthUser({
-        email: '',
-        logged: true,
-        token: '',
-      });
+      setToken(response.data.token);
       navigate(navigateHome);
     },
     onError: (error: AxiosError) => {
