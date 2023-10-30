@@ -5,6 +5,7 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
     if (typeof window === 'undefined') {
       return initialValue;
     }
+
     try {
       const item = window.localStorage.getItem(key);
       return item ? JSON.parse(item) : initialValue;
@@ -13,6 +14,7 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
       return initialValue;
     }
   });
+
   const setValue = (value: T | ((val: T) => T)) => {
     try {
       const valueToStore =
@@ -25,7 +27,6 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
       console.log(error);
     }
   };
+
   return [storedValue, setValue] as const;
 }
-
-// https://usehooks.com/useLocalStorage/

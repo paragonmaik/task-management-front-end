@@ -7,7 +7,7 @@ export default function useBoard() {
   const [token, _setToken] = useLocalStorage('token', '');
 
   return useQuery({
-    queryKey: ['programs'],
+    queryKey: ['boards'],
     retry: 0,
     queryFn: async (): Promise<board[]> => {
       const res = await axiosRequest({
