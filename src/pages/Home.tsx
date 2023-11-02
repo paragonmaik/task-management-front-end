@@ -1,6 +1,6 @@
 import HomeCSS from '../components/styles/home.module.css';
 import DashBoard from '../components/dashBoard/DashBoard';
-import SideBar from '../components/sideBar/SideBar';
+import SideBar from '../components/SideBar';
 import useBoard from '../components/hooks/useBoard';
 import Header from '../components/Header';
 import { useContext, useState } from 'react';
