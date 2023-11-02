@@ -1,0 +1,55 @@
+.bg {
+  display: flex;
+  min-height: 80px;
+  min-width: 100vw;
+  height: 60px;
+  color: black;
+  background-color: hsl(240, 12%, 20%);
+  align-items: center;
+  border-bottom: 1px solid hsl(240, 12%, 30%);
+  position: fixed;
+}
+
+.optionsContainer {
+  width: 100vw;
+  color: white;
+  display: flex;
+  font-size: 1.2rem;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.btnsContainer {
+  display: flex;
+  gap: 20px;
+}
+
+.boardNameContainer {
+  min-width: 250px;
+}
+
+.logoutBtn {
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  font-size: 1.6rem;
+  height: 40px;
+  color: hsl(243, 45%, 57%);
+  cursor: pointer;
+  background-color: white;
+}
+
+.logoutBtn:hover {
+  background-color: hsl(0, 0%, 90%);
+}
+
+.logoutBtn > img {
+  display: block;
+  margin: auto;
+}
+
+@media screen and (max-width: 600px) {
+  .optionsContainer > h1 {
+   display: none; 
+  }
+}
