@@ -14,7 +14,7 @@ type DashBoardProps = {
 
 function DashBoard({ board }: DashBoardProps) {
   const { isModalOpen, isEditModalOpen } = useContext(TaskContext);
-  const { data: columns, isLoading, error, isError } = useColumn(board?._id);
+  const { data: columns } = useColumn(board?._id);
 
   const sortedColumns = sortDraggableList(columns, board?.columns);
 
