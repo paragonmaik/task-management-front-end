@@ -1,4 +1,4 @@
-import HomeCSS from '../components/home/home.module.css';
+import HomeCSS from '../components/styles/home.module.css';
 import DashBoard from '../components/dashBoard/DashBoard';
 import SideBar from '../components/sideBar/SideBar';
 import useBoard from '../components/hooks/useBoard';
