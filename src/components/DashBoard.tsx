@@ -7,12 +7,14 @@ import AddTaskModal from './AddTaskModal';
 import EditTaskModal from './EditTaskModal';
 import dashBoardCSS from './styles/dashBoard.module.css';
 import useColumn from '../hooks/useColumn';
+import Loading from './ui/Loading';
 
 type DashBoardProps = {
   board: Board | undefined;
+  isLoading: boolean;
 };
 
-function DashBoard({ board }: DashBoardProps) {
+export default function DashBoard({ board, isLoading }: DashBoardProps) {
   const { isModalOpen, isEditModalOpen } = useContext(TaskContext);
   const { data: columns } = useColumn(board?._id);
 
@@ -20,17 +22,14 @@ function DashBoard({ board }: DashBoardProps) {
 
   return (
     <div className={dashBoardCSS.bg}>
+      {isLoading ? <Loading /> : null}
       {columns ? (
         <>
           <Columns boardId={board?._id} columns={sortedColumns} />
         </>
-      ) : (
-        <p>No board selected</p>
-      )}
+      ) : null}
       {isModalOpen ? <AddTaskModal /> : null}
       {isEditModalOpen ? <EditTaskModal /> : null}
     </div>
   );
 }
-
-export default DashBoard;

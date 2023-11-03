@@ -7,15 +7,21 @@ import { CreationForm } from './ui/CreationForm';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { axiosRequest } from '../utils/axiosRequest';
+import Placeholders from './ui/Placeholders';
 
 type SidebarProps = {
-  loading?: boolean;
+  isLoading: boolean;
   boardsList: Board[] | undefined;
   show: boolean;
   setShow: (sidebarState: boolean) => void;
 };
 
-export default function SideBar({ boardsList, show, setShow }: SidebarProps) {
+export default function SideBar({
+  boardsList,
+  show,
+  setShow,
+  isLoading,
+}: SidebarProps) {
   const { currentBoardIdx, setCurrentBoardIdx } = useContext(TaskContext);
   const [token, _setToken] = useLocalStorage('token', '');
 
@@ -73,6 +79,7 @@ export default function SideBar({ boardsList, show, setShow }: SidebarProps) {
       <div className={SideBarCSS.subMenuContainer}>
         {boardsList ? <p>All boards ({boardsList.length})</p> : null}
         <div className={SideBarCSS.boardNamesContainer}>
+          {isLoading ? <Placeholders /> : null}
           {boardsList
             ? boardsList.map(({ boardName, _id }, i) => (
                 <button
