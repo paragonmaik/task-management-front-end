@@ -74,7 +74,7 @@ export default function SideBar({ boardsList, show, setShow }: SidebarProps) {
         {boardsList ? <p>All boards ({boardsList.length})</p> : null}
         <div className={SideBarCSS.boardNamesContainer}>
           {boardsList
-            ? boardsList.map(({ boardName, _id, columns }, i) => (
+            ? boardsList.map(({ boardName, _id }, i) => (
                 <button
                   className={SideBarCSS.selectBoardBtn}
                   type="button"
@@ -109,7 +109,6 @@ export default function SideBar({ boardsList, show, setShow }: SidebarProps) {
                 src={arrows}
                 style={{ transform: 'rotate(180deg)', marginRight: '4px' }}
               />
-              <p>Hide Menu</p>
             </>
           ) : (
             <img height="16px" src={arrows} />
