@@ -1,15 +1,15 @@
 import { TaskContext } from '../context/TaskContext';
 import { useContext } from 'react';
-import { Columns } from './columns/Columns';
-import { sortDraggableList } from './helpers/sortDraggableList';
-import { board } from '../typescript/types';
-import AddTaskModal from './taskModal/AddTaskModal';
-import EditTaskModal from './editTaskModal/EditTaskModal';
+import { Columns } from './Columns';
+import { sortDraggableList } from '../utils/sortDraggableList';
+import { Board } from '../types';
+import AddTaskModal from './AddTaskModal';
+import EditTaskModal from './EditTaskModal';
 import dashBoardCSS from './styles/dashBoard.module.css';
-import useColumn from './hooks/useColumn';
+import useColumn from '../hooks/useColumn';
 
 type DashBoardProps = {
-  board: board | undefined;
+  board: Board | undefined;
 };
 
 function DashBoard({ board }: DashBoardProps) {
