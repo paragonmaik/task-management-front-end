@@ -1,5 +1,5 @@
 import { Outlet, Navigate } from 'react-router-dom';
-import { useLocalStorage } from './components/hooks/useLocalStorage';
+import { useLocalStorage } from './hooks/useLocalStorage';
 
 export const ProtectedRoutes = () => {
   const [token, _setToken] = useLocalStorage('token', '');
