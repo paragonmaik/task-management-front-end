@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { axiosRequest } from '../utils/axiosRequest';
 import { AxiosError } from 'axios';
-import { useLocalStorage } from '../components/hooks/useLocalStorage';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 import BaseAuthForm from '../components/ui/BaseAuthForm';
 import DemoForm from '../components/ui/DemoForm';
 
