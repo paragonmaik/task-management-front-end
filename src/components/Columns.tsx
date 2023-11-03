@@ -33,6 +33,7 @@ export function Columns({ boardId, columns }: ColumnsProps) {
     mutationFn: axiosRequest,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [`columns-${boardId}`] });
+      queryClient.invalidateQueries({ queryKey: ['boards'] });
     },
   });
 
@@ -93,6 +94,7 @@ export function Columns({ boardId, columns }: ColumnsProps) {
   function handleOnDragEnd(result: DropResult) {
     if (!result.destination) return;
     if (!draggableColumns) return;
+    if (!columns) return;
 
     if (result.type === 'columns') {
       const columnsList = handleColumnDrag(draggableColumns, result);
