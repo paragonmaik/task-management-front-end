@@ -1,11 +1,11 @@
 import HeaderCSS from './styles/header.module.css';
 import logoutIcon from '../../public/logout.svg';
 import { useNavigate } from 'react-router-dom';
-import { useLocalStorage } from './hooks/useLocalStorage';
-import { board } from '../typescript/types';
+import { useLocalStorage } from '../hooks/useLocalStorage';
+import { Board } from '../types';
 
 type HeaderProps = {
-  board: board | undefined;
+  board: Board | undefined;
 };
 
 export default function Header({ board }: HeaderProps) {
