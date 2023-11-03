@@ -2,15 +2,15 @@ import SideBarCSS from './styles/sideBar.module.css';
 import arrows from '../../public/arrows.svg';
 import { FormEvent, useContext } from 'react';
 import { TaskContext } from '../context/TaskContext';
-import { board } from '../typescript/types';
-import { CreationForm } from './sub-components/creationForm/CreationForm';
-import { useLocalStorage } from './hooks/useLocalStorage';
+import { Board } from '../types';
+import { CreationForm } from './ui/CreationForm';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { axiosRequest } from '../utils/axiosRequest';
 
 type SidebarProps = {
   loading?: boolean;
-  boardsList: board[] | undefined;
+  boardsList: Board[] | undefined;
   show: boolean;
   setShow: (sidebarState: boolean) => void;
 };
