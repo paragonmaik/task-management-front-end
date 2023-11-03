@@ -1,63 +1,40 @@
-import { createContext, useState } from 'react';
-import {
-	TaskProviderProp,
-	TaskContextType,
-	board,
-	column,
-	task,
-	BoardState,
-	UserAuth,
-	TaskState,
-} from '../typescript/types';
+import { ReactNode, createContext, useState } from 'react';
+import { TaskContextType, Column, Task, TaskMap } from '../types';
 
-const authUserDefault = {
-	email: '',
-	token: '',
-	logged: false,
-};
-const boardStateDefault = {
-	boardName: '',
-	columns: [],
-	columnsList: [],
-	_id: '',
+type TaskProviderProp = {
+  children: ReactNode;
 };
 
 export const TaskContext = createContext({} as TaskContextType);
 
 export function TaskProvider({ children }: TaskProviderProp) {
-	const [createdBoards, setCreatedBoard] = useState<board[]>([]);
-	const [createdTasks, setCreatedTasks] = useState<task[]>([]);
-	const [currentColumn, setCurrentColumn] = useState<column>({} as column);
-	const [currentTask, setCurrentTask] = useState<TaskState>({} as TaskState);
-	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-	const [authUser, setAuthUser] = useState<UserAuth>(authUserDefault);
+  const [currentColumn, setCurrentColumn] = useState<Column>({} as Column);
+  const [currentTask, setCurrentTask] = useState<Task>({} as Task);
+  const [currentTasksMap, setCurrentTasksMap] = useState<TaskMap>(
+    {} as TaskMap
+  );
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [currentBoardIdx, setCurrentBoardIdx] = useState(0);
 
-	const [currentBoardState, setCurrentBoardState] =
-		useState<BoardState>(boardStateDefault);
-
-	return (
-		<TaskContext.Provider
-			value={{
-				isModalOpen,
-				isEditModalOpen,
-				createdBoards,
-				currentColumn,
-				createdTasks,
-				currentBoardState,
-				authUser,
-				currentTask,
-				setIsModalOpen,
-				setIsEditModalOpen,
-				setCreatedBoard,
-				setCurrentColumn,
-				setCreatedTasks,
-				setCurrentBoardState,
-				setAuthUser,
-				setCurrentTask,
-			}}
-		>
-			{children}
-		</TaskContext.Provider>
-	);
+  return (
+    <TaskContext.Provider
+      value={{
+        isModalOpen,
+        isEditModalOpen,
+        currentColumn,
+        currentTask,
+        currentTasksMap,
+        currentBoardIdx,
+        setIsModalOpen,
+        setIsEditModalOpen,
+        setCurrentColumn,
+        setCurrentTask,
+        setCurrentBoardIdx,
+        setCurrentTasksMap,
+      }}
+    >
+      {children}
+    </TaskContext.Provider>
+  );
 }

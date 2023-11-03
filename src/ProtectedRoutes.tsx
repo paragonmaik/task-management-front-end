@@ -1,9 +1,8 @@
 import { Outlet, Navigate } from 'react-router-dom';
+import { useLocalStorage } from './hooks/useLocalStorage';
 
-type ProtectedRoutesProps = {
-	isUserAuth: boolean;
-};
+export const ProtectedRoutes = () => {
+  const [token, _setToken] = useLocalStorage('token', '');
 
-export const ProtectedRoutes = ({ isUserAuth }: ProtectedRoutesProps) => {
-	return isUserAuth ? <Outlet /> : <Navigate to='/login' />;
+  return token ? <Outlet /> : <Navigate to="/login" />;
 };

@@ -1,0 +1,12 @@
+.formContainer {
+  max-width: 90%;
+  display: flex;
+}
+
+.addBtn {
+  background-color: inherit;
+  border: none;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+}
