@@ -55,8 +55,8 @@ export default function Login() {
       method: 'post',
       url: '/login',
       data: {
-        email: import.meta.env.VITE_DEMO_USER,
-        password: import.meta.env.VITE_DEMO_PASSWORD,
+        email: import.meta.env.VITE_DEMO_USER || 'test@test.com',
+        password: import.meta.env.VITE_DEMO_PASSWORD || '12345678',
       },
     });
 
