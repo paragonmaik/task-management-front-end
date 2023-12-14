@@ -11,7 +11,7 @@
 }
 
 .formContainer {
-  background-color: hsl(240, 12%, 20%);
+  background-color: hsl(240, 15%, 15%, 0);
   color: rgb(33, 32, 32);
   padding: 20px 20px;
   border-radius: 5px;
